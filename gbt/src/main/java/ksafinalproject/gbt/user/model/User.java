@@ -19,14 +19,14 @@ public class User {
     @Column(length = 20)
     private String gender;
     private Date startDate;
-    private int goal;
-    private int price;
-    private int rank;
+    private Long goal;
+    private Long price;
+    private Long rank;
     @Column(length = 255)
     private String profileImg;
     @Column(length = 255)
     private String popupImg;
-    private int point;
-    private int badgeId;
-    private int oauthId;
+    private Long point;
+    private Long badgeId;
+    private Long oauthId;
 }
