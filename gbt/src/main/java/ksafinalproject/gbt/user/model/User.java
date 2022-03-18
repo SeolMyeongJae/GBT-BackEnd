@@ -21,7 +21,7 @@ public class User {
     private Date startDate;
     private Long goal;
     private Long price;
-    private Long rank;
+    private Long ranking;
     @Column(length = 255)
     private String profileImg;
     @Column(length = 255)

@@ -13,7 +13,7 @@ import java.util.Date;
 @ToString
 @Entity
 @NoArgsConstructor
-public class smoking {
+public class Smoking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,6 +22,4 @@ public class smoking {
     private Long userId;
     @Column(length = 10)
     private String provider;
-
-
 }
