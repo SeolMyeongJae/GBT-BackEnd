@@ -11,8 +11,8 @@ pipeline {
         }
         stage('deploy') {
             steps {
-                 sh 'aws elasticbeanstalk create-application-version --region us-west-1 --application-name GBT-project-springboot-jenkins --version-label ${BUILD_TAG} --source-bundle S3Bucket="gbt-elasticbean-back-um",S3Key="application.war"'
-                 sh 'aws elasticbeanstalk update-environment --region us-west-1 --environment-name Gbtprojectspringbootjenkins-env-2 --version-label ${BUILD_TAG}'
+                 sh 'aws elasticbeanstalk create-application-version --region us-west-1 --application-name GBT-Finalspringboot --version-label ${BUILD_TAG} --source-bundle S3Bucket="gbt-elasticbean-back-um",S3Key="application.war"'
+                 sh 'aws elasticbeanstalk update-environment --region us-west-1 --environment-name Gbtfinalspringboot-env --version-label ${BUILD_TAG}'
             }
         }
     }
