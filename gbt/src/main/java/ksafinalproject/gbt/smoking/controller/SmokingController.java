@@ -51,7 +51,7 @@ public class SmokingController {
 
     @GetMapping("/get/all")
     public List<Smoking> smokingGetAll() {
-        try{
+        try {
             return smokingService.getAllSmoking();
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
