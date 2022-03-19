@@ -1,11 +1,9 @@
 package ksafinalproject.gbt.smoking.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
@@ -14,6 +12,7 @@ import java.util.Date;
 @Entity
 @NoArgsConstructor
 public class Smoking {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,4 +21,13 @@ public class Smoking {
     private Long userId;
     @Column(length = 10)
     private String provider;
+
+    @Builder
+    public Smoking(Long id, Long count, Date date, Long userId, String provider, LocalDateTime createDate) {
+        this.id = id;
+        this.count = count;
+        this.userId = userId;
+        this.provider = provider;
+        this.date = date;
+    }
 }

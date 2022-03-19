@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,16 +17,32 @@ import java.util.Optional;
 public class SmokingServiceImpl implements SmokingService {
 
     private final SmokingRepository smokingRepository;
+    Date today = new Date();
 
     @Override
     public Smoking saveSmoking(Smoking smoking) {
         log.info("save smoking : {} ", smoking);
         try {
-            return smokingRepository.save(smoking);
+            return smokingRepository.save(
+                    Smoking.builder()
+                            .id(smoking.getId())
+                            .count(smoking.getCount())
+                            .date(today)
+                            .userId(smoking.getUserId())
+                            .provider(smoking.getProvider())
+                            .build());
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;
         }
+
+//        log.info("save smoking : {} ", smoking);
+//        try {
+//            return smokingRepository.save(smoking);
+//        } catch (Exception e) {
+//            log.error("Error : {}", e.getMessage());
+//            return null;
+//        }
     }
 
     @Override
