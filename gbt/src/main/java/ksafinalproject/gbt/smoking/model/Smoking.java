@@ -3,8 +3,7 @@ package ksafinalproject.gbt.smoking.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -17,13 +16,13 @@ public class Smoking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long count;
-    private Date date;
+    private LocalDate date;
     private Long userId;
     @Column(length = 10)
     private String provider;
 
     @Builder
-    public Smoking(Long id, Long count, Date date, Long userId, String provider, LocalDateTime createDate) {
+    public Smoking(Long id, Long count, LocalDate date, Long userId, String provider) {
         this.id = id;
         this.count = count;
         this.userId = userId;

@@ -6,8 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,7 +16,6 @@ import java.util.Optional;
 public class SmokingServiceImpl implements SmokingService {
 
     private final SmokingRepository smokingRepository;
-    Date today = new Date();
 
     @Override
     public Smoking saveSmoking(Smoking smoking) {
@@ -27,7 +25,7 @@ public class SmokingServiceImpl implements SmokingService {
                     Smoking.builder()
                             .id(smoking.getId())
                             .count(smoking.getCount())
-                            .date(today)
+                            .date(LocalDate.now())
                             .userId(smoking.getUserId())
                             .provider(smoking.getProvider())
                             .build());
@@ -35,14 +33,6 @@ public class SmokingServiceImpl implements SmokingService {
             log.error("Error : {}", e.getMessage());
             return null;
         }
-
-//        log.info("save smoking : {} ", smoking);
-//        try {
-//            return smokingRepository.save(smoking);
-//        } catch (Exception e) {
-//            log.error("Error : {}", e.getMessage());
-//            return null;
-//        }
     }
 
     @Override
@@ -87,4 +77,14 @@ public class SmokingServiceImpl implements SmokingService {
             return Optional.empty();
         }
     }
+
+    @Override
+    public List<Smoking> getAllSmokingByUserId(Long userId) {
+        return smokingRepository.findAllByUserId(userId);
+    }
+
+//    @Override
+//    public List<Smoking> getSmokingByDate() {
+//        return smokingRepository.findAllByDateBetween(LocalDate.now().minusDays(7), LocalDate.now());
+//    }
 }
