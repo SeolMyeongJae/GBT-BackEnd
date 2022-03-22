@@ -14,16 +14,16 @@ import java.util.Optional;
 @RequestMapping("/user")
 @RequiredArgsConstructor
 @Slf4j
-public class UserControllerImpl implements UserController{
+public class UserControllerImpl implements UserController {
     private final UserService userService;
 
     @Override
     @PostMapping("/save")
     public int userSave(@RequestBody User user) {
-        try{
-            if(userService.saveUser(user) == null) return 2;
+        try {
+            if (userService.saveUser(user) == null) return 2;
             return 1;
-        } catch (Exception e){
+        } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return 2;
         }
@@ -32,10 +32,10 @@ public class UserControllerImpl implements UserController{
     @Override
     @PutMapping("/update")
     public int userUpdate(@RequestBody User user) {
-        try{
-            if(userService.saveUser(user) == null) return 2;
+        try {
+            if (userService.saveUser(user) == null) return 2;
             return 1;
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return 2;
         }
@@ -44,10 +44,10 @@ public class UserControllerImpl implements UserController{
     @Override
     @GetMapping("/get/{id}")
     public Optional<User> userGetById(@PathVariable Long id) {
-        try{
+        try {
             return userService.getUserById(id);
         } catch (Exception e) {
-            log.error("Error: {}", e.getMessage());
+            log.error("Error : {}", e.getMessage());
             return Optional.empty();
         }
     }
@@ -55,32 +55,33 @@ public class UserControllerImpl implements UserController{
     @Override
     @GetMapping("/get/all")
     public List<User> userGetAll() {
-        try{
+        try {
             return userService.getAllUser();
-        }catch (Exception e) {
-            log.error("Error: {}", e.getMessage());
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
             return null;
         }
     }
 
     @Override
     @DeleteMapping("/delete/{id}")
-    public int userDeleteById(Long id) {
-        try{
+    public int userDeleteById(@PathVariable Long id) {
+        try {
             userService.deleteUserById(id);
             return 1;
-        } catch (Exception e){
-            log.error("Error: {}", e.getMessage());
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
             return 2;
         }
     }
 
     @Override
-    public Optional<User> userGetByUserName(String userName) {
-        try{
+    @GetMapping("/get/username/{userName}")
+    public Optional<User> userGetByUserName(@PathVariable String userName) {
+        try {
             return userService.getUserByUserName(userName);
-        } catch (Exception e){
-            log.error("Error: {}", e.getMessage());
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
             return Optional.empty();
         }
     }

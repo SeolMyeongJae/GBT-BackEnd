@@ -7,9 +7,14 @@ import java.util.Optional;
 
 public interface UserController {
     int userSave(User user);
+
     int userUpdate(User user);
+
     Optional<User> userGetById(Long id);
+
     List<User> userGetAll();
+
     int userDeleteById(Long id);
+
     Optional<User> userGetByUserName(String userName);
 }
