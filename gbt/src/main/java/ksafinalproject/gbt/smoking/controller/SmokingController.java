@@ -62,7 +62,7 @@ public class SmokingController {
         }
     }
 
-    @GetMapping("/get/user/{userId}")
+    @GetMapping("/get/{userId}")
     public Optional<Smoking> smokingGetByUserId(@PathVariable Long userId) {
         try {
             return smokingService.getSmokingByUserId(userId);
@@ -72,7 +72,17 @@ public class SmokingController {
         }
     }
 
-    @GetMapping("/get/date/{day}/{userId}")
+    @GetMapping("/{userId}")
+    public List<Smoking> smokingGetAllByUserId(@PathVariable Long userId) {
+        try {
+            return smokingService.getAllSmokingByUserId(userId);
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return null;
+        }
+    }
+
+    @GetMapping("/{day}/{userId}")
     public SmokingDto smokingGetByDate(@PathVariable Long day, @PathVariable Long userId) {
         List<Smoking> smokingList = smokingService.getAllSmokingByUserId(userId);
         List<Smoking> result = new ArrayList<>();
