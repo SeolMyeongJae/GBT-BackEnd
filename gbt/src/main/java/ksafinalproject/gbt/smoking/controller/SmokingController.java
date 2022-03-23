@@ -84,21 +84,8 @@ public class SmokingController {
 
     @GetMapping("/{day}/{userId}")
     public SmokingDto smokingGetByDate(@PathVariable Long day, @PathVariable Long userId) {
-        List<Smoking> smokingList = smokingService.getAllSmokingByUserId(userId);
-        List<Smoking> result = new ArrayList<>();
-        Long total = 0L;
-        SmokingDto smokingDto = new SmokingDto();
-        LocalDate now = LocalDate.now();
         try {
-            for (int i = 0; i < smokingList.size(); i++) {
-                if (smokingList.get(i).getDate().isAfter(now.minusDays(day))) {
-                    result.add(smokingList.get(i));
-                    total += smokingList.get(i).getCount();
-                }
-            }
-            smokingDto.setSmokingList(result);
-            smokingDto.setTotal(total);
-            return smokingDto;
+            return smokingService.getSmokingByDate(day, userId);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;
@@ -106,23 +93,10 @@ public class SmokingController {
 
     }
 
-    @GetMapping("/get/date/month/{userId}")
+    @GetMapping("/month/{userId}")
     public SmokingDto smokingGetByDateMonth(@PathVariable Long userId) {
-        List<Smoking> smokingList = smokingService.getAllSmokingByUserId(userId);
-        List<Smoking> result = new ArrayList<>();
-        Long total = 0L;
-        SmokingDto smokingDto = new SmokingDto();
-        LocalDate now = LocalDate.now();
-        try {
-            for (int i = 0; i < smokingList.size(); i++) {
-                if (smokingList.get(i).getDate().getMonthValue() == now.getMonthValue()) {
-                    result.add(smokingList.get(i));
-                    total += smokingList.get(i).getCount();
-                }
-            }
-            smokingDto.setSmokingList(result);
-            smokingDto.setTotal(total);
-            return smokingDto;
+        try{
+            return smokingService.getSmokingByMonth((userId));
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;

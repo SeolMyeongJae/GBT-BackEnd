@@ -1,5 +1,6 @@
 package ksafinalproject.gbt.smoking.service;
 
+import ksafinalproject.gbt.smoking.dto.SmokingDto;
 import ksafinalproject.gbt.smoking.model.Smoking;
 
 import java.time.LocalDate;
@@ -19,5 +20,7 @@ public interface SmokingService {
 
     List<Smoking> getAllSmokingByUserId(Long userId);
 
-//    List<Smoking> getSmokingByDate();
+    SmokingDto getSmokingByDate(Long day, Long userId);
+
+    SmokingDto getSmokingByMonth(Long userId);
 }
