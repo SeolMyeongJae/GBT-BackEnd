@@ -7,8 +7,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,8 +21,7 @@ public class SmokingController {
     @PostMapping("/save")
     public int smokingSave(@RequestBody Smoking smoking) {
         try {
-            if (smokingService.saveSmoking(smoking) == null) return 2;
-            return 1;
+            return smokingService.saveSmoking(smoking);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return 2;
@@ -34,7 +31,7 @@ public class SmokingController {
     @PutMapping("/update")
     public int smokingUpdate(@RequestBody Smoking smoking) {
         try {
-            if (smokingService.saveSmoking(smoking) == null) return 2;
+            if (smokingService.saveSmoking(smoking) == 2) return 2;
             return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
