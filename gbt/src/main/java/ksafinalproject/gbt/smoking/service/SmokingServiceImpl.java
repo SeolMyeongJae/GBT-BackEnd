@@ -31,7 +31,7 @@ public class SmokingServiceImpl implements SmokingService {
             for (int i = 0; i < smokingList.size(); i++) {
                 if (smokingList.get(i).getDate().getDayOfYear() == now.getDayOfYear() && smokingList.get(i).getDate().getYear() == now.getYear()) {
                     smokingList.get(i).setCount(smokingList.get(i).getCount() + 1);
-                    return 1;
+                    return 2;
                 }
             }
             smokingRepository.save(
@@ -45,7 +45,7 @@ public class SmokingServiceImpl implements SmokingService {
             return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
-            return 2;
+            return 3;
         }
     }
 
