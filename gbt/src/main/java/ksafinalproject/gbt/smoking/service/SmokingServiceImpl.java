@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,25 +16,36 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+
 public class SmokingServiceImpl implements SmokingService {
 
     private final SmokingRepository smokingRepository;
 
     @Override
-    public Smoking saveSmoking(Smoking smoking) {
+    @Transactional
+    public int saveSmoking(Smoking smoking) {
         log.info("save smoking : {} ", smoking);
+        List<Smoking> smokingList = smokingRepository.findAllByUserId(smoking.getUserId());
+        LocalDate now = LocalDate.now();
+        for (int i = 0; i < smokingList.size(); i++) {
+            if (smokingList.get(i).getDate().getDayOfYear() == now.getDayOfYear() && smokingList.get(i).getDate().getYear() == now.getYear()) {
+                smokingList.get(i).setCount(smokingList.get(i).getCount() + 1);
+                return 1;
+            }
+        }
         try {
-            return smokingRepository.save(
+            smokingRepository.save(
                     Smoking.builder()
                             .id(smoking.getId())
-                            .count(smoking.getCount())
+                            .count(1L)
                             .date(LocalDate.now())
                             .userId(smoking.getUserId())
                             .provider(smoking.getProvider())
                             .build());
+            return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
-            return null;
+            return 2;
         }
     }
 
