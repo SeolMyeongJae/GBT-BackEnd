@@ -24,7 +24,7 @@ public class SmokingController {
             return smokingService.saveSmoking(smoking);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
-            return 2;
+            return 3;
         }
     }
 
