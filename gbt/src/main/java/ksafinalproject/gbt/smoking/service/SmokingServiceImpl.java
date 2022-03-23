@@ -1,5 +1,6 @@
 package ksafinalproject.gbt.smoking.service;
 
+import ksafinalproject.gbt.smoking.dto.SmokingDto;
 import ksafinalproject.gbt.smoking.model.Smoking;
 import ksafinalproject.gbt.smoking.repository.SmokingRepository;
 import lombok.RequiredArgsConstructor;
@@ -7,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -83,8 +85,49 @@ public class SmokingServiceImpl implements SmokingService {
         return smokingRepository.findAllByUserId(userId);
     }
 
-//    @Override
-//    public List<Smoking> getSmokingByDate() {
-//        return smokingRepository.findAllByDateBetween(LocalDate.now().minusDays(7), LocalDate.now());
-//    }
+    @Override
+    public SmokingDto getSmokingByDate(Long day, Long userId) {
+        List<Smoking> smokingList = smokingRepository.findAllByUserId(userId);
+        List<Smoking> result = new ArrayList<>();
+        Long total = 0L;
+        SmokingDto smokingDto = new SmokingDto();
+        LocalDate now = LocalDate.now();
+        try {
+            for (int i = 0; i < smokingList.size(); i++) {
+                if (smokingList.get(i).getDate().isAfter(now.minusDays(day))) {
+                    result.add(smokingList.get(i));
+                    total += smokingList.get(i).getCount();
+                }
+            }
+            smokingDto.setSmokingList(result);
+            smokingDto.setTotal(total);
+            return smokingDto;
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public SmokingDto getSmokingByMonth(Long userId) {
+        List<Smoking> smokingList = smokingRepository.findAllByUserId(userId);
+        List<Smoking> result = new ArrayList<>();
+        Long total = 0L;
+        SmokingDto smokingDto = new SmokingDto();
+        LocalDate now = LocalDate.now();
+        try {
+            for (int i = 0; i < smokingList.size(); i++) {
+                if (smokingList.get(i).getDate().getMonthValue() == now.getMonthValue()) {
+                    result.add(smokingList.get(i));
+                    total += smokingList.get(i).getCount();
+                }
+            }
+            smokingDto.setSmokingList(result);
+            smokingDto.setTotal(total);
+            return smokingDto;
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return null;
+        }
+    }
 }
