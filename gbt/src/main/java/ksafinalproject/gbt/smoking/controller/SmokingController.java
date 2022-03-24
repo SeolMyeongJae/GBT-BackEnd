@@ -31,11 +31,10 @@ public class SmokingController {
     @PutMapping("/update")
     public int smokingUpdate(@RequestBody Smoking smoking) {
         try {
-            if (smokingService.saveSmoking(smoking) == 2) return 2;
-            return 1;
+            return smokingService.saveSmoking(smoking);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
-            return 2;
+            return 3;
         }
     }
 
@@ -59,7 +58,7 @@ public class SmokingController {
         }
     }
 
-    @GetMapping("/get/{userId}")
+    @GetMapping("/get/user/{userId}")
     public Optional<Smoking> smokingGetByUserId(@PathVariable Long userId) {
         try {
             return smokingService.getSmokingByUserId(userId);
