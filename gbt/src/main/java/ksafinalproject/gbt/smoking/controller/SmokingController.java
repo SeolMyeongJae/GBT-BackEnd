@@ -58,7 +58,7 @@ public class SmokingController {
         }
     }
 
-    @GetMapping("/get/{userId}")
+    @GetMapping("/get/user/{userId}")
     public Optional<Smoking> smokingGetByUserId(@PathVariable Long userId) {
         try {
             return smokingService.getSmokingByUserId(userId);
