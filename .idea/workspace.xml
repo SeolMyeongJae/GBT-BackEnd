@@ -4,38 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f9d6c3a-02d5-4f5c-abd6-f9e2d576573d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ksafinalproject/gbt/GbtApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ksafinalproject/gbt/HomeController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ksafinalproject/gbt/ServletInitializer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ksafinalproject/gbt/challenge/controller/ChallengeController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ksafinalproject/gbt/challenge/model/Challenge.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ksafinalproject/gbt/challenge/repository/ChallengeRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ksafinalproject/gbt/challenge/service/ChallengeService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ksafinalproject/gbt/challenge/service/ChallengeServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ksafinalproject/gbt/smoking/controller/SmokingController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ksafinalproject/gbt/smoking/dto/SmokingDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ksafinalproject/gbt/smoking/model/Smoking.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ksafinalproject/gbt/smoking/repository/SmokingRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ksafinalproject/gbt/smoking/service/SmokingService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ksafinalproject/gbt/smoking/service/SmokingServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ksafinalproject/gbt/user/controller/UserController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ksafinalproject/gbt/user/controller/UserControllerImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ksafinalproject/gbt/user/model/User.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ksafinalproject/gbt/user/repository/UserRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ksafinalproject/gbt/user/service/UserService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ksafinalproject/gbt/user/service/UserServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/home.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ksafinalproject/gbt/GbtApplicationTests.java" beforeDir="false" />
-    </list>
+    <list default="true" id="8f9d6c3a-02d5-4f5c-abd6-f9e2d576573d" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -92,7 +61,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/build.gradle" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/gbt/build.gradle" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
