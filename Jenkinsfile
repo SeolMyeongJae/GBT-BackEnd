@@ -1,8 +1,19 @@
 pipeline {
+//     tools {
+//             jdk("GBT-javaversion-11")
+//         }
     agent any
      stages {
         stage('build') {
-            steps { sh './gradlew clean build' }
+            steps {
+                sh 'ls'
+                dir ('gbt'){
+                sh 'ls'
+                sh 'java -version'
+                sh 'pwd'
+                sh './gradlew clean build'
+                }
+             }
         }
         stage('upload') {
             steps {
