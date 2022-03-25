@@ -8,5 +8,6 @@ import java.util.Optional;
 
 public interface SmokingRepository extends JpaRepository<Smoking, Long> {
     Optional<Smoking> findSmokingByUserId(Long userId);
+
     List<Smoking> findAllByUserId(Long userId);
 }

@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<User> getUserById(Long id) {
-        log.info("get user by id: {}", id);
+        log.info("find user by id: {}", id);
         try {
             return userRepository.findById(id);
         } catch (Exception e) {
@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAllUser() {
-        log.info("get all user");
+        log.info("find all user");
         try {
             return userRepository.findAll();
         } catch (Exception e) {

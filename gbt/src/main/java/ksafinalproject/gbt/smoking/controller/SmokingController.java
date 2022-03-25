@@ -18,7 +18,7 @@ import java.util.Optional;
 public class SmokingController {
     private final SmokingService smokingService;
 
-    @PostMapping("/save")
+    @PostMapping("")
     public int smokingSave(@RequestBody Smoking smoking) {
         try {
             return smokingService.saveSmoking(smoking);
@@ -28,7 +28,7 @@ public class SmokingController {
         }
     }
 
-    @PutMapping("/update")
+    @PutMapping("")
     public int smokingUpdate(@RequestBody Smoking smoking) {
         try {
             return smokingService.saveSmoking(smoking);
@@ -38,7 +38,7 @@ public class SmokingController {
         }
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/{id}")
     public Optional<Smoking> smokingGetById(@PathVariable Long id) {
         try {
             return smokingService.getSmokingById(id);
@@ -48,7 +48,7 @@ public class SmokingController {
         }
     }
 
-    @GetMapping("/get/all")
+    @GetMapping("/all")
     public List<Smoking> smokingGetAll() {
         try {
             return smokingService.getAllSmoking();
@@ -58,7 +58,7 @@ public class SmokingController {
         }
     }
 
-    @GetMapping("/user/{userId}")
+    @GetMapping("/today/{userId}")
     public Optional<Smoking> smokingTodayGetByUserId(@PathVariable Long userId) {
         try {
             return smokingService.getTodaySmokingByUserId(userId);
@@ -68,7 +68,7 @@ public class SmokingController {
         }
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping("/user/{userId}")
     public List<Smoking> smokingGetAllByUserId(@PathVariable Long userId) {
         try {
             return smokingService.getAllSmokingByUserId(userId);
@@ -89,7 +89,7 @@ public class SmokingController {
 
     }
 
-    @GetMapping("/month/{userId}")
+    @GetMapping("/this-month/{userId}")
     public SmokingDto smokingGetByDateMonth(@PathVariable Long userId) {
         try{
             return smokingService.getSmokingByMonth((userId));
