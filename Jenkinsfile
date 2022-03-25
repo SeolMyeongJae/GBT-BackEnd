@@ -1,7 +1,7 @@
 pipeline {
-    tools {
-            jdk("GBT-javaversion-11")
-        }
+//     tools {
+//             jdk("GBT-javaversion-11")
+//         }
     agent any
      stages {
         stage('build') {
