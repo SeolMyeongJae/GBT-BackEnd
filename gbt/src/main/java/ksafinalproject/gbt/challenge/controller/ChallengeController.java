@@ -11,13 +11,13 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/challenge")
+@RequestMapping("/api/challenge")
 @RequiredArgsConstructor
 @Slf4j
 public class ChallengeController {
     private final ChallengeService challengeService;
 
-    @PostMapping("/save")
+    @PostMapping("")
     public int challengeSave(@RequestBody Challenge challenge) {
         try {
             return challengeService.saveChallenge(challenge);
@@ -27,7 +27,7 @@ public class ChallengeController {
         }
     }
 
-    @PutMapping("/update")
+    @PutMapping("")
     public int challengeUpdate(@RequestBody Challenge challenge) {
         try {
             if (challengeService.saveChallenge(challenge) == 2) return 2;
@@ -38,7 +38,7 @@ public class ChallengeController {
         }
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/{id}")
     public Optional<Challenge> challengeGetById(@PathVariable Long id) {
         try {
             return challengeService.getChallengeById(id);
@@ -48,7 +48,7 @@ public class ChallengeController {
         }
     }
 
-    @GetMapping("/get/all")
+    @GetMapping("/all")
     public List<Challenge> challengeGetAll() {
         try {
             return challengeService.getAllChallenge();

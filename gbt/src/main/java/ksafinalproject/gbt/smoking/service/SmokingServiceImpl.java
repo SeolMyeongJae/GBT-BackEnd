@@ -51,7 +51,7 @@ public class SmokingServiceImpl implements SmokingService {
 
     @Override
     public Optional<Smoking> getSmokingById(Long id) {
-        log.info("get smoking by id : {}", id);
+        log.info("find smoking by id : {}", id);
         try {
             return smokingRepository.findById(id);
         } catch (Exception e) {
@@ -62,7 +62,7 @@ public class SmokingServiceImpl implements SmokingService {
 
     @Override
     public List<Smoking> getAllSmoking() {
-        log.info("get all smoking");
+        log.info("find all smoking");
         try {
             return smokingRepository.findAll();
         } catch (Exception e) {
@@ -112,11 +112,18 @@ public class SmokingServiceImpl implements SmokingService {
 
     @Override
     public List<Smoking> getAllSmokingByUserId(Long userId) {
-        return smokingRepository.findAllByUserId(userId);
+        log.info("find all smoking by user id {}", userId);
+        try {
+            return smokingRepository.findAllByUserId(userId);
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return null;
+        }
     }
 
     @Override
     public SmokingDto getSmokingByDate(Long day, Long userId) {
+        log.info("find all smoking by day {}, user id {}", day, userId);
         List<Smoking> smokingList = smokingRepository.findAllByUserId(userId);
         List<Smoking> result = new ArrayList<>();
         Long total = 0L;
@@ -140,6 +147,7 @@ public class SmokingServiceImpl implements SmokingService {
 
     @Override
     public SmokingDto getSmokingByMonth(Long userId) {
+        log.info("find all this month smoking by user id {}", userId);
         List<Smoking> smokingList = smokingRepository.findAllByUserId(userId);
         List<Smoking> result = new ArrayList<>();
         Long total = 0L;

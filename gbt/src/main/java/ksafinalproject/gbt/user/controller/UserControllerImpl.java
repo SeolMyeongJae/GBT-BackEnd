@@ -18,7 +18,7 @@ public class UserControllerImpl implements UserController {
     private final UserService userService;
 
     @Override
-    @PostMapping("/save")
+    @PostMapping("")
     public int userSave(@RequestBody User user) {
         try {
             if (userService.saveUser(user) == null) return 2;
@@ -30,7 +30,7 @@ public class UserControllerImpl implements UserController {
     }
 
     @Override
-    @PutMapping("/update")
+    @PutMapping("")
     public int userUpdate(@RequestBody User user) {
         try {
             if (userService.saveUser(user) == null) return 2;
@@ -42,7 +42,7 @@ public class UserControllerImpl implements UserController {
     }
 
     @Override
-    @GetMapping("/get/{id}")
+    @GetMapping("/{id}")
     public Optional<User> userGetById(@PathVariable Long id) {
         try {
             return userService.getUserById(id);
@@ -53,7 +53,7 @@ public class UserControllerImpl implements UserController {
     }
 
     @Override
-    @GetMapping("/get/all")
+    @GetMapping("/all")
     public List<User> userGetAll() {
         try {
             return userService.getAllUser();
@@ -64,7 +64,7 @@ public class UserControllerImpl implements UserController {
     }
 
     @Override
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public int userDeleteById(@PathVariable Long id) {
         try {
             userService.deleteUserById(id);
@@ -76,7 +76,7 @@ public class UserControllerImpl implements UserController {
     }
 
     @Override
-    @GetMapping("/get/username/{userName}")
+    @GetMapping("/username/{userName}")
     public Optional<User> userGetByUserName(@PathVariable String userName) {
         try {
             return userService.getUserByUserName(userName);
