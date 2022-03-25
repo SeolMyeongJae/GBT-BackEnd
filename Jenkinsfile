@@ -4,10 +4,11 @@ pipeline {
         stage('build') {
             steps {
                 sh 'ls'
-                sh 'cd ./gbt'
-                sh 'pwd'
+                dir ('gbt'){
                 sh 'ls'
-                sh '/var/lib/jenkins/workspace/GBT-BackEnd_main/gbt/gradlew clean build'
+                sh 'pwd'
+                sh './gradlew clean build'
+                }
              }
         }
         stage('upload') {
