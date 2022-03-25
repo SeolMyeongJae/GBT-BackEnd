@@ -2,7 +2,10 @@ pipeline {
     agent any
      stages {
         stage('build') {
-            steps { sh './gbt/gradlew clean build' }
+            steps {
+                sh 'ls'
+                sh './gbt/gradlew clean build'
+             }
         }
         stage('upload') {
             steps {
