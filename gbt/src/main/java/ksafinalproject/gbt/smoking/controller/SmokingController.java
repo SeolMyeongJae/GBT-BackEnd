@@ -58,10 +58,10 @@ public class SmokingController {
         }
     }
 
-    @GetMapping("/get/user/{userId}")
-    public Optional<Smoking> smokingGetByUserId(@PathVariable Long userId) {
+    @GetMapping("/user/{userId}")
+    public Optional<Smoking> smokingTodayGetByUserId(@PathVariable Long userId) {
         try {
-            return smokingService.getSmokingByUserId(userId);
+            return smokingService.getTodaySmokingByUserId(userId);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return Optional.empty();

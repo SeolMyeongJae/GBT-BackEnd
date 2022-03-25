@@ -93,6 +93,24 @@ public class SmokingServiceImpl implements SmokingService {
     }
 
     @Override
+    public Optional<Smoking> getTodaySmokingByUserId(Long userId) {
+        log.info("find today smoking by userid : {} ", userId);
+        List<Smoking> smokingList = smokingRepository.findAllByUserId(userId);
+        LocalDate now = LocalDate.now();
+        try {
+            for (int i = 0; i < smokingList.size(); i++) {
+                if (smokingList.get(i).getDate().isAfter(now.minusDays(1))) {
+                    return Optional.ofNullable(smokingList.get(i));
+                }
+            }
+            return Optional.empty();
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return Optional.empty();
+        }
+    }
+
+    @Override
     public List<Smoking> getAllSmokingByUserId(Long userId) {
         return smokingRepository.findAllByUserId(userId);
     }
