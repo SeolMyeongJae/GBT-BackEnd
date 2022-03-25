@@ -11,6 +11,8 @@ public interface SmokingService {
 
     Optional<Smoking> getSmokingById(Long id);
 
+    Optional<Smoking> getTodaySmokingByUserId(Long userId);
+
     List<Smoking> getAllSmoking();
 
     void deleteSmokingById(Long id);
