@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/smoking")
+@RequestMapping("/api/smoking")
 @RequiredArgsConstructor
 @Slf4j
 public class SmokingController {
