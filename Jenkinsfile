@@ -1,7 +1,4 @@
 pipeline {
-//     tools {
-//             jdk("GBT-javaversion-11")
-//         }
     agent any
      stages {
         stage('build') {
@@ -17,7 +14,7 @@ pipeline {
         }
         stage('upload') {
             steps {
-                sh 'aws s3 cp build/libs/application.war s3://gbt-elasticbean-back-um/application.war --region us-west-1'
+                sh 'aws s3 cp gbt/build/libs/application.war s3://gbt-elasticbean-back-um/application.war --region us-west-1'
             }
         }
         stage('deploy') {
