@@ -7,7 +7,7 @@ pipeline {
                 sh 'cd ./gbt'
                 sh 'pwd'
                 sh 'ls'
-                sh './gradlew /var/lib/jenkins/workspace/GBT-BackEnd_main/gbt clean build'
+                sh '/var/lib/jenkins/workspace/GBT-BackEnd_main/gbt/gradlew clean build'
              }
         }
         stage('upload') {
