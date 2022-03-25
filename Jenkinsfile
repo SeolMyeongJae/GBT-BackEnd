@@ -4,7 +4,9 @@ pipeline {
         stage('build') {
             steps {
                 sh 'ls'
-                sh './gbt/gradlew clean build'
+                sh 'cd ./gbt'
+                sh 'ls'
+                sh './gradlew clean build'
              }
         }
         stage('upload') {
