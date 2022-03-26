@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api/custom-challenge")
+@RequestMapping("/api/custom")
 @RequiredArgsConstructor
 @Slf4j
 public class CustomChallengeController {
