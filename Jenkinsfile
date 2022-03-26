@@ -5,9 +5,6 @@ pipeline {
             steps {
                 sh 'ls'
                 dir ('gbt'){
-                sh 'ls'
-                sh 'java -version'
-                sh 'pwd'
                 sh './gradlew clean build'
                 }
              }
