@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -23,9 +24,9 @@ public class CustomChallenge {
     @Column(length = 255)
     private String title;
     @NotNull
-    private Date startDate;
+    private LocalDate startDate;
     @NotNull
-    private Date endDate;
+    private LocalDate endDate;
     @Column(length = 50)
     private String method;
     private Long frequency;
