@@ -54,10 +54,10 @@ public class UserServiceImpl implements UserService {
         log.info("save user : {}, id : {}", user, id);
         try {
             if (userRepository.findById(id).isEmpty()) {
-                return 3;
+                return -1;
             }
             if (userRepository.findByUserName(user.getUserName()).isPresent()) {
-                return 4;
+                return 3;
             }
             User user2 = userRepository.findById(id).orElseThrow();
             user2.setUserName(user.getUserName());
