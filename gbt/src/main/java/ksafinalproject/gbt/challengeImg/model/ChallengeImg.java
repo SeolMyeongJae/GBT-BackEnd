@@ -1,5 +1,6 @@
 package ksafinalproject.gbt.challengeImg.model;
 
+import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,7 +18,9 @@ public class ChallengeImg {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull
     @Column(length = 255)
     private String url;
+    @NotNull
     private Long challengeId;
 }
