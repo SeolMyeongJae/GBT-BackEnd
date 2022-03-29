@@ -1,5 +1,6 @@
 package ksafinalproject.gbt.user.controller;
 
+import ksafinalproject.gbt.user.dto.IUser;
 import ksafinalproject.gbt.user.model.User;
 import ksafinalproject.gbt.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -18,9 +19,9 @@ public class UserController{
     private final UserService userService;
 
     @PostMapping("")
-    public int userSave(@RequestBody User user) {
+    public int userSave(@RequestBody IUser iUser) {
         try {
-            return userService.saveUser(user);
+            return userService.saveUser(iUser);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return 2;
@@ -28,9 +29,9 @@ public class UserController{
     }
 
     @PutMapping("")
-    public int userUpdate(@RequestBody User user) {
+    public int userUpdate(@RequestBody IUser iUser) {
         try {
-            return userService.saveUser(user);
+            return userService.saveUser(iUser);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return 2;
