@@ -17,13 +17,28 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Override
-    public User saveUser(User user) {
+    public int saveUser(User user) {
         log.info("save user : {}", user);
         try {
-            return userRepository.save(user);
+            userRepository.save(User.builder()
+                    .id(user.getId())
+                    .userName(user.getUserName())
+                    .gender(user.getGender())
+                    .birthYear(user.getBirthYear())
+                    .smokingYear(user.getSmokingYear())
+                    .comment(user.getComment())
+                    .price(user.getPrice())
+                    .ranking(user.getRanking())
+                    .profileImg(user.getProfileImg())
+                    .popupImg(user.getPopupImg())
+                    .averageSmoking(user.getAverageSmoking())
+                    .point(user.getPoint())
+                    .badgeId(user.getBadgeId())
+                    .build());
+            return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
-            return null;
+            return 2;
         }
     }
 

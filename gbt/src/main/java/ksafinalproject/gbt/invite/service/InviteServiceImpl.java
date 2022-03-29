@@ -28,7 +28,7 @@ public class InviteServiceImpl implements InviteService {
                     .date(LocalDate.now())
                     .callerId(invite.getCallerId())
                     .userId(invite.getUserId())
-                    .challengeId(invite.getChallengeId())
+                    .customChallengeId(invite.getCustomChallengeId())
                     .build());
             return 1;
         } catch (Exception e) {
