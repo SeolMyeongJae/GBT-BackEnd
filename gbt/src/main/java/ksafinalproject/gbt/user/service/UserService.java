@@ -9,6 +9,8 @@ import java.util.Optional;
 public interface UserService {
     int saveUser(IUser iuser);
 
+    int updateUser(IUser iuser);
+
     Optional<User> getUserById(Long id);
 
     List<User> getAllUser();

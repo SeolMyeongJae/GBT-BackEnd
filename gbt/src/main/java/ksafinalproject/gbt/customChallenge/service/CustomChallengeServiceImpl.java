@@ -25,7 +25,7 @@ public class CustomChallengeServiceImpl implements CustomChallengeService{
             return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
-            return 2;
+            return -1;
         }
     }
 

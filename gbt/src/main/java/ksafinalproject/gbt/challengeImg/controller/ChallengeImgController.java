@@ -22,7 +22,7 @@ public class ChallengeImgController {
             return challengeImgService.saveChallengeImg(challengeImg);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
-            return 2;
+            return -1;
         }
     }
 
@@ -32,7 +32,7 @@ public class ChallengeImgController {
             return challengeImgService.saveChallengeImg(challengeImg);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
-            return 2;
+            return -1;
         }
     }
 
@@ -63,7 +63,7 @@ public class ChallengeImgController {
             return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
-            return 2;
+            return -1;
         }
     }
 }

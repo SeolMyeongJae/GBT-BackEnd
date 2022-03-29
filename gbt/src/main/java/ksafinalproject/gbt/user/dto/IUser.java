@@ -2,8 +2,6 @@ package ksafinalproject.gbt.user.dto;
 
 import lombok.*;
 
-import java.time.LocalDate;
-
 @Getter
 @Setter
 @ToString
