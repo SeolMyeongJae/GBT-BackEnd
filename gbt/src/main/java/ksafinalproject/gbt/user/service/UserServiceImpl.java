@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -48,25 +49,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int updateUser(IUser iUser) {
-        log.info("save user : {}", iUser);
+    @Transactional
+    public int updateUser(User user, Long id) {
+        log.info("save user : {}, id : {}", user, id);
         try {
-            if (iUser.getId() == null || userRepository.findById(iUser.getId()).isEmpty()) return 3;
-            userRepository.save(User.builder()
-                    .id(iUser.getId())
-                    .userName(iUser.getUserName())
-                    .gender(iUser.getGender())
-                    .birthYear(LocalDate.of(iUser.getBirthYear(), 1, 1))
-                    .smokingYear(iUser.getSmokingYear())
-                    .comment(iUser.getComment())
-                    .price(iUser.getPrice())
-                    .ranking(iUser.getRanking())
-                    .profileImg(iUser.getProfileImg())
-                    .popupImg(iUser.getPopupImg())
-                    .averageSmoking(iUser.getAverageSmoking())
-                    .point(iUser.getPoint())
-                    .badgeId(iUser.getBadgeId())
-                    .build());
+            if (userRepository.findById(id).isEmpty()) {
+                return 3;
+            }
+            if (userRepository.findByUserName(user.getUserName()).isPresent()) {
+                return 4;
+            }
+            User user2 = userRepository.findById(id).orElseThrow();
+            user2.setUserName(user.getUserName());
+            user2.setComment(user.getComment());
+            user2.setProfileImg(user.getProfileImg());
+            user2.setPopupImg(user.getPopupImg());
             return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());

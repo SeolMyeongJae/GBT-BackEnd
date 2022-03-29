@@ -28,10 +28,10 @@ public class UserController{
         }
     }
 
-    @PutMapping("")
-    public int userUpdate(@RequestBody IUser iUser) {
+    @PutMapping("/{id}")
+    public int userUpdate(@RequestBody User User, @PathVariable Long id) {
         try {
-            return userService.updateUser(iUser);
+            return userService.updateUser(User, id);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1;
