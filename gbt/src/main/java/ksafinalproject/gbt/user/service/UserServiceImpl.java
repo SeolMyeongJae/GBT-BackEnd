@@ -1,11 +1,13 @@
 package ksafinalproject.gbt.user.service;
 
+import ksafinalproject.gbt.user.dto.IUser;
 import ksafinalproject.gbt.user.model.User;
 import ksafinalproject.gbt.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,26 +19,26 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Override
-    public int saveUser(User user) {
-        log.info("save user : {}", user);
+    public int saveUser(IUser iUser) {
+        log.info("save user : {}", iUser);
         try {
-            if (userRepository.findByUserName(user.getUserName()).isPresent()){
+            if (userRepository.findByUserName(iUser.getUserName()).isPresent()){
                 return 2;
             }
             userRepository.save(User.builder()
-                    .id(user.getId())
-                    .userName(user.getUserName())
-                    .gender(user.getGender())
-                    .birthYear(user.getBirthYear())
-                    .smokingYear(user.getSmokingYear())
-                    .comment(user.getComment())
-                    .price(user.getPrice())
-                    .ranking(user.getRanking())
-                    .profileImg(user.getProfileImg())
-                    .popupImg(user.getPopupImg())
-                    .averageSmoking(user.getAverageSmoking())
-                    .point(user.getPoint())
-                    .badgeId(user.getBadgeId())
+                    .id(iUser.getId())
+                    .userName(iUser.getUserName())
+                    .gender(iUser.getGender())
+                    .birthYear(LocalDate.of(iUser.getBirthYear(),1,1))
+                    .smokingYear(iUser.getSmokingYear())
+                    .comment(iUser.getComment())
+                    .price(iUser.getPrice())
+                    .ranking(iUser.getRanking())
+                    .profileImg(iUser.getProfileImg())
+                    .popupImg(iUser.getPopupImg())
+                    .averageSmoking(iUser.getAverageSmoking())
+                    .point(iUser.getPoint())
+                    .badgeId(iUser.getBadgeId())
                     .build());
             return 1;
         } catch (Exception e) {
