@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.Year;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -23,7 +23,7 @@ public class User {
     @Column(length = 20)
     private String gender;
     @NotNull
-    private Year birthYear;
+    private LocalDate birthYear;
     @NotNull
     private Long smokingYear;
     @NotNull
@@ -41,7 +41,7 @@ public class User {
     private Long badgeId;
 
     @Builder
-    public User(Long id, String userName, String gender, Year birthYear, Long smokingYear, String comment, Long price, Long averageSmoking, Long ranking, String profileImg, String popupImg, Long point, Long badgeId) {
+    public User(Long id, String userName, String gender, LocalDate birthYear, Long smokingYear, String comment, Long price, Long averageSmoking, Long ranking, String profileImg, String popupImg, Long point, Long badgeId) {
         this.id = id;
         this.userName = userName;
         this.gender = gender;

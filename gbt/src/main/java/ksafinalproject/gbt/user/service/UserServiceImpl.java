@@ -20,6 +20,9 @@ public class UserServiceImpl implements UserService {
     public int saveUser(User user) {
         log.info("save user : {}", user);
         try {
+            if (userRepository.findByUserName(user.getUserName()).isPresent()){
+                return 2;
+            }
             userRepository.save(User.builder()
                     .id(user.getId())
                     .userName(user.getUserName())
@@ -38,7 +41,7 @@ public class UserServiceImpl implements UserService {
             return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
-            return 2;
+            return 3;
         }
     }
 
