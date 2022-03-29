@@ -24,17 +24,17 @@ public class UserController{
             return userService.saveUser(iUser);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
-            return 2;
+            return -1;
         }
     }
 
     @PutMapping("")
     public int userUpdate(@RequestBody IUser iUser) {
         try {
-            return userService.saveUser(iUser);
+            return userService.updateUser(iUser);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
-            return 2;
+            return -1;
         }
     }
 
@@ -65,7 +65,7 @@ public class UserController{
             return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
-            return 2;
+            return -1;
         }
     }
 

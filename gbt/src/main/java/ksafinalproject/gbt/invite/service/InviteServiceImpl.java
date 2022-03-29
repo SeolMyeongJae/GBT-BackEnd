@@ -33,7 +33,7 @@ public class InviteServiceImpl implements InviteService {
             return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
-            return 2;
+            return -1;
         }
     }
 

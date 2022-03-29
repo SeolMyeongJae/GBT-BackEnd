@@ -45,7 +45,7 @@ public class SmokingServiceImpl implements SmokingService {
             return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
-            return 3;
+            return -1;
         }
     }
 

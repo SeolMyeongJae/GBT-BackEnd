@@ -23,7 +23,7 @@ public class ChallengeController {
             return challengeService.saveChallenge(challenge);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
-            return 2;
+            return -1;
         }
     }
 
@@ -34,7 +34,7 @@ public class ChallengeController {
             return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
-            return 2;
+            return -1;
         }
     }
 

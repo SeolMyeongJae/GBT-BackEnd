@@ -22,14 +22,14 @@ public class UserServiceImpl implements UserService {
     public int saveUser(IUser iUser) {
         log.info("save user : {}", iUser);
         try {
-            if (userRepository.findByUserName(iUser.getUserName()).isPresent()){
-                return 2;
+            if (userRepository.findByUserName(iUser.getUserName()).isPresent()) {
+                return -1;
             }
             userRepository.save(User.builder()
                     .id(iUser.getId())
                     .userName(iUser.getUserName())
                     .gender(iUser.getGender())
-                    .birthYear(LocalDate.of(iUser.getBirthYear(),1,1))
+                    .birthYear(LocalDate.of(iUser.getBirthYear(), 1, 1))
                     .smokingYear(iUser.getSmokingYear())
                     .comment(iUser.getComment())
                     .price(iUser.getPrice())
@@ -43,7 +43,34 @@ public class UserServiceImpl implements UserService {
             return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
-            return 3;
+            return -1;
+        }
+    }
+
+    @Override
+    public int updateUser(IUser iUser) {
+        log.info("save user : {}", iUser);
+        try {
+            if (iUser.getId() == null) return 3;
+            userRepository.save(User.builder()
+                    .id(iUser.getId())
+                    .userName(iUser.getUserName())
+                    .gender(iUser.getGender())
+                    .birthYear(LocalDate.of(iUser.getBirthYear(), 1, 1))
+                    .smokingYear(iUser.getSmokingYear())
+                    .comment(iUser.getComment())
+                    .price(iUser.getPrice())
+                    .ranking(iUser.getRanking())
+                    .profileImg(iUser.getProfileImg())
+                    .popupImg(iUser.getPopupImg())
+                    .averageSmoking(iUser.getAverageSmoking())
+                    .point(iUser.getPoint())
+                    .badgeId(iUser.getBadgeId())
+                    .build());
+            return 1;
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return -1;
         }
     }
 

@@ -23,7 +23,7 @@ public class CustomChallengeController {
             return customChallengeService.saveCustomChallenge(customChallenge);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
-            return 2;
+            return -1;
         }
     }
 
@@ -34,7 +34,7 @@ public class CustomChallengeController {
             return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
-            return 2;
+            return -1;
         }
     }
 
