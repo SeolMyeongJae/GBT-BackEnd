@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
     public int updateUser(IUser iUser) {
         log.info("save user : {}", iUser);
         try {
-            if (iUser.getId() == null) return 3;
+            if (iUser.getId() == null || userRepository.findById(iUser.getId()).isEmpty()) return 3;
             userRepository.save(User.builder()
                     .id(iUser.getId())
                     .userName(iUser.getUserName())
