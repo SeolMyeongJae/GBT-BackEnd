@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
         log.info("save user : {}", iUser);
         try {
             if (userRepository.findByUserName(iUser.getUserName()).isPresent()) {
-                return -1;
+                return 3;
             }
             userRepository.save(User.builder()
                     .id(iUser.getId())
