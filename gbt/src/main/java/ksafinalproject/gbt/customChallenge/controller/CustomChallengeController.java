@@ -1,5 +1,6 @@
 package ksafinalproject.gbt.customChallenge.controller;
 
+import ksafinalproject.gbt.customChallenge.dto.ICustomChallenge;
 import ksafinalproject.gbt.customChallenge.model.CustomChallenge;
 import ksafinalproject.gbt.customChallenge.service.CustomChallengeService;
 import lombok.RequiredArgsConstructor;
@@ -18,20 +19,19 @@ public class CustomChallengeController {
     private final CustomChallengeService customChallengeService;
 
     @PostMapping("")
-    public int customChallengeSave(@RequestBody CustomChallenge customChallenge) {
+    public int customChallengeSave(@RequestBody ICustomChallenge iCustomChallenge) {
         try {
-            return customChallengeService.saveCustomChallenge(customChallenge);
+            return customChallengeService.saveCustomChallenge(iCustomChallenge);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1;
         }
     }
 
-    @PutMapping("")
-    public int customChallengeUpdate(@RequestBody CustomChallenge customChallenge) {
+    @PutMapping("/{id}")
+    public int customChallengeUpdate(@RequestBody ICustomChallenge iCustomChallenge, @PathVariable Long id) {
         try {
-            if (customChallengeService.saveCustomChallenge(customChallenge) == 2) return 2;
-            return 1;
+            return customChallengeService.updateCustomChallenge(iCustomChallenge, id);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1;
@@ -52,6 +52,16 @@ public class CustomChallengeController {
     public List<CustomChallenge> customChallengeGetAll() {
         try {
             return customChallengeService.getAllCustomChallenge();
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return null;
+        }
+    }
+
+    @GetMapping("/creator/{creatorId}")
+    public List<CustomChallenge> customChallengeGetAllByCreatorId(@PathVariable Long creatorId) {
+        try {
+            return customChallengeService.getAllCustomChallengeByCreatorId(creatorId);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;

@@ -1,5 +1,6 @@
 package ksafinalproject.gbt.challenge.controller;
 
+import ksafinalproject.gbt.challenge.dto.IChallenge;
 import ksafinalproject.gbt.challenge.model.Challenge;
 import ksafinalproject.gbt.challenge.service.ChallengeService;
 import lombok.RequiredArgsConstructor;
@@ -18,20 +19,19 @@ public class ChallengeController {
     private final ChallengeService challengeService;
 
     @PostMapping("")
-    public int challengeSave(@RequestBody Challenge challenge) {
+    public int challengeSave(@RequestBody IChallenge iChallenge) {
         try {
-            return challengeService.saveChallenge(challenge);
+            return challengeService.saveChallenge(iChallenge);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1;
         }
     }
 
-    @PutMapping("")
-    public int challengeUpdate(@RequestBody Challenge challenge) {
+    @PutMapping("/{id}")
+    public int challengeUpdate(@RequestBody IChallenge iChallenge, @PathVariable Long id) {
         try {
-            if (challengeService.saveChallenge(challenge) == 2) return 2;
-            return 1;
+            return challengeService.updateChallenge(iChallenge, id);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1;
