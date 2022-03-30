@@ -18,7 +18,6 @@ public class UserChallenge {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
-    @ManyToOne
     private Long userId;
     @NotNull
     private Long challengeId;
