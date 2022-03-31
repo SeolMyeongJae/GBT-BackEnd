@@ -13,7 +13,7 @@ import java.util.Optional;
 @Api(tags = {"인증"})
 @RestController
 @CrossOrigin
-@RequestMapping("/api/proof")
+@RequestMapping("/proof")
 @RequiredArgsConstructor
 @Slf4j
 public class ProofController {

@@ -13,7 +13,7 @@ import java.util.Optional;
 @Api(tags = {"챌린지이미지"})
 @RestController
 @CrossOrigin
-@RequestMapping("/api/challenge-img")
+@RequestMapping("/challenge-img")
 @RequiredArgsConstructor
 @Slf4j
 public class ChallengeImgController {
