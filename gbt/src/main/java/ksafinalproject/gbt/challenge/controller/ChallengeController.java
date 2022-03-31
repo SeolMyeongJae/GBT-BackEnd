@@ -14,7 +14,7 @@ import java.util.Optional;
 @Api(tags = {"챌린지"})
 @RestController
 @CrossOrigin
-@RequestMapping("/api/challenge")
+@RequestMapping("/challenge")
 @RequiredArgsConstructor
 @Slf4j
 public class ChallengeController {

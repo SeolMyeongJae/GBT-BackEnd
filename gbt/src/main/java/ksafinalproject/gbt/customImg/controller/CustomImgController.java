@@ -14,7 +14,7 @@ import java.util.Optional;
 @Api(tags = {"커스텀챌린지 이미지"})
 @RestController
 @CrossOrigin
-@RequestMapping("/api/custom-img")
+@RequestMapping("/custom-img")
 @RequiredArgsConstructor
 @Slf4j
 public class CustomImgController {
