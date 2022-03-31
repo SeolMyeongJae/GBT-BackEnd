@@ -1,6 +1,7 @@
 package ksafinalproject.gbt.customImg.controller;
 
 
+import io.swagger.annotations.Api;
 import ksafinalproject.gbt.customImg.model.CustomImg;
 import ksafinalproject.gbt.customImg.service.CustomImgService;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@Api(tags = {"커스텀챌린지 이미지"})
 @RestController
 @CrossOrigin
 @RequestMapping("/api/custom-img")

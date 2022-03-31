@@ -1,5 +1,6 @@
 package ksafinalproject.gbt.challengeImg.controller;
 
+import io.swagger.annotations.Api;
 import ksafinalproject.gbt.challengeImg.model.ChallengeImg;
 import ksafinalproject.gbt.challengeImg.service.ChallengeImgService;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@Api(tags = {"챌린지이미지"})
 @RestController
 @CrossOrigin
 @RequestMapping("/api/challenge-img")

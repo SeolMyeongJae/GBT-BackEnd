@@ -1,5 +1,6 @@
 package ksafinalproject.gbt.invite.controller;
 
+import io.swagger.annotations.Api;
 import ksafinalproject.gbt.invite.model.Invite;
 import ksafinalproject.gbt.invite.service.InviteService;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@Api(tags = {"초대"})
 @RestController
 @CrossOrigin
 @RequestMapping("/api/invite")

@@ -1,5 +1,6 @@
 package ksafinalproject.gbt.customChallenge.controller;
 
+import io.swagger.annotations.Api;
 import ksafinalproject.gbt.customChallenge.dto.ICustomChallenge;
 import ksafinalproject.gbt.customChallenge.model.CustomChallenge;
 import ksafinalproject.gbt.customChallenge.service.CustomChallengeService;
@@ -10,12 +11,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@Api(tags = {"커스텀챌린지"})
 @RestController
 @CrossOrigin
 @RequestMapping("/api/custom")
 @RequiredArgsConstructor
 @Slf4j
 public class CustomChallengeController {
+
     private final CustomChallengeService customChallengeService;
 
     @PostMapping("")

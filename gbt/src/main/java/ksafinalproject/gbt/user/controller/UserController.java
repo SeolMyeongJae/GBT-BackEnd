@@ -1,5 +1,6 @@
 package ksafinalproject.gbt.user.controller;
 
+import io.swagger.annotations.Api;
 import ksafinalproject.gbt.user.dto.IUser;
 import ksafinalproject.gbt.user.model.User;
 import ksafinalproject.gbt.user.service.UserService;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@Api(tags = {"유저"})
 @RestController
 @CrossOrigin
 @RequestMapping("/api/user")
