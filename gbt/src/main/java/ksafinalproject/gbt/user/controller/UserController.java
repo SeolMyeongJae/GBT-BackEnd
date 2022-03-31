@@ -14,7 +14,7 @@ import java.util.Optional;
 @Api(tags = {"유저"})
 @RestController
 @CrossOrigin
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 @RequiredArgsConstructor
 @Slf4j
 public class UserController{

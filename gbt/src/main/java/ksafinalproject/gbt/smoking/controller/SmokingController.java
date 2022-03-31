@@ -14,7 +14,7 @@ import java.util.Optional;
 @Api(tags = {"스모킹"})
 @RestController
 @CrossOrigin
-@RequestMapping("/smoking")
+@RequestMapping("/api/smoking")
 @RequiredArgsConstructor
 @Slf4j
 public class SmokingController {
