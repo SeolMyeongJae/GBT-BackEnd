@@ -91,11 +91,21 @@ public class SmokingController {
 
     @GetMapping("/this-month/{userId}")
     public SmokingDto smokingGetByDateMonth(@PathVariable Long userId) {
-        try{
+        try {
             return smokingService.getSmokingByMonth((userId));
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public int smokingDeleteById(@PathVariable Long id) {
+        try {
+            return smokingService.deleteSmokingById(id);
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return -1;
         }
     }
 }

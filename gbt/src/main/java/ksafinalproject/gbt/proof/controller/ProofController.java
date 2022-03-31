@@ -61,8 +61,7 @@ public class ProofController {
     @DeleteMapping("/{id}")
     public int proofDeleteById(@PathVariable Long id) {
         try {
-            proofService.deleteProofById(id);
-            return 1;
+            return proofService.deleteProofById(id);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1;

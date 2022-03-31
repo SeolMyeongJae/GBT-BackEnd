@@ -61,8 +61,7 @@ public class UserCustomController {
     @DeleteMapping("/{id}")
     public int userCustomDeleteById(@PathVariable Long id) {
         try {
-            userCustomService.deleteUserCustomById(id);
-            return 1;
+            return userCustomService.deleteUserCustomById(id);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1;

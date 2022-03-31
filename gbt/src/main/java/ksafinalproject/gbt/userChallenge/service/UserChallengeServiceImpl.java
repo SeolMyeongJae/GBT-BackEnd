@@ -51,12 +51,14 @@ public class UserChallengeServiceImpl implements UserChallengeService {
     }
 
     @Override
-    public void deleteUserChallengeById(Long id) {
+    public int deleteUserChallengeById(Long id) {
         log.info("delete user challenge by id : {} ", id);
         try {
             userChallengeRepository.deleteById(id);
+            return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
+            return -1;
         }
     }
 

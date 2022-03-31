@@ -72,12 +72,14 @@ public class SmokingServiceImpl implements SmokingService {
     }
 
     @Override
-    public void deleteSmokingById(Long id) {
+    public int deleteSmokingById(Long id) {
         log.info("delete smoking by id : {}", id);
         try {
             smokingRepository.deleteById(id);
+            return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
+            return -1;
         }
     }
 

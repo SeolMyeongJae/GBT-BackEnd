@@ -13,7 +13,7 @@ public interface ProofService {
 
     List<Proof> getAllProof();
 
-    void deleteProofById(Long id);
+    int deleteProofById(Long id);
 
     List<Proof> getAllProofByUserId(Long userId);
 

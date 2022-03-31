@@ -57,12 +57,14 @@ public class ProofServiceImpl implements ProofService {
     }
 
     @Override
-    public void deleteProofById(Long id) {
+    public int deleteProofById(Long id) {
         log.info("delete proof by id : {}", id);
         try {
             proofRepository.deleteById(id);
+            return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
+            return -1;
         }
     }
 

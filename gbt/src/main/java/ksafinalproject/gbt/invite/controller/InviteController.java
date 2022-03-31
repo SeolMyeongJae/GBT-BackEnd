@@ -60,8 +60,7 @@ public class InviteController {
     @DeleteMapping("/{id}")
     public int inviteDeleteById(@PathVariable Long id) {
         try {
-            inviteService.deleteInviteById(id);
-            return 1;
+            return inviteService.deleteInviteById(id);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1;

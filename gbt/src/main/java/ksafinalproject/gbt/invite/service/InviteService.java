@@ -12,7 +12,7 @@ public interface InviteService {
 
     List<Invite> getAllInvite();
 
-    void deleteInviteById(Long id);
+    int deleteInviteById(Long id);
 
     List<Invite> getAllInviteByUserId(Long userId);
 

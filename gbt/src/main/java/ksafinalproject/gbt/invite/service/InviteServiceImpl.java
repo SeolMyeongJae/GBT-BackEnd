@@ -60,12 +60,14 @@ public class InviteServiceImpl implements InviteService {
     }
 
     @Override
-    public void deleteInviteById(Long id) {
+    public int deleteInviteById(Long id) {
         log.info("delete invite by id : {}", id);
         try {
             inviteRepository.deleteById(id);
+            return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
+            return -1;
         }
     }
 

@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +26,17 @@ public class ChallengeImgServiceImpl implements ChallengeImgService {
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1;
+        }
+    }
+
+    @Override
+    public Optional<ChallengeImg> getChallengeImgById(Long id) {
+        log.info("find challenge img by id : {}", id);
+        try {
+            return challengeImgRepository.findById(id);
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return Optional.empty();
         }
     }
 
@@ -51,12 +63,14 @@ public class ChallengeImgServiceImpl implements ChallengeImgService {
     }
 
     @Override
-    public void deleteChallengeImgById(Long id) {
+    public int deleteChallengeImgById(Long id) {
         log.info("delete challenge img by id {}", id);
         try {
             challengeImgRepository.deleteById(id);
+            return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
+            return -1;
         }
     }
 }
