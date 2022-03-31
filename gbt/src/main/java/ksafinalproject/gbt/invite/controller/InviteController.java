@@ -13,7 +13,7 @@ import java.util.Optional;
 @Api(tags = {"초대"})
 @RestController
 @CrossOrigin
-@RequestMapping("/invite")
+@RequestMapping("/api/invite")
 @RequiredArgsConstructor
 @Slf4j
 public class InviteController {

@@ -13,7 +13,7 @@ import java.util.Optional;
 @Api(tags = {"챗"})
 @RestController
 @CrossOrigin
-@RequestMapping("/chat")
+@RequestMapping("/api/chat")
 @RequiredArgsConstructor
 @Slf4j
 public class ChatController {
