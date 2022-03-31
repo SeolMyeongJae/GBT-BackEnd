@@ -13,7 +13,7 @@ public interface UserCustomService {
 
     List<UserCustom> getAllUserCustom();
 
-    void deleteUserCustomById(Long id);
+    int deleteUserCustomById(Long id);
 
     List<UserCustom> getAllUserCustomByUserId(Long userid);
 

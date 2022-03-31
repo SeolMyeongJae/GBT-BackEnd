@@ -15,6 +15,6 @@ public interface ChallengeService {
 
     List<Challenge> getAllChallenge();
 
-    void deleteChallengeById(Long id);
+    int deleteChallengeById(Long id);
 
 }

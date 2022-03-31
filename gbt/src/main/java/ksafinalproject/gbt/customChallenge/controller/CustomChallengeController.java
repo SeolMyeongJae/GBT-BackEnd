@@ -67,4 +67,14 @@ public class CustomChallengeController {
             return null;
         }
     }
+
+    @DeleteMapping("/{id}")
+    public int customChallengeDeleteById(@PathVariable Long id) {
+        try {
+            return customChallengeService.deleteCustomChallengeById(id);
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return -1;
+        }
+    }
 }

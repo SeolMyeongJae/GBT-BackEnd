@@ -94,12 +94,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUserById(Long id) {
+    public int deleteUserById(Long id) {
         log.info("delete user by id");
         try {
             userRepository.deleteById(id);
+            return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
+            return -1;
         }
     }
 

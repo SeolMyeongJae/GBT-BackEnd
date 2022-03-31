@@ -13,7 +13,7 @@ public interface UserChallengeService {
 
     List<UserChallenge> getAllUserChallenge();
 
-    void deleteUserChallengeById(Long id);
+    int deleteUserChallengeById(Long id);
 
     List<UserChallenge> getAllUserChallengeByUserId(Long userid);
 

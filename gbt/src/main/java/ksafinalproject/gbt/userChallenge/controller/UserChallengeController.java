@@ -61,8 +61,7 @@ public class UserChallengeController {
     @DeleteMapping("/{id}")
     public int userChallengeDeleteById(@PathVariable Long id) {
         try {
-            userChallengeService.deleteUserChallengeById(id);
-            return 1;
+            return userChallengeService.deleteUserChallengeById(id);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1;

@@ -108,12 +108,14 @@ public class CustomChallengeServiceImpl implements CustomChallengeService {
     }
 
     @Override
-    public void deleteCustomChallengeById(Long id) {
+    public int deleteCustomChallengeById(Long id) {
         log.info("delete custom challenge by id : {}", id);
         try {
             customChallengeRepository.deleteById(id);
+            return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
+            return -1;
         }
     }
 }

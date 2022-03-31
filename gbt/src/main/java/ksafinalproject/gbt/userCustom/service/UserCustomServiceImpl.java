@@ -51,12 +51,14 @@ public class UserCustomServiceImpl implements UserCustomService{
     }
 
     @Override
-    public void deleteUserCustomById(Long id) {
+    public int deleteUserCustomById(Long id) {
         log.info("delete user custom by id : {}", id);
         try {
             userCustomRepository.deleteById(id);
+            return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
+            return -1;
         }
     }
 

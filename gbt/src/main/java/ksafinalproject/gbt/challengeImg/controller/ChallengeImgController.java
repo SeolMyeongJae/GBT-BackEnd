@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin
@@ -14,6 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class ChallengeImgController {
+
     private final ChallengeImgService challengeImgService;
 
     @PostMapping("")
@@ -46,6 +48,16 @@ public class ChallengeImgController {
         }
     }
 
+    @GetMapping("/{id}")
+    public Optional<ChallengeImg> challengeImgGetById(@PathVariable Long id) {
+        try {
+            return challengeImgService.getChallengeImgById(id);
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return Optional.empty();
+        }
+    }
+
     @GetMapping("/challenge/{challengeId}")
     public List<ChallengeImg> challengeImgGetAllByChallengeId(@PathVariable Long challengeId) {
         try {
@@ -59,8 +71,7 @@ public class ChallengeImgController {
     @DeleteMapping("/{id}")
     public int challengeImgDeleteById(@PathVariable Long id) {
         try {
-            challengeImgService.deleteChallengeImgById(id);
-            return 1;
+            return challengeImgService.deleteChallengeImgById(id);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1;

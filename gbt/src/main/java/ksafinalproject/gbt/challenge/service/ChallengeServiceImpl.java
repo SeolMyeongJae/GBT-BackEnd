@@ -95,12 +95,14 @@ public class ChallengeServiceImpl implements ChallengeService {
     }
 
     @Override
-    public void deleteChallengeById(Long id) {
+    public int deleteChallengeById(Long id) {
         log.info("delete challenge by id : {}", id);
         try {
             challengeRepository.deleteById(id);
+            return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
+            return -1;
         }
     }
 }
