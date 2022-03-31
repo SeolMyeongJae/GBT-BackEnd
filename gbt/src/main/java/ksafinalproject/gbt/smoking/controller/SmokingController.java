@@ -1,5 +1,6 @@
 package ksafinalproject.gbt.smoking.controller;
 
+import io.swagger.annotations.Api;
 import ksafinalproject.gbt.smoking.dto.SmokingDto;
 import ksafinalproject.gbt.smoking.model.Smoking;
 import ksafinalproject.gbt.smoking.service.SmokingService;
@@ -10,12 +11,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@Api(tags = {"스모킹"})
 @RestController
 @CrossOrigin
 @RequestMapping("/api/smoking")
 @RequiredArgsConstructor
 @Slf4j
 public class SmokingController {
+
     private final SmokingService smokingService;
 
     @PostMapping("")

@@ -1,5 +1,6 @@
 package ksafinalproject.gbt.userChallenge.controller;
 
+import io.swagger.annotations.Api;
 import ksafinalproject.gbt.userChallenge.model.UserChallenge;
 import ksafinalproject.gbt.userChallenge.service.UserChallengeService;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@Api(tags = {"유저챌린지"})
 @RestController
 @CrossOrigin
 @RequestMapping("/api/user-challenge")

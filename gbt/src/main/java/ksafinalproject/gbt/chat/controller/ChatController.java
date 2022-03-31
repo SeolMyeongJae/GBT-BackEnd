@@ -1,5 +1,6 @@
 package ksafinalproject.gbt.chat.controller;
 
+import io.swagger.annotations.Api;
 import ksafinalproject.gbt.chat.model.Chat;
 import ksafinalproject.gbt.chat.service.ChatService;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@Api(tags = {"챗"})
 @RestController
 @CrossOrigin
 @RequestMapping("/api/chat")

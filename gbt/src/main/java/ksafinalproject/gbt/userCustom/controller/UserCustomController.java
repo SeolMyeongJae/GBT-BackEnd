@@ -1,5 +1,6 @@
 package ksafinalproject.gbt.userCustom.controller;
 
+import io.swagger.annotations.Api;
 import ksafinalproject.gbt.userCustom.model.UserCustom;
 import ksafinalproject.gbt.userCustom.service.UserCustomService;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@Api(tags = {"유저 커스텀 챌린지"})
 @RestController
 @CrossOrigin
 @RequestMapping("/api/user-custom")

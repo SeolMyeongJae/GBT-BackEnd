@@ -1,5 +1,6 @@
 package ksafinalproject.gbt.proof.controller;
 
+import io.swagger.annotations.Api;
 import ksafinalproject.gbt.proof.model.Proof;
 import ksafinalproject.gbt.proof.service.ProofService;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@Api(tags = {"인증"})
 @RestController
 @CrossOrigin
 @RequestMapping("/api/proof")

@@ -1,5 +1,6 @@
 package ksafinalproject.gbt.challenge.controller;
 
+import io.swagger.annotations.Api;
 import ksafinalproject.gbt.challenge.dto.IChallenge;
 import ksafinalproject.gbt.challenge.model.Challenge;
 import ksafinalproject.gbt.challenge.service.ChallengeService;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@Api(tags = {"챌린지"})
 @RestController
 @CrossOrigin
 @RequestMapping("/api/challenge")
