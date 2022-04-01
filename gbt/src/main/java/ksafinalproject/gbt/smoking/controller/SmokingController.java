@@ -71,7 +71,7 @@ public class SmokingController {
         }
     }
 
-    @GetMapping("/user/{userId}")
+    @GetMapping("/all/user/{userId}")
     public List<Smoking> smokingGetAllByUserId(@PathVariable Long userId) {
         try {
             return smokingService.getAllSmokingByUserId(userId);
@@ -81,7 +81,7 @@ public class SmokingController {
         }
     }
 
-    @GetMapping("/{day}/{userId}")
+    @GetMapping("/all/day/{day}/user/{userId}")
     public SmokingDto smokingGetByDate(@PathVariable Long day, @PathVariable Long userId) {
         try {
             return smokingService.getSmokingByDate(day, userId);
@@ -92,7 +92,7 @@ public class SmokingController {
 
     }
 
-    @GetMapping("/this-month/{userId}")
+    @GetMapping("/all/this-month/user/{userId}")
     public SmokingDto smokingGetByDateMonth(@PathVariable Long userId) {
         try {
             return smokingService.getSmokingByMonth((userId));

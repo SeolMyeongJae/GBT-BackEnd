@@ -61,7 +61,7 @@ public class CustomImgController {
         }
     }
 
-    @GetMapping("/custom/{customId}")
+    @GetMapping("/all/custom/{customId}")
     public List<CustomImg> customImgGetAllByCustomId(@PathVariable Long customId) {
         try {
             return customImgService.getAllCustomImgByCustomId(customId);

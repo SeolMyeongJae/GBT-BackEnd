@@ -60,7 +60,7 @@ public class ChallengeImgController {
         }
     }
 
-    @GetMapping("/challenge/{challengeId}")
+    @GetMapping("/all/challenge/{challengeId}")
     public List<ChallengeImg> challengeImgGetAllByChallengeId(@PathVariable Long challengeId) {
         try {
             return challengeImgService.getAllChallengeImgByChallengeId(challengeId);

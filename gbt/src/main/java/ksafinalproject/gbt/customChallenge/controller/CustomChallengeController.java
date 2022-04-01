@@ -61,7 +61,7 @@ public class CustomChallengeController {
         }
     }
 
-    @GetMapping("/creator/{creatorId}")
+    @GetMapping("/all/creator/{creatorId}")
     public List<CustomChallenge> customChallengeGetAllByCreatorId(@PathVariable Long creatorId) {
         try {
             return customChallengeService.getAllCustomChallengeByCreatorId(creatorId);

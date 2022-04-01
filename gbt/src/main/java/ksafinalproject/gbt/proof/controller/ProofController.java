@@ -70,7 +70,7 @@ public class ProofController {
         }
     }
 
-    @GetMapping("/user/{userId}")
+    @GetMapping("/all/user/{userId}")
     public List<Proof> proofGetAllByUserId(@PathVariable Long userId) {
         try {
             return proofService.getAllProofByUserId(userId);
@@ -80,7 +80,7 @@ public class ProofController {
         }
     }
 
-    @GetMapping("/challenge/{challengeId}")
+    @GetMapping("/all/challenge/{challengeId}")
     public List<Proof> proofGetAllByChallengeId(@PathVariable Long challengeId) {
         try {
             return proofService.getAllProofByChallengeId(challengeId);
