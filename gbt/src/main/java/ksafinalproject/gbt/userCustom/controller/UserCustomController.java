@@ -70,7 +70,7 @@ public class UserCustomController {
         }
     }
 
-    @GetMapping("/user/{userId}")
+    @GetMapping("/all/user/{userId}")
     public List<UserCustom> userCustomGetAllByUserId(@PathVariable Long userId) {
         try {
             return userCustomService.getAllUserCustomByUserId(userId);
@@ -80,7 +80,7 @@ public class UserCustomController {
         }
     }
 
-    @GetMapping("/custom/{customId}")
+    @GetMapping("/all/custom/{customId}")
     public List<UserCustom> userCustomGetAllByCustomId(@PathVariable Long customId) {
         try {
             return userCustomService.getAllUserCustomByCustomId(customId);

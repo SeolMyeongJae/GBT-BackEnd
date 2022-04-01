@@ -22,6 +22,7 @@ public class ProofServiceImpl implements ProofService {
         log.info("save proof : {}", proof);
         try {
             proofRepository.save(Proof.builder()
+                    .id(proof.getId())
                     .content(proof.getContent())
                     .date(LocalDateTime.now())
                     .userId(proof.getUserId())

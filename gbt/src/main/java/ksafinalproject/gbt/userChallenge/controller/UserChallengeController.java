@@ -70,7 +70,7 @@ public class UserChallengeController {
         }
     }
 
-    @GetMapping("/user/{userId}")
+    @GetMapping("/all/user/{userId}")
     public List<UserChallenge> userChallengeGetAllByUserId(@PathVariable Long userId) {
         try {
             return userChallengeService.getAllUserChallengeByUserId(userId);
@@ -80,7 +80,7 @@ public class UserChallengeController {
         }
     }
 
-    @GetMapping("/challenge/{challengeId}")
+    @GetMapping("/all/challenge/{challengeId}")
     public List<UserChallenge> userChallengeGetAllByChallengeId(@PathVariable Long challengeId) {
         try {
             return userChallengeService.getAllUserChallengeByChallengeId(challengeId);

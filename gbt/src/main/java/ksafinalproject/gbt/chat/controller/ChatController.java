@@ -70,7 +70,7 @@ public class ChatController {
         }
     }
 
-    @GetMapping("/user/{userId}")
+    @GetMapping("/all/user/{userId}")
     public List<Chat> chatGetAllByUserId(@PathVariable Long userId) {
         try {
             return chatService.getAllChatByUserId(userId);
@@ -80,7 +80,7 @@ public class ChatController {
         }
     }
 
-    @GetMapping("/custom/{customId}")
+    @GetMapping("/all/custom/{customId}")
     public List<Chat> chatGetAllByCustomId(@PathVariable Long customId) {
         try {
             return chatService.getAllChatByCustomId(customId);

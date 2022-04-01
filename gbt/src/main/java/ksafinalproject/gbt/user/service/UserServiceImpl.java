@@ -53,9 +53,6 @@ public class UserServiceImpl implements UserService {
     public int updateUser(User user, Long id) {
         log.info("save user : {}, id : {}", user, id);
         try {
-            if (userRepository.findById(id).isEmpty()) {
-                return -1;
-            }
             if (userRepository.findByUserName(user.getUserName()).isPresent()) {
                 return 3;
             }
