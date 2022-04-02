@@ -11,6 +11,7 @@ public class GbtApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(GbtApplication.class, args);
+		
 //		LocalDate now = LocalDate.now();
 //		System.out.println(now.getDayOfWeek());
 //		System.out.println(now.get(WeekFields.ISO.weekOfMonth()));
