@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -30,6 +31,20 @@ public class InviteServiceImpl implements InviteService {
                     .userId(invite.getUserId())
                     .customChallengeId(invite.getCustomChallengeId())
                     .build());
+            return 1;
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return -1;
+        }
+    }
+
+    @Transactional
+    @Override
+    public int updateInvite(Invite invite, Long id) {
+        log.info("update invite : {}, id : {}", invite, id);
+        try {
+            Invite invite2 = inviteRepository.findById(id).orElseThrow();
+            invite2.setTitle(invite.getTitle());
             return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());

@@ -9,6 +9,8 @@ public interface CustomImgService {
 
     int saveCustomImg(CustomImg customImg);
 
+    int updateCustomImg(CustomImg customImg, Long id);
+
     Optional<CustomImg> getCustomImgById(Long id);
 
     List<CustomImg> getAllCustomImg();

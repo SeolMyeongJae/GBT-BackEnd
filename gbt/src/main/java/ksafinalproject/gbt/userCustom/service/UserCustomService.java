@@ -9,6 +9,8 @@ public interface UserCustomService {
 
     int saveUserCustom(UserCustom userCustom);
 
+    int updateUserCustom(UserCustom userCustom, Long id);
+
     Optional<UserCustom> getUserCustomById(Long id);
 
     List<UserCustom> getAllUserCustom();

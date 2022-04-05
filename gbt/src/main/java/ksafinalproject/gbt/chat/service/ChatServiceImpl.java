@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -29,6 +30,21 @@ public class ChatServiceImpl implements ChatService {
                     .userId(chat.getUserId())
                     .customId(chat.getCustomId())
                     .build());
+            return 1;
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return -1;
+        }
+    }
+
+    @Transactional
+    @Override
+    public int updateChat(Chat chat, Long id) {
+        log.info("update chat : {}, id : {}", chat, id);
+        try {
+            Chat chat2 = chatRepository.findById(id).orElseThrow();
+            chat2.setUserId(chat.getUserId());
+            chat2.setMessage(chat.getMessage());
             return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());

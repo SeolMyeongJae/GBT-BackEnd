@@ -31,10 +31,10 @@ public class CustomImgController {
         }
     }
 
-    @PutMapping("")
-    public int customImgUpdate(@RequestBody CustomImg customImg) {
+    @PutMapping("/{id}")
+    public int customImgUpdate(@RequestBody CustomImg customImg, @PathVariable Long id) {
         try {
-            return customImgService.saveCustomImg(customImg);
+            return customImgService.updateCustomImg(customImg, id);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1;

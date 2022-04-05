@@ -8,6 +8,8 @@ import java.util.Optional;
 public interface ChallengeImgService {
     int saveChallengeImg(ChallengeImg challengeImg);
 
+    int updateChallengeImg(ChallengeImg challengeImg, Long id);
+
     Optional<ChallengeImg> getChallengeImgById(Long id);
 
     List<ChallengeImg> getAllChallengeImg();

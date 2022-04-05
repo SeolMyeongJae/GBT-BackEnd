@@ -29,10 +29,10 @@ public class InviteController {
         }
     }
 
-    @PutMapping("")
-    public int inviteUpdate(@RequestBody Invite invite) {
+    @PutMapping("/{id}")
+    public int inviteUpdate(@RequestBody Invite invite, @PathVariable Long id) {
         try {
-            return inviteService.saveInvite(invite);
+            return inviteService.updateInvite(invite, id);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1;

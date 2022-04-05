@@ -20,6 +20,11 @@ public class LikesServiceImpl implements LikesService {
     public int saveLike(Likes like) {
         log.info("save like : {}", like);
         try {
+            Optional<Likes> like2 = likeRepository.findByPostIdAndUserId(like.getPostId(), like.getUserId());
+            if(like2.isPresent()) {
+                likeRepository.deleteById(like2.get().getId());
+                return 2;
+            }
             likeRepository.save(like);
             return 1;
         } catch (Exception e) {
@@ -33,6 +38,17 @@ public class LikesServiceImpl implements LikesService {
         log.info("find like by id : {}", id);
         try {
             return likeRepository.findById(id);
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return Optional.empty();
+        }
+    }
+
+    @Override
+    public Optional<Likes> getLikeByPostIdAndUserId(Long postId, Long userId) {
+        log.info("find like by post id : {}, user id : {}", postId, userId);
+        try {
+            return likeRepository.findByPostIdAndUserId(postId, userId);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return Optional.empty();

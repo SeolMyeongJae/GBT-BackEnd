@@ -30,10 +30,10 @@ public class ChatController {
         }
     }
 
-    @PutMapping("")
-    public int chatUpdate(@RequestBody Chat chat) {
+    @PutMapping("/{id}")
+    public int chatUpdate(@RequestBody Chat chat, Long id) {
         try {
-            return chatService.saveChat(chat);
+            return chatService.updateChat(chat, id);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1;

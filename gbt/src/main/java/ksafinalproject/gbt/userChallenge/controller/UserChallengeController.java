@@ -30,10 +30,10 @@ public class UserChallengeController {
         }
     }
 
-    @PutMapping("")
-    public int userChallengeUpdate(@RequestBody UserChallenge userChallenge) {
+    @PutMapping("/{id}")
+    public int userChallengeUpdate(@RequestBody UserChallenge userChallenge, @PathVariable Long id) {
         try {
-            return userChallengeService.saveUserChallenge(userChallenge);
+            return userChallengeService.updateUserChallenge(userChallenge, id);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1;

@@ -11,6 +11,8 @@ public interface LikesService {
 
     Optional<Likes> getLikeById(Long id);
 
+    Optional<Likes> getLikeByPostIdAndUserId(Long postId, Long userId);
+
     List<Likes> getAllLike();
 
     int deleteLikeById(Long id);
@@ -18,5 +20,7 @@ public interface LikesService {
     List<Likes> getAllLikeByPostId(Long postId);
 
     List<Likes> getAllLikeByUserId(Long userId);
+
+
 
 }

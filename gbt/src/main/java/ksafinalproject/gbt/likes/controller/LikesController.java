@@ -40,6 +40,16 @@ public class LikesController {
         }
     }
 
+    @GetMapping("/post/{postId}/user/{userId}")
+    public Optional<Likes> likeGetByPostIdAndUserId(@PathVariable Long postId, @PathVariable Long userId) {
+        try {
+            return likeService.getLikeByPostIdAndUserId(postId, userId);
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return Optional.empty();
+        }
+    }
+
     @GetMapping("/all")
     public List<Likes> likeGetAll() {
         try {
@@ -47,6 +57,16 @@ public class LikesController {
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public int likeDeleteById(@PathVariable Long id) {
+        try {
+            return likeService.deleteLikeById(id);
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return -1;
         }
     }
 

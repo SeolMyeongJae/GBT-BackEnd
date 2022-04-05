@@ -6,13 +6,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class UserCustomServiceImpl implements UserCustomService{
+public class UserCustomServiceImpl implements UserCustomService {
 
     private final UserCustomRepository userCustomRepository;
 
@@ -21,6 +22,20 @@ public class UserCustomServiceImpl implements UserCustomService{
         log.info("save user custom : {}", userCustom);
         try {
             userCustomRepository.save(userCustom);
+            return 1;
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return -1;
+        }
+    }
+
+    @Transactional
+    @Override
+    public int updateUserCustom(UserCustom userCustom, Long id) {
+        log.info("update user custom : {}, id : {}", userCustom, id);
+        try {
+            UserCustom userCustom2 = userCustomRepository.findById(id).orElseThrow();
+            userCustom2.setCustomId(userCustom.getCustomId());
             return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
