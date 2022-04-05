@@ -35,7 +35,7 @@ public class PostController {
         try {
             return postService.updatePost(post, id);
         } catch (Exception e) {
-            log.error("Erro : {}", e.getMessage());
+            log.error("Error : {}", e.getMessage());
             return -1;
         }
     }

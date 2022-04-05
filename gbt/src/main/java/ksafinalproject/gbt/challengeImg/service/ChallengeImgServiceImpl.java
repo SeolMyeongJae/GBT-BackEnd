@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +23,20 @@ public class ChallengeImgServiceImpl implements ChallengeImgService {
         log.info("save challenge img : {}", challengeImg);
         try {
             challengeImgRepository.save(challengeImg);
+            return 1;
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return -1;
+        }
+    }
+
+    @Transactional
+    @Override
+    public int updateChallengeImg(ChallengeImg challengeImg, Long id) {
+        log.info("update challenge img : {}, id : {}", challengeImg, id);
+        try {
+            ChallengeImg challengeImg2 = challengeImgRepository.findById(id).orElseThrow();
+            challengeImg2.setUrl(challengeImg.getUrl());
             return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());

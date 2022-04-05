@@ -8,6 +8,8 @@ import java.util.Optional;
 public interface InviteService {
     int saveInvite(Invite invite);
 
+    int updateInvite(Invite invite, Long id);
+
     Optional<Invite> getInviteById(Long id);
 
     List<Invite> getAllInvite();

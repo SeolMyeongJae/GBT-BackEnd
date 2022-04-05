@@ -30,10 +30,10 @@ public class UserCustomController {
         }
     }
 
-    @PutMapping("")
-    public int userCustomUpdate(@RequestBody UserCustom userCustom) {
+    @PutMapping("/{id}")
+    public int userCustomUpdate(@RequestBody UserCustom userCustom, @PathVariable Long id) {
         try {
-            return userCustomService.saveUserCustom(userCustom);
+            return userCustomService.updateUserCustom(userCustom, id);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1;

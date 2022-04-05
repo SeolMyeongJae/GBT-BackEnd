@@ -30,10 +30,10 @@ public class ChallengeImgController {
         }
     }
 
-    @PutMapping("")
-    public int challengeImgUpdate(@RequestBody ChallengeImg challengeImg) {
+    @PutMapping("/{id}")
+    public int challengeImgUpdate(@RequestBody ChallengeImg challengeImg, @PathVariable Long id) {
         try {
-            return challengeImgService.saveChallengeImg(challengeImg);
+            return challengeImgService.updateChallengeImg(challengeImg, id);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1;

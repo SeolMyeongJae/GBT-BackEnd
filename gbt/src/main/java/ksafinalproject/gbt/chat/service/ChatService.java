@@ -8,6 +8,8 @@ import java.util.Optional;
 public interface ChatService {
     int saveChat(Chat chat);
 
+    int updateChat(Chat chat, Long id);
+
     Optional<Chat> getChatById(Long id);
 
     List<Chat> getAllChat();

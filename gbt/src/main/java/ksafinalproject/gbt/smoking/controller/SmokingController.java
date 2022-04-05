@@ -31,10 +31,10 @@ public class SmokingController {
         }
     }
 
-    @PutMapping("")
-    public int smokingUpdate(@RequestBody Smoking smoking) {
+    @PutMapping("/{id}")
+    public int smokingUpdate(@RequestBody Smoking smoking, @PathVariable Long id) {
         try {
-            return smokingService.saveSmoking(smoking);
+            return smokingService.updateSmoking(smoking, id);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1;

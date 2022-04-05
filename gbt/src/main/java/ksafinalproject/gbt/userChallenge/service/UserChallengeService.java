@@ -9,6 +9,8 @@ public interface UserChallengeService {
 
     int saveUserChallenge(UserChallenge userChallenge);
 
+    int updateUserChallenge(UserChallenge userChallenge, Long id);
+
     Optional<UserChallenge> getUserChallengeById(Long id);
 
     List<UserChallenge> getAllUserChallenge();

@@ -30,10 +30,10 @@ public class ProofController {
         }
     }
 
-    @PutMapping("")
-    public int proofUpdate(@RequestBody Proof proof) {
+    @PutMapping("/{id}")
+    public int proofUpdate(@RequestBody Proof proof, @PathVariable Long id) {
         try {
-            return proofService.saveProof(proof);
+            return proofService.updateProof(proof, id);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1;

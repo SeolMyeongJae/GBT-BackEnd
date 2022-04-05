@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +22,20 @@ public class UserChallengeServiceImpl implements UserChallengeService {
         log.info("save user challenge : {}", userChallenge);
         try {
             userChallengeRepository.save(userChallenge);
+            return 1;
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return -1;
+        }
+    }
+
+    @Transactional
+    @Override
+    public int updateUserChallenge(UserChallenge userChallenge, Long id) {
+        log.info("update user challenge : {}, id : {}", userChallenge, id);
+        try {
+            UserChallenge userChallenge2 = userChallengeRepository.findById(id).orElseThrow();
+            userChallenge2.setChallengeId(userChallenge.getChallengeId());
             return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());

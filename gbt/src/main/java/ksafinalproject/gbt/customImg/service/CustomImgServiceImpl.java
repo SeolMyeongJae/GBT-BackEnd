@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +23,20 @@ public class CustomImgServiceImpl implements CustomImgService {
         log.info("save custom img : {}", customImg);
         try {
             customImgRepository.save(customImg);
+            return 1;
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return -1;
+        }
+    }
+
+    @Transactional
+    @Override
+    public int updateCustomImg(CustomImg customImg, Long id) {
+        log.info("update custom img : {}", customImg);
+        try {
+            CustomImg customImg2 = customImgRepository.findById(id).orElseThrow();
+            customImg2.setUrl(customImg.getUrl());
             return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
