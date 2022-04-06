@@ -1,15 +1,16 @@
 package ksafinalproject.gbt.smoking.service;
 
 import ksafinalproject.gbt.smoking.dto.SmokingDto;
+import ksafinalproject.gbt.smoking.dto.ISmoking;
 import ksafinalproject.gbt.smoking.model.Smoking;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface SmokingService {
-    int saveSmoking(Smoking smoking);
+    int saveSmoking(ISmoking iSmoking);
 
-    int updateSmoking(Smoking smoking, Long id);
+    int updateSmoking(ISmoking iSmoking, Long id);
 
     Optional<Smoking> getSmokingById(Long id);
 
