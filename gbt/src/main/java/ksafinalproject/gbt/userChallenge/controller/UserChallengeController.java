@@ -1,6 +1,7 @@
 package ksafinalproject.gbt.userChallenge.controller;
 
 import io.swagger.annotations.Api;
+import ksafinalproject.gbt.userChallenge.dto.IUserChallenge;
 import ksafinalproject.gbt.userChallenge.model.UserChallenge;
 import ksafinalproject.gbt.userChallenge.service.UserChallengeService;
 import lombok.RequiredArgsConstructor;
@@ -21,9 +22,9 @@ public class UserChallengeController {
     private final UserChallengeService userChallengeService;
 
     @PostMapping("")
-    public int userChallengeSave(@RequestBody UserChallenge userChallenge) {
+    public int userChallengeSave(@RequestBody IUserChallenge iUserChallenge) {
         try {
-            return userChallengeService.saveUserChallenge(userChallenge);
+            return userChallengeService.saveUserChallenge(iUserChallenge);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1;
@@ -31,9 +32,9 @@ public class UserChallengeController {
     }
 
     @PutMapping("/{id}")
-    public int userChallengeUpdate(@RequestBody UserChallenge userChallenge, @PathVariable Long id) {
+    public int userChallengeUpdate(@RequestBody IUserChallenge iUserChallenge, @PathVariable Long id) {
         try {
-            return userChallengeService.updateUserChallenge(userChallenge, id);
+            return userChallengeService.updateUserChallenge(iUserChallenge, id);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1;
