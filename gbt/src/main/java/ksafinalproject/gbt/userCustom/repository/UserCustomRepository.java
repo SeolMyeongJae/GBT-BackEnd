@@ -8,5 +8,5 @@ import java.util.List;
 public interface UserCustomRepository extends JpaRepository<UserCustom, Long> {
     List<UserCustom> findAllByUserId(Long userId);
 
-    List<UserCustom> findAllByCustomId(Long customId);
+    List<UserCustom> findAllByCustomChallengeId(Long customChallengeId);
 }
