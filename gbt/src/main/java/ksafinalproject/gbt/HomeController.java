@@ -11,18 +11,24 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class HomeController {
-    @GetMapping("/admin/home")
+
+    @GetMapping("/")
+    public String main() {
+        return "main";
+    }
+
+    @GetMapping("/api/admin/home")
     public String index() {
         return "home";
     }
 
-    @GetMapping("/admin/challenge")
+    @GetMapping("/api/admin/challenge")
     public String test() {return "challenge";}
 
-    @GetMapping("/admin/community")
+    @GetMapping("/api/admin/community")
     public String community() {return "community";}
 
-    @GetMapping("/admin/challenge/save")
+    @GetMapping("/api/admin/challenge/save")
     public String challengeSave() {
         return "challenge-save";
     }
