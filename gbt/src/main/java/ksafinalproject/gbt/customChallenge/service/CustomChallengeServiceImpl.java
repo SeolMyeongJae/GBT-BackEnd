@@ -36,6 +36,7 @@ public class CustomChallengeServiceImpl implements CustomChallengeService {
                     .method(iCustomChallenge.getMethod())
                     .title(iCustomChallenge.getTitle())
                     .frequency(iCustomChallenge.getFrequency())
+                    .summary(iCustomChallenge.getSummary())
                     .description(iCustomChallenge.getDescription())
                     .max(iCustomChallenge.getMax())
                     .img(iCustomChallenge.getImg())
@@ -63,6 +64,7 @@ public class CustomChallengeServiceImpl implements CustomChallengeService {
             customChallenge.setEndDate(endDate);
             customChallenge.setTitle(iCustomChallenge.getTitle());
             customChallenge.setFrequency(iCustomChallenge.getFrequency());
+            customChallenge.setSummary(iCustomChallenge.getSummary());
             customChallenge.setDescription(iCustomChallenge.getDescription());
             customChallenge.setMax(iCustomChallenge.getMax());
             customChallenge.setImg(iCustomChallenge.getImg());

@@ -81,7 +81,7 @@ public class UserCustomController {
         }
     }
 
-    @GetMapping("/all/custom/{customId}")
+    @GetMapping("/all/custom-challenge/{customChallengeId}")
     public List<UserCustom> userCustomGetAllByCustomChallengeId(@PathVariable Long customChallengeId) {
         try {
             return userCustomService.getAllUserCustomByCustomChallengeId(customChallengeId);

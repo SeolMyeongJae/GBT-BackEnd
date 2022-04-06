@@ -1,6 +1,7 @@
 package ksafinalproject.gbt.challenge.service;
 
 import ksafinalproject.gbt.challenge.dto.IChallenge;
+import ksafinalproject.gbt.challenge.dto.OChallenge;
 import ksafinalproject.gbt.challenge.model.Challenge;
 import ksafinalproject.gbt.challenge.repository.ChallengeRepository;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,6 +37,7 @@ public class ChallengeServiceImpl implements ChallengeService {
                     .method(iChallenge.getMethod())
                     .title(iChallenge.getTitle())
                     .frequency(iChallenge.getFrequency())
+                    .summary(iChallenge.getSummary())
                     .description(iChallenge.getDescription())
                     .max(iChallenge.getMax())
                     .img(iChallenge.getImg())
@@ -63,6 +66,7 @@ public class ChallengeServiceImpl implements ChallengeService {
             challenge.setTitle(iChallenge.getTitle());
             challenge.setFrequency(iChallenge.getFrequency());
             challenge.setDescription(iChallenge.getDescription());
+            challenge.setSummary(iChallenge.getSummary());
             challenge.setMax(iChallenge.getMax());
             challenge.setImg(iChallenge.getImg());
             return 1;
@@ -74,7 +78,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     @Override
     public Optional<Challenge> getChallengeById(Long id) {
-        log.info("get challenge by id : {}", id);
+        log.info("find challenge by id : {}", id);
         try {
             return challengeRepository.findById(id);
         } catch (Exception e) {
@@ -84,15 +88,27 @@ public class ChallengeServiceImpl implements ChallengeService {
     }
 
     @Override
-    public List<Challenge> getAllChallenge() {
-        log.info("get all challenge");
+    public List<OChallenge> getAllChallenge() {
+        log.info("find all challenge");
         try {
-            return challengeRepository.findAll();
-        } catch (Exception e) {
-            log.error("Error : {}", e.getMessage());
-            return null;
+            List<OChallenge> oChallenge = new ArrayList<>();
+            List<Challenge> challengeList = challengeRepository.findAll();
+            for (int i = 0; i < challengeList.size(); i++) {
+                result.add(challengeList.get(i))
+            }
         }
     }
+
+    //    @Override
+//    public List<Challenge> getAllChallenge() {
+//        log.info("find all challenge");
+//        try {
+//            return challengeRepository.findAll();
+//        } catch (Exception e) {
+//            log.error("Error : {}", e.getMessage());
+//            return null;
+//        }
+//    }
 
     @Override
     public int deleteChallengeById(Long id) {

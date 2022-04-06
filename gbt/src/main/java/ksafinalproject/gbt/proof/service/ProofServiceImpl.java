@@ -1,7 +1,10 @@
 package ksafinalproject.gbt.proof.service;
 
+import ksafinalproject.gbt.challenge.repository.ChallengeRepository;
+import ksafinalproject.gbt.proof.dto.IProof;
 import ksafinalproject.gbt.proof.model.Proof;
 import ksafinalproject.gbt.proof.repository.ProofRepository;
+import ksafinalproject.gbt.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,17 +20,19 @@ import java.util.Optional;
 public class ProofServiceImpl implements ProofService {
 
     private final ProofRepository proofRepository;
+    private final UserRepository userRepository;
+    private final ChallengeRepository challengeRepository;
 
     @Override
-    public int saveProof(Proof proof) {
-        log.info("save proof : {}", proof);
+    public int saveProof(IProof iProof) {
+        log.info("save proof : {}", iProof);
         try {
             proofRepository.save(Proof.builder()
-                    .id(proof.getId())
-                    .content(proof.getContent())
+                    .id(iProof.getId())
+                    .content(iProof.getContent())
                     .date(LocalDateTime.now())
-                    .userId(proof.getUserId())
-                    .challengeId(proof.getChallengeId())
+                    .user(userRepository.findById(iProof.getUserId()).orElseThrow())
+                    .challenge(challengeRepository.findById(iProof.getChallengeId()).orElseThrow())
                     .build());
             return 1;
         } catch (Exception e) {
@@ -38,11 +43,11 @@ public class ProofServiceImpl implements ProofService {
 
     @Transactional
     @Override
-    public int updateProof(Proof proof, Long id) {
-        log.info("update proof : {}, id : {}", proof, id);
+    public int updateProof(IProof iProof, Long id) {
+        log.info("update proof : {}, id : {}", iProof, id);
         try {
             Proof proof2 = proofRepository.findById(id).orElseThrow();
-            proof2.setContent(proof.getContent());
+            proof2.setContent(iProof.getContent());
             return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
