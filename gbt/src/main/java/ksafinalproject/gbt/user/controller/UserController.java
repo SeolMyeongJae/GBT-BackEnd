@@ -1,20 +1,82 @@
 package ksafinalproject.gbt.user.controller;
 
+import io.swagger.annotations.Api;
+import ksafinalproject.gbt.user.dto.IUser;
 import ksafinalproject.gbt.user.model.User;
+import ksafinalproject.gbt.user.service.UserService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface UserController {
-    int userSave(User user);
+@Api(tags = {"유저"})
+@RestController
+@CrossOrigin
+@RequestMapping("/api/user")
+@RequiredArgsConstructor
+@Slf4j
+public class UserController{
+    private final UserService userService;
 
-    int userUpdate(User user);
+    @PostMapping("")
+    public int userSave(@RequestBody IUser iUser) {
+        try {
+            return userService.saveUser(iUser);
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return -1;
+        }
+    }
 
-    Optional<User> userGetById(Long id);
+    @PutMapping("/{id}")
+    public int userUpdate(@RequestBody User User, @PathVariable Long id) {
+        try {
+            return userService.updateUser(User, id);
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return -1;
+        }
+    }
 
-    List<User> userGetAll();
+    @GetMapping("/{id}")
+    public Optional<User> userGetById(@PathVariable Long id) {
+        try {
+            return userService.getUserById(id);
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return Optional.empty();
+        }
+    }
 
-    int userDeleteById(Long id);
+    @GetMapping("/all")
+    public List<User> userGetAll() {
+        try {
+            return userService.getAllUser();
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return null;
+        }
+    }
 
-    Optional<User> userGetByUserName(String userName);
+    @DeleteMapping("/{id}")
+    public int userDeleteById(@PathVariable Long id) {
+        try {
+            return userService.deleteUserById(id);
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return -1;
+        }
+    }
+
+    @GetMapping("/username/{userName}")
+    public Optional<User> userGetByUserName(@PathVariable String userName) {
+        try {
+            return userService.getUserByUserName(userName);
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return Optional.empty();
+        }
+    }
 }

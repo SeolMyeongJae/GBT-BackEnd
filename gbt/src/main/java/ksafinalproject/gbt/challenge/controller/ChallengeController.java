@@ -1,5 +1,7 @@
 package ksafinalproject.gbt.challenge.controller;
 
+import io.swagger.annotations.Api;
+import ksafinalproject.gbt.challenge.dto.IChallenge;
 import ksafinalproject.gbt.challenge.model.Challenge;
 import ksafinalproject.gbt.challenge.service.ChallengeService;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@Api(tags = {"챌린지"})
 @RestController
 @CrossOrigin
 @RequestMapping("/api/challenge")
@@ -18,23 +21,22 @@ public class ChallengeController {
     private final ChallengeService challengeService;
 
     @PostMapping("")
-    public int challengeSave(@RequestBody Challenge challenge) {
+    public int challengeSave(@RequestBody IChallenge iChallenge) {
         try {
-            return challengeService.saveChallenge(challenge);
+            return challengeService.saveChallenge(iChallenge);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
-            return 2;
+            return -1;
         }
     }
 
-    @PutMapping("")
-    public int challengeUpdate(@RequestBody Challenge challenge) {
+    @PutMapping("/{id}")
+    public int challengeUpdate(@RequestBody IChallenge iChallenge, @PathVariable Long id) {
         try {
-            if (challengeService.saveChallenge(challenge) == 2) return 2;
-            return 1;
+            return challengeService.updateChallenge(iChallenge, id);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
-            return 2;
+            return -1;
         }
     }
 
@@ -55,6 +57,16 @@ public class ChallengeController {
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public int challengeDeleteById(@PathVariable Long id) {
+        try {
+            return challengeService.deleteChallengeById(id);
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return -1;
         }
     }
 }

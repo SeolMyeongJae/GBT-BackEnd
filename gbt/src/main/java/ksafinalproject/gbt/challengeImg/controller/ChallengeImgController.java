@@ -1,5 +1,6 @@
 package ksafinalproject.gbt.challengeImg.controller;
 
+import io.swagger.annotations.Api;
 import ksafinalproject.gbt.challengeImg.model.ChallengeImg;
 import ksafinalproject.gbt.challengeImg.service.ChallengeImgService;
 import lombok.RequiredArgsConstructor;
@@ -7,13 +8,16 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
+@Api(tags = {"챌린지이미지"})
 @RestController
 @CrossOrigin
 @RequestMapping("/api/challenge-img")
 @RequiredArgsConstructor
 @Slf4j
 public class ChallengeImgController {
+
     private final ChallengeImgService challengeImgService;
 
     @PostMapping("")
@@ -22,17 +26,17 @@ public class ChallengeImgController {
             return challengeImgService.saveChallengeImg(challengeImg);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
-            return 2;
+            return -1;
         }
     }
 
-    @PutMapping("")
-    public int challengeImgUpdate(@RequestBody ChallengeImg challengeImg) {
+    @PutMapping("/{id}")
+    public int challengeImgUpdate(@RequestBody ChallengeImg challengeImg, @PathVariable Long id) {
         try {
-            return challengeImgService.saveChallengeImg(challengeImg);
+            return challengeImgService.updateChallengeImg(challengeImg, id);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
-            return 2;
+            return -1;
         }
     }
 
@@ -46,7 +50,17 @@ public class ChallengeImgController {
         }
     }
 
-    @GetMapping("/challenge/{challengeId}")
+    @GetMapping("/{id}")
+    public Optional<ChallengeImg> challengeImgGetById(@PathVariable Long id) {
+        try {
+            return challengeImgService.getChallengeImgById(id);
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return Optional.empty();
+        }
+    }
+
+    @GetMapping("/all/challenge/{challengeId}")
     public List<ChallengeImg> challengeImgGetAllByChallengeId(@PathVariable Long challengeId) {
         try {
             return challengeImgService.getAllChallengeImgByChallengeId(challengeId);
@@ -59,11 +73,10 @@ public class ChallengeImgController {
     @DeleteMapping("/{id}")
     public int challengeImgDeleteById(@PathVariable Long id) {
         try {
-            challengeImgService.deleteChallengeImgById(id);
-            return 1;
+            return challengeImgService.deleteChallengeImgById(id);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
-            return 2;
+            return -1;
         }
     }
 }

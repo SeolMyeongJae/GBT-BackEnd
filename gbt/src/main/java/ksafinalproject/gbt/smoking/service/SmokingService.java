@@ -9,13 +9,15 @@ import java.util.Optional;
 public interface SmokingService {
     int saveSmoking(Smoking smoking);
 
+    int updateSmoking(Smoking smoking, Long id);
+
     Optional<Smoking> getSmokingById(Long id);
 
     Optional<Smoking> getTodaySmokingByUserId(Long userId);
 
     List<Smoking> getAllSmoking();
 
-    void deleteSmokingById(Long id);
+    int deleteSmokingById(Long id);
 
     Optional<Smoking> getSmokingByUserId(Long userId);
 

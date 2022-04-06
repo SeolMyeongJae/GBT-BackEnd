@@ -45,7 +45,21 @@ public class SmokingServiceImpl implements SmokingService {
             return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
-            return 3;
+            return -1;
+        }
+    }
+
+    @Transactional
+    @Override
+    public int updateSmoking(Smoking smoking, Long id) {
+        log.info("update smoking : {}, id : {}", smoking, id);
+        try {
+            Smoking smoking2 = smokingRepository.findById(id).orElseThrow();
+            smoking2.setCount(smoking.getCount());
+            return 1;
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return -1;
         }
     }
 
@@ -72,12 +86,14 @@ public class SmokingServiceImpl implements SmokingService {
     }
 
     @Override
-    public void deleteSmokingById(Long id) {
+    public int deleteSmokingById(Long id) {
         log.info("delete smoking by id : {}", id);
         try {
             smokingRepository.deleteById(id);
+            return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
+            return -1;
         }
     }
 
@@ -155,7 +171,7 @@ public class SmokingServiceImpl implements SmokingService {
         LocalDate now = LocalDate.now();
         try {
             for (int i = 0; i < smokingList.size(); i++) {
-                if (smokingList.get(i).getDate().getMonthValue() == now.getMonthValue()) {
+                if (smokingList.get(i).getDate().getMonthValue() == now.getMonthValue() && smokingList.get(i).getDate().getYear() == now.getYear()) {
                     result.add(smokingList.get(i));
                     total += smokingList.get(i).getCount();
                 }

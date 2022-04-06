@@ -1,5 +1,6 @@
 package ksafinalproject.gbt.smoking.controller;
 
+import io.swagger.annotations.Api;
 import ksafinalproject.gbt.smoking.dto.SmokingDto;
 import ksafinalproject.gbt.smoking.model.Smoking;
 import ksafinalproject.gbt.smoking.service.SmokingService;
@@ -10,12 +11,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@Api(tags = {"스모킹"})
 @RestController
 @CrossOrigin
 @RequestMapping("/api/smoking")
 @RequiredArgsConstructor
 @Slf4j
 public class SmokingController {
+
     private final SmokingService smokingService;
 
     @PostMapping("")
@@ -24,17 +27,17 @@ public class SmokingController {
             return smokingService.saveSmoking(smoking);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
-            return 3;
+            return -1;
         }
     }
 
-    @PutMapping("")
-    public int smokingUpdate(@RequestBody Smoking smoking) {
+    @PutMapping("/{id}")
+    public int smokingUpdate(@RequestBody Smoking smoking, @PathVariable Long id) {
         try {
-            return smokingService.saveSmoking(smoking);
+            return smokingService.updateSmoking(smoking, id);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
-            return 3;
+            return -1;
         }
     }
 
@@ -68,7 +71,7 @@ public class SmokingController {
         }
     }
 
-    @GetMapping("/user/{userId}")
+    @GetMapping("/all/user/{userId}")
     public List<Smoking> smokingGetAllByUserId(@PathVariable Long userId) {
         try {
             return smokingService.getAllSmokingByUserId(userId);
@@ -78,7 +81,7 @@ public class SmokingController {
         }
     }
 
-    @GetMapping("/{day}/{userId}")
+    @GetMapping("/all/day/{day}/user/{userId}")
     public SmokingDto smokingGetByDate(@PathVariable Long day, @PathVariable Long userId) {
         try {
             return smokingService.getSmokingByDate(day, userId);
@@ -89,13 +92,23 @@ public class SmokingController {
 
     }
 
-    @GetMapping("/this-month/{userId}")
+    @GetMapping("/all/this-month/user/{userId}")
     public SmokingDto smokingGetByDateMonth(@PathVariable Long userId) {
-        try{
+        try {
             return smokingService.getSmokingByMonth((userId));
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public int smokingDeleteById(@PathVariable Long id) {
+        try {
+            return smokingService.deleteSmokingById(id);
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return -1;
         }
     }
 }
