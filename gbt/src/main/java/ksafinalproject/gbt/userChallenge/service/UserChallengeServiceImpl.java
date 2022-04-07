@@ -26,6 +26,9 @@ public class UserChallengeServiceImpl implements UserChallengeService {
     public int saveUserChallenge(IUserChallenge iUserChallenge) {
         log.info("save user challenge : {}", iUserChallenge);
         try {
+            if (userChallengeRepository.existsByUserIdAndChallengeId(iUserChallenge.getUserId(), iUserChallenge.getChallengeId())) {
+                return 3;
+            }
             userChallengeRepository.save(UserChallenge.builder()
                     .id(iUserChallenge.getId())
                     .user(userRepository.findById(iUserChallenge.getUserId()).orElseThrow())
@@ -57,6 +60,17 @@ public class UserChallengeServiceImpl implements UserChallengeService {
         log.info("find user challenge by id : {}", id);
         try {
             return userChallengeRepository.findById(id);
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return Optional.empty();
+        }
+    }
+
+    @Override
+    public Optional<UserChallenge> getUserChallengeByUserIdAndChallengeId(Long userId, Long challengeId) {
+        log.info("find user challenge by user id : {} , challenge id : {}", userId, challengeId);
+        try {
+            return userChallengeRepository.findByUserIdAndChallengeId(userId, challengeId);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return Optional.empty();

@@ -14,6 +14,8 @@ public interface UserChallengeService {
 
     Optional<UserChallenge> getUserChallengeById(Long id);
 
+    Optional<UserChallenge> getUserChallengeByUserIdAndChallengeId(Long userId, Long challengeId);
+
     List<UserChallenge> getAllUserChallenge();
 
     int deleteUserChallengeById(Long id);

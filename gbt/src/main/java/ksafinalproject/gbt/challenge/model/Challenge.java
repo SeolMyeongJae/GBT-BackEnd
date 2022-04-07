@@ -2,6 +2,7 @@ package ksafinalproject.gbt.challenge.model;
 
 import javax.validation.constraints.NotNull;
 
+import ksafinalproject.gbt.challengeImg.model.ChallengeImg;
 import lombok.*;
 
 import javax.persistence.*;

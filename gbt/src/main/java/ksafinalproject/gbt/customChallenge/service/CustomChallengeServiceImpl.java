@@ -3,6 +3,7 @@ package ksafinalproject.gbt.customChallenge.service;
 import ksafinalproject.gbt.customChallenge.dto.ICustomChallenge;
 import ksafinalproject.gbt.customChallenge.model.CustomChallenge;
 import ksafinalproject.gbt.customChallenge.repository.CustomChallengeRepository;
+import ksafinalproject.gbt.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import java.util.Optional;
 public class CustomChallengeServiceImpl implements CustomChallengeService {
 
     private final CustomChallengeRepository customChallengeRepository;
+    private final UserRepository userRepository;
 
     @Override
     public int saveCustomChallenge(ICustomChallenge iCustomChallenge) {
@@ -30,7 +32,7 @@ public class CustomChallengeServiceImpl implements CustomChallengeService {
             LocalDateTime endDate = LocalDateTime.parse(iCustomChallenge.getEndDate(), formatter);
             customChallengeRepository.save(CustomChallenge.builder()
                     .id(iCustomChallenge.getId())
-                    .creatorId(iCustomChallenge.getCreatorId())
+                    .creator(userRepository.findById(iCustomChallenge.getCreatorId()).orElseThrow())
                     .startDate(startDate)
                     .endDate(endDate)
                     .method(iCustomChallenge.getMethod())
