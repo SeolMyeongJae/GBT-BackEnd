@@ -1,5 +1,6 @@
 package ksafinalproject.gbt.comment.service;
 
+import ksafinalproject.gbt.comment.dto.IComment;
 import ksafinalproject.gbt.comment.model.Comment;
 
 import java.util.List;
@@ -7,9 +8,9 @@ import java.util.Optional;
 
 public interface CommentService {
 
-    int saveComment(Comment comment);
+    int saveComment(IComment iComment);
 
-    int updateComment(Comment comment, Long id);
+    int updateComment(IComment iComment, Long id);
 
     Optional<Comment> getCommentById(Long id);
 

@@ -1,6 +1,7 @@
 package ksafinalproject.gbt.challengeImg.controller;
 
 import io.swagger.annotations.Api;
+import ksafinalproject.gbt.challengeImg.dto.IChallengeImg;
 import ksafinalproject.gbt.challengeImg.model.ChallengeImg;
 import ksafinalproject.gbt.challengeImg.service.ChallengeImgService;
 import lombok.RequiredArgsConstructor;
@@ -21,9 +22,9 @@ public class ChallengeImgController {
     private final ChallengeImgService challengeImgService;
 
     @PostMapping("")
-    public int challengeImgSave(@RequestBody ChallengeImg challengeImg) {
+    public int challengeImgSave(@RequestBody IChallengeImg iChallengeImg) {
         try {
-            return challengeImgService.saveChallengeImg(challengeImg);
+            return challengeImgService.saveChallengeImg(iChallengeImg);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1;
@@ -31,9 +32,9 @@ public class ChallengeImgController {
     }
 
     @PutMapping("/{id}")
-    public int challengeImgUpdate(@RequestBody ChallengeImg challengeImg, @PathVariable Long id) {
+    public int challengeImgUpdate(@RequestBody IChallengeImg iChallengeImg, @PathVariable Long id) {
         try {
-            return challengeImgService.updateChallengeImg(challengeImg, id);
+            return challengeImgService.updateChallengeImg(iChallengeImg, id);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1;

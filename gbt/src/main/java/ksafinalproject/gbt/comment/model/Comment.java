@@ -1,5 +1,6 @@
 package ksafinalproject.gbt.comment.model;
 
+import ksafinalproject.gbt.post.model.Post;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,17 +25,18 @@ public class Comment {
     @NotNull
     private LocalDateTime created;
     private LocalDateTime updated;
+    @ManyToOne
+    @JoinColumn(name = "post_id")
     @NotNull
-    private Long postId;
+    private Post post;
 
     @Builder
-
-    public Comment(Long id, String comment, String author, LocalDateTime created, LocalDateTime updated, Long postId) {
+    public Comment(Long id, String comment, String author, LocalDateTime created, LocalDateTime updated, Post post) {
         this.id = id;
         this.comment = comment;
         this.author = author;
         this.created = created;
         this.updated = updated;
-        this.postId = postId;
+        this.post = post;
     }
 }

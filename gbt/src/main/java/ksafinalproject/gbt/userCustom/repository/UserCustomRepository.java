@@ -9,4 +9,6 @@ public interface UserCustomRepository extends JpaRepository<UserCustom, Long> {
     List<UserCustom> findAllByUserId(Long userId);
 
     List<UserCustom> findAllByCustomChallengeId(Long customChallengeId);
+
+    Long countByCustomChallengeId(Long customChallengeId);
 }

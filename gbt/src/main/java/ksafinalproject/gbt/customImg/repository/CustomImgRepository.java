@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface CustomImgRepository extends JpaRepository<CustomImg, Long> {
-    List<CustomImg> findAllByCustomId(Long customId);
+    List<CustomImg> findAllByCustomChallengeId(Long customChallengeId);
 }

@@ -1,6 +1,7 @@
 package ksafinalproject.gbt.invite.controller;
 
 import io.swagger.annotations.Api;
+import ksafinalproject.gbt.invite.dto.IInvite;
 import ksafinalproject.gbt.invite.model.Invite;
 import ksafinalproject.gbt.invite.service.InviteService;
 import lombok.RequiredArgsConstructor;
@@ -20,9 +21,9 @@ public class InviteController {
     private final InviteService inviteService;
 
     @PostMapping("")
-    public int inviteSave(@RequestBody Invite invite) {
+    public int inviteSave(@RequestBody IInvite iInvite) {
         try {
-            return inviteService.saveInvite(invite);
+            return inviteService.saveInvite(iInvite);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1;
@@ -30,9 +31,9 @@ public class InviteController {
     }
 
     @PutMapping("/{id}")
-    public int inviteUpdate(@RequestBody Invite invite, @PathVariable Long id) {
+    public int inviteUpdate(@RequestBody IInvite iInvite, @PathVariable Long id) {
         try {
-            return inviteService.updateInvite(invite, id);
+            return inviteService.updateInvite(iInvite, id);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1;
@@ -69,10 +70,10 @@ public class InviteController {
         }
     }
 
-    @GetMapping("/all/caller/{callerId}")
-    public List<Invite> inviteGetAllByCallerId(@PathVariable Long callerId) {
+    @GetMapping("/all/call-user/{callUserId}")
+    public List<Invite> inviteGetAllByCallUserId(@PathVariable Long callUserId) {
         try {
-            return inviteService.getAllInviteByCallerId(callerId);
+            return inviteService.getAllInviteByCallUserId(callUserId);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;

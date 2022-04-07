@@ -1,5 +1,7 @@
 package ksafinalproject.gbt.invite.model;
 
+import ksafinalproject.gbt.customChallenge.model.CustomChallenge;
+import ksafinalproject.gbt.user.model.User;
 import lombok.*;
 
 import javax.persistence.*;
@@ -23,21 +25,27 @@ public class Invite {
     private String caller;
     @NotNull
     private LocalDate date;
+    @ManyToOne
+    @JoinColumn(name = "call_user_id")
     @NotNull
-    private Long callerId;
+    private User callUser;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     @NotNull
-    private Long userId;
+    private User user;
+    @ManyToOne
+    @JoinColumn(name = "custom_challenge_id")
     @NotNull
-    private Long customChallengeId;
+    private CustomChallenge customChallenge;
 
     @Builder
-    public Invite(Long id, String title, String caller, LocalDate date, Long callerId, Long userId, Long customChallengeId) {
+    public Invite(Long id, String title, String caller, LocalDate date, User callUser, User user, CustomChallenge customChallenge) {
         this.id = id;
         this.title = title;
         this.caller = caller;
         this.date = date;
-        this.callerId = callerId;
-        this.userId = userId;
-        this.customChallengeId = customChallengeId;
+        this.callUser = callUser;
+        this.user = user;
+        this.customChallenge = customChallenge;
     }
 }

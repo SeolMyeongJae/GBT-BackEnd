@@ -1,5 +1,7 @@
 package ksafinalproject.gbt.customImg.service;
 
+import ksafinalproject.gbt.customChallenge.repository.CustomChallengeRepository;
+import ksafinalproject.gbt.customImg.dto.ICustomImg;
 import ksafinalproject.gbt.customImg.model.CustomImg;
 import ksafinalproject.gbt.customImg.repository.CustomImgRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,12 +19,17 @@ import java.util.Optional;
 public class CustomImgServiceImpl implements CustomImgService {
 
     private final CustomImgRepository customImgRepository;
+    private final CustomChallengeRepository customChallengeRepository;
 
     @Override
-    public int saveCustomImg(CustomImg customImg) {
-        log.info("save custom img : {}", customImg);
+    public int saveCustomImg(ICustomImg iCustomImg) {
+        log.info("save custom img : {}", iCustomImg);
         try {
-            customImgRepository.save(customImg);
+            customImgRepository.save(CustomImg.builder()
+                    .id(iCustomImg.getId())
+                    .url(iCustomImg.getUrl())
+                    .customChallenge(customChallengeRepository.findById(iCustomImg.getId()).orElseThrow())
+                    .build());
             return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
@@ -32,11 +39,11 @@ public class CustomImgServiceImpl implements CustomImgService {
 
     @Transactional
     @Override
-    public int updateCustomImg(CustomImg customImg, Long id) {
-        log.info("update custom img : {}", customImg);
+    public int updateCustomImg(ICustomImg iCustomImg, Long id) {
+        log.info("update custom img : {}", iCustomImg);
         try {
             CustomImg customImg2 = customImgRepository.findById(id).orElseThrow();
-            customImg2.setUrl(customImg.getUrl());
+            customImg2.setUrl(iCustomImg.getUrl());
             return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
@@ -67,10 +74,10 @@ public class CustomImgServiceImpl implements CustomImgService {
     }
 
     @Override
-    public List<CustomImg> getAllCustomImgByCustomId(Long customId) {
-        log.info("find all custom img by custom id");
+    public List<CustomImg> getAllCustomImgByCustomChallengeId(Long customChallengeId) {
+        log.info("find all custom img by custom challenge id");
         try {
-            return customImgRepository.findAllByCustomId(customId);
+            return customImgRepository.findAllByCustomChallengeId(customChallengeId);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;
