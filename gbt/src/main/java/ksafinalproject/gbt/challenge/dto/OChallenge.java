@@ -1,9 +1,11 @@
 package ksafinalproject.gbt.challenge.dto;
 
 import ksafinalproject.gbt.challenge.model.Challenge;
+import ksafinalproject.gbt.challengeImg.model.ChallengeImg;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter

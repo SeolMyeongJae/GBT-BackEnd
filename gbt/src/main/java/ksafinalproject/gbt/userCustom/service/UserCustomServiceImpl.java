@@ -26,6 +26,9 @@ public class UserCustomServiceImpl implements UserCustomService {
     public int saveUserCustom(IUserCustom iUserCustom) {
         log.info("save user custom : {}", iUserCustom);
         try {
+            if (userCustomRepository.existsByUserIdAndCustomChallengeId(iUserCustom.getUserId(), iUserCustom.getCustomChallengeId())) {
+                return 3;
+            }
             userCustomRepository.save(UserCustom.builder()
                     .id(iUserCustom.getId())
                     .user(userRepository.findById(iUserCustom.getUserId()).orElseThrow())

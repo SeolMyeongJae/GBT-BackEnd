@@ -51,6 +51,16 @@ public class UserChallengeController {
         }
     }
 
+    @GetMapping("/user/{userId}/challenge/{challengeId}")
+    public Optional<UserChallenge> userChallengeGetByUserIdAndChallengeId(@PathVariable Long userId, @PathVariable Long challengeId) {
+        try {
+            return userChallengeService.getUserChallengeByUserIdAndChallengeId(userId, challengeId);
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return Optional.empty();
+        }
+    }
+
     @GetMapping("/all")
     public List<UserChallenge> userChallengeGetAll() {
         try {
