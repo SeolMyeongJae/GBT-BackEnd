@@ -2,6 +2,7 @@ package ksafinalproject.gbt.challenge.controller;
 
 import io.swagger.annotations.Api;
 import ksafinalproject.gbt.challenge.dto.IChallenge;
+import ksafinalproject.gbt.challenge.dto.OChallenge;
 import ksafinalproject.gbt.challenge.model.Challenge;
 import ksafinalproject.gbt.challenge.service.ChallengeService;
 import lombok.RequiredArgsConstructor;
@@ -41,7 +42,7 @@ public class ChallengeController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Challenge> challengeGetById(@PathVariable Long id) {
+    public Optional<OChallenge> challengeGetById(@PathVariable Long id) {
         try {
             return challengeService.getChallengeById(id);
         } catch (Exception e) {
@@ -51,7 +52,7 @@ public class ChallengeController {
     }
 
     @GetMapping("/all")
-    public List<Challenge> challengeGetAll() {
+    public List<OChallenge> challengeGetAll() {
         try {
             return challengeService.getAllChallenge();
         } catch (Exception e) {

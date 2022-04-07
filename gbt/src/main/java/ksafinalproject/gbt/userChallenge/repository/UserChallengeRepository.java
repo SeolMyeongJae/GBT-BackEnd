@@ -9,4 +9,6 @@ public interface UserChallengeRepository extends JpaRepository<UserChallenge, Lo
     List<UserChallenge> findAllByUserId(Long userId);
 
     List<UserChallenge> findAllByChallengeId(Long challengeId);
+
+    Long countByChallengeId(Long challengeId);
 }
