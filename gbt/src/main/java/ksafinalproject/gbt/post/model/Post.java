@@ -1,5 +1,6 @@
 package ksafinalproject.gbt.post.model;
 
+import ksafinalproject.gbt.user.model.User;
 import lombok.*;
 
 import javax.persistence.*;
@@ -31,12 +32,13 @@ public class Post {
     @NotNull
     private LocalDateTime created;
     private LocalDateTime updated;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     @NotNull
-    private Long userId;
+    private User user;
 
     @Builder
-
-    public Post(Long id, String title, String content, String author, String img, String category, LocalDateTime created, LocalDateTime updated, Long userId) {
+    public Post(Long id, String title, String content, String author, String img, String category, LocalDateTime created, LocalDateTime updated, User user) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -45,6 +47,6 @@ public class Post {
         this.category = category;
         this.created = created;
         this.updated = updated;
-        this.userId = userId;
+        this.user = user;
     }
 }

@@ -1,7 +1,10 @@
 package ksafinalproject.gbt.likes.service;
 
+import ksafinalproject.gbt.likes.dto.ILikes;
 import ksafinalproject.gbt.likes.model.Likes;
 import ksafinalproject.gbt.likes.repository.LikesRepository;
+import ksafinalproject.gbt.post.repository.PostRepository;
+import ksafinalproject.gbt.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -15,17 +18,23 @@ import java.util.Optional;
 public class LikesServiceImpl implements LikesService {
 
     private final LikesRepository likeRepository;
+    private final PostRepository postRepository;
+    private final UserRepository userRepository;
 
     @Override
-    public int saveLike(Likes like) {
-        log.info("save like : {}", like);
+    public int saveLike(ILikes iLike) {
+        log.info("save like : {}", iLike);
         try {
-            Optional<Likes> like2 = likeRepository.findByPostIdAndUserId(like.getPostId(), like.getUserId());
-            if(like2.isPresent()) {
+            Optional<Likes> like2 = likeRepository.findByPostIdAndUserId(iLike.getPostId(), iLike.getUserId());
+            if (like2.isPresent()) {
                 likeRepository.deleteById(like2.get().getId());
                 return 2;
             }
-            likeRepository.save(like);
+            likeRepository.save(Likes.builder()
+                    .id(iLike.getId())
+                    .post(postRepository.findById(iLike.getPostId()).orElseThrow())
+                    .user(userRepository.findById(iLike.getUserId()).orElseThrow())
+                    .build());
             return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());

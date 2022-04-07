@@ -1,9 +1,7 @@
 package ksafinalproject.gbt.postImg.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import ksafinalproject.gbt.post.model.Post;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -20,6 +18,15 @@ public class PostImg {
     @NotNull
     @Column(length = 255)
     private String url;
+    @ManyToOne
+    @JoinColumn(name = "post_id")
     @NotNull
-    private Long postId;
+    private Post post;
+
+    @Builder
+    public PostImg(Long id, String url, Post post) {
+        this.id = id;
+        this.url = url;
+        this.post = post;
+    }
 }

@@ -1,6 +1,7 @@
 package ksafinalproject.gbt.likes.controller;
 
 import io.swagger.annotations.Api;
+import ksafinalproject.gbt.likes.dto.ILikes;
 import ksafinalproject.gbt.likes.model.Likes;
 import ksafinalproject.gbt.likes.service.LikesService;
 import lombok.RequiredArgsConstructor;
@@ -21,9 +22,9 @@ public class LikesController {
     private final LikesService likeService;
 
     @PostMapping("")
-    public int likeSave(@RequestBody Likes like) {
+    public int likeSave(@RequestBody ILikes iLike) {
         try {
-            return likeService.saveLike(like);
+            return likeService.saveLike(iLike);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1;

@@ -1,5 +1,6 @@
 package ksafinalproject.gbt.likes.service;
 
+import ksafinalproject.gbt.likes.dto.ILikes;
 import ksafinalproject.gbt.likes.model.Likes;
 
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.Optional;
 
 public interface LikesService {
 
-    int saveLike(Likes like);
+    int saveLike(ILikes iLike);
 
     Optional<Likes> getLikeById(Long id);
 

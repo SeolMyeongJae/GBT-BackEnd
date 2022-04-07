@@ -1,14 +1,10 @@
 package ksafinalproject.gbt.likes.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import ksafinalproject.gbt.post.model.Post;
+import ksafinalproject.gbt.user.model.User;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Getter
@@ -20,8 +16,19 @@ public class Likes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @ManyToOne
+    @JoinColumn(name = "post_id")
     @NotNull
-    private Long postId;
+    private Post post;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     @NotNull
-    private Long userId;
+    private User user;
+
+    @Builder
+    public Likes(Long id, Post post, User user) {
+        this.id = id;
+        this.post = post;
+        this.user = user;
+    }
 }

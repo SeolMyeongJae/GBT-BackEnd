@@ -1,6 +1,7 @@
 package ksafinalproject.gbt.postImg.controller;
 
 import io.swagger.annotations.Api;
+import ksafinalproject.gbt.postImg.dto.IPostImg;
 import ksafinalproject.gbt.postImg.model.PostImg;
 import ksafinalproject.gbt.postImg.service.PostImgService;
 import lombok.RequiredArgsConstructor;
@@ -21,9 +22,9 @@ public class PostImgController {
     private final PostImgService postImgService;
 
     @PostMapping("")
-    public int postImgSave(@RequestBody PostImg postImg) {
+    public int postImgSave(@RequestBody IPostImg iPostImg) {
         try {
-            return postImgService.savePostImg(postImg);
+            return postImgService.savePostImg(iPostImg);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1;
@@ -31,9 +32,9 @@ public class PostImgController {
     }
 
     @PutMapping("/{id}")
-    public int postImgUpdate(@RequestBody PostImg postImg, @PathVariable Long id) {
+    public int postImgUpdate(@RequestBody IPostImg iPostImg, @PathVariable Long id) {
         try {
-            return postImgService.updatePostImg(postImg, id);
+            return postImgService.updatePostImg(iPostImg, id);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1;
