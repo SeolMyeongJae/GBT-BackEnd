@@ -28,7 +28,7 @@ public class CustomImgServiceImpl implements CustomImgService {
             customImgRepository.save(CustomImg.builder()
                     .id(iCustomImg.getId())
                     .url(iCustomImg.getUrl())
-                    .customChallenge(customChallengeRepository.findById(iCustomImg.getId()).orElseThrow())
+                    .customChallenge(customChallengeRepository.findById(iCustomImg.getCustomChallengeId()).orElseThrow())
                     .build());
             return 1;
         } catch (Exception e) {
