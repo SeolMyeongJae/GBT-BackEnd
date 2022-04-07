@@ -28,7 +28,7 @@ public class ChallengeImgServiceImpl implements ChallengeImgService {
             challengeImgRepository.save(ChallengeImg.builder()
                     .id(iChallengeImg.getId())
                     .url(iChallengeImg.getUrl())
-                    .challenge(challengeRepository.findById(iChallengeImg.getId()).orElseThrow())
+                    .challenge(challengeRepository.findById(iChallengeImg.getChallengeId()).orElseThrow())
                     .build());
             return 1;
         } catch (Exception e) {
