@@ -13,5 +13,5 @@ public class ICustomImg {
 
     private Long id;
     private String url;
-    private Long customId;
+    private Long customChallengeId;
 }
