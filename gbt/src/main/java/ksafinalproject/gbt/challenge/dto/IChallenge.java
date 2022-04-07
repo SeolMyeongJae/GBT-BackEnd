@@ -15,6 +15,7 @@ public class IChallenge {
     private String method;
     private Long frequency;
     private String description;
+    private String summary;
     private Long max;
     private String img;
 }

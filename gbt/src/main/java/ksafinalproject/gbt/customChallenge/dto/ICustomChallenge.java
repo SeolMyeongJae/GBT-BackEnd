@@ -19,6 +19,7 @@ public class ICustomChallenge {
     private String method;
     private Long frequency;
     private String description;
+    private String summary;
     private Long max;
     private String img;
 }

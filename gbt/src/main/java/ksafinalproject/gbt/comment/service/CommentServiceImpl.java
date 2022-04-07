@@ -1,7 +1,9 @@
 package ksafinalproject.gbt.comment.service;
 
+import ksafinalproject.gbt.comment.dto.IComment;
 import ksafinalproject.gbt.comment.model.Comment;
 import ksafinalproject.gbt.comment.repository.CommentRepository;
+import ksafinalproject.gbt.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
@@ -18,17 +20,18 @@ import java.util.Optional;
 public class CommentServiceImpl implements CommentService {
 
     private final CommentRepository commentRepository;
+    private final PostRepository postRepository;
 
     @Override
-    public int saveComment(Comment comment) {
-        log.info("save comment : {}", comment);
+    public int saveComment(IComment iComment) {
+        log.info("save comment : {}", iComment);
         try {
             commentRepository.save(Comment.builder()
-                    .id(comment.getId())
-                    .comment(comment.getComment())
-                    .author(comment.getAuthor())
+                    .id(iComment.getId())
+                    .comment(iComment.getComment())
+                    .author(iComment.getAuthor())
                     .created(LocalDateTime.now())
-                    .postId(comment.getPostId())
+                    .post(postRepository.findById(iComment.getPostId()).orElseThrow())
                     .build());
             return 1;
         } catch (Exception e) {
@@ -39,12 +42,12 @@ public class CommentServiceImpl implements CommentService {
 
     @Transactional
     @Override
-    public int updateComment(Comment comment, Long id) {
-        log.info("update comment : {}, id : {}", comment, id);
+    public int updateComment(IComment iComment, Long id) {
+        log.info("update comment : {}, id : {}", iComment, id);
         try {
             Comment comment2 = commentRepository.findById(id).orElseThrow();
-            comment2.setComment(comment.getComment());
-            comment2.setAuthor(comment.getAuthor());
+            comment2.setComment(iComment.getComment());
+            comment2.setAuthor(iComment.getAuthor());
             comment2.setUpdated(LocalDateTime.now());
             return 1;
         } catch (Exception e) {

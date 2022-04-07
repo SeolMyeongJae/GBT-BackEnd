@@ -1,8 +1,10 @@
 package ksafinalproject.gbt.smoking.service;
 
+import ksafinalproject.gbt.smoking.dto.ISmoking;
 import ksafinalproject.gbt.smoking.dto.SmokingDto;
 import ksafinalproject.gbt.smoking.model.Smoking;
 import ksafinalproject.gbt.smoking.repository.SmokingRepository;
+import ksafinalproject.gbt.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,12 +22,13 @@ import java.util.Optional;
 public class SmokingServiceImpl implements SmokingService {
 
     private final SmokingRepository smokingRepository;
+    private final UserRepository userRepository;
 
     @Override
     @Transactional
-    public int saveSmoking(Smoking smoking) {
-        log.info("save smoking : {} ", smoking);
-        List<Smoking> smokingList = smokingRepository.findAllByUserId(smoking.getUserId());
+    public int saveSmoking(ISmoking iSmoking) {
+        log.info("save smoking : {} ", iSmoking);
+        List<Smoking> smokingList = smokingRepository.findAllByUserId(iSmoking.getUserId());
         LocalDate now = LocalDate.now();
         try {
             for (int i = 0; i < smokingList.size(); i++) {
@@ -36,11 +39,11 @@ public class SmokingServiceImpl implements SmokingService {
             }
             smokingRepository.save(
                     Smoking.builder()
-                            .id(smoking.getId())
+                            .id(iSmoking.getId())
                             .count(1L)
                             .date(LocalDate.now())
-                            .userId(smoking.getUserId())
-                            .provider(smoking.getProvider())
+                            .user(userRepository.findById(iSmoking.getUserId()).orElseThrow())
+                            .provider(iSmoking.getProvider())
                             .build());
             return 1;
         } catch (Exception e) {
@@ -51,11 +54,11 @@ public class SmokingServiceImpl implements SmokingService {
 
     @Transactional
     @Override
-    public int updateSmoking(Smoking smoking, Long id) {
-        log.info("update smoking : {}, id : {}", smoking, id);
+    public int updateSmoking(ISmoking iSmoking, Long id) {
+        log.info("update smoking : {}, id : {}", iSmoking, id);
         try {
             Smoking smoking2 = smokingRepository.findById(id).orElseThrow();
-            smoking2.setCount(smoking.getCount());
+            smoking2.setCount(iSmoking.getCount());
             return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());

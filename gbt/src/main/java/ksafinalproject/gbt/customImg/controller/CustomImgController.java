@@ -2,6 +2,7 @@ package ksafinalproject.gbt.customImg.controller;
 
 
 import io.swagger.annotations.Api;
+import ksafinalproject.gbt.customImg.dto.ICustomImg;
 import ksafinalproject.gbt.customImg.model.CustomImg;
 import ksafinalproject.gbt.customImg.service.CustomImgService;
 import lombok.RequiredArgsConstructor;
@@ -22,9 +23,9 @@ public class CustomImgController {
     private final CustomImgService customImgService;
 
     @PostMapping("")
-    public int customImgSave(@RequestBody CustomImg customImg) {
+    public int customImgSave(@RequestBody ICustomImg iCustomImg) {
         try {
-            return customImgService.saveCustomImg(customImg);
+            return customImgService.saveCustomImg(iCustomImg);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1;
@@ -32,9 +33,9 @@ public class CustomImgController {
     }
 
     @PutMapping("/{id}")
-    public int customImgUpdate(@RequestBody CustomImg customImg, @PathVariable Long id) {
+    public int customImgUpdate(@RequestBody ICustomImg iCustomImg, @PathVariable Long id) {
         try {
-            return customImgService.updateCustomImg(customImg, id);
+            return customImgService.updateCustomImg(iCustomImg, id);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1;
@@ -61,10 +62,10 @@ public class CustomImgController {
         }
     }
 
-    @GetMapping("/all/custom/{customId}")
-    public List<CustomImg> customImgGetAllByCustomId(@PathVariable Long customId) {
+    @GetMapping("/all/custom-challenge/{customChallengeId}")
+    public List<CustomImg> customImgGetAllByCustomChallengeId(@PathVariable Long customChallengeId) {
         try {
-            return customImgService.getAllCustomImgByCustomId(customId);
+            return customImgService.getAllCustomImgByCustomChallengeId(customChallengeId);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;

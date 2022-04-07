@@ -1,11 +1,10 @@
 package ksafinalproject.gbt.proof.model;
 
+import ksafinalproject.gbt.challenge.model.Challenge;
+import ksafinalproject.gbt.user.model.User;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
@@ -22,17 +21,21 @@ public class Proof {
     private String content;
     @NotNull
     private LocalDateTime date;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     @NotNull
-    private Long userId;
+    private User user;
+    @ManyToOne
+    @JoinColumn(name = "challenge_id")
     @NotNull
-    private Long challengeId;
+    private Challenge challenge;
 
     @Builder
-    public Proof(Long id, String content, LocalDateTime date, Long userId, Long challengeId) {
+    public Proof(Long id, String content, LocalDateTime date, User user, Challenge challenge) {
         this.id = id;
         this.content = content;
         this.date = date;
-        this.userId = userId;
-        this.challengeId = challengeId;
+        this.user = user;
+        this.challenge = challenge;
     }
 }

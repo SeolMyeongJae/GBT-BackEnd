@@ -1,9 +1,8 @@
 package ksafinalproject.gbt.userChallenge.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import ksafinalproject.gbt.challenge.model.Challenge;
+import ksafinalproject.gbt.user.model.User;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -17,8 +16,19 @@ public class UserChallenge {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     @NotNull
-    private Long userId;
+    private User user;
+    @ManyToOne
+    @JoinColumn(name = "challenge_id")
     @NotNull
-    private Long challengeId;
+    private Challenge challenge;
+
+    @Builder
+    public UserChallenge(Long id, User user, Challenge challenge) {
+        this.id = id;
+        this.user = user;
+        this.challenge = challenge;
+    }
 }

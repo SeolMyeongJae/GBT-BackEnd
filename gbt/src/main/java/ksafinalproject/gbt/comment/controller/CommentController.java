@@ -1,6 +1,7 @@
 package ksafinalproject.gbt.comment.controller;
 
 import io.swagger.annotations.Api;
+import ksafinalproject.gbt.comment.dto.IComment;
 import ksafinalproject.gbt.comment.model.Comment;
 import ksafinalproject.gbt.comment.service.CommentService;
 import lombok.RequiredArgsConstructor;
@@ -21,9 +22,9 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping("")
-    public int commentSave(@RequestBody Comment comment) {
+    public int commentSave(@RequestBody IComment iComment) {
         try {
-            return commentService.saveComment(comment);
+            return commentService.saveComment(iComment);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1;
@@ -31,9 +32,9 @@ public class CommentController {
     }
 
     @PutMapping("/{id}")
-    public int commentUpdate(@RequestBody Comment comment,@PathVariable Long id) {
+    public int commentUpdate(@RequestBody IComment iComment, @PathVariable Long id) {
         try {
-            return commentService.updateComment(comment, id);
+            return commentService.updateComment(iComment, id);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1;

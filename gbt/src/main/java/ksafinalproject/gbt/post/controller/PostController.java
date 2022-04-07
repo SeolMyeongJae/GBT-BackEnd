@@ -1,6 +1,7 @@
 package ksafinalproject.gbt.post.controller;
 
 import io.swagger.annotations.Api;
+import ksafinalproject.gbt.post.dto.IPost;
 import ksafinalproject.gbt.post.model.Post;
 import ksafinalproject.gbt.post.service.PostService;
 import lombok.RequiredArgsConstructor;
@@ -21,9 +22,9 @@ public class PostController {
     private final PostService postService;
 
     @PostMapping("")
-    public int postSave(@RequestBody Post post) {
+    public int postSave(@RequestBody IPost iPost) {
         try {
-            return postService.savePost(post);
+            return postService.savePost(iPost);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1;
@@ -31,9 +32,9 @@ public class PostController {
     }
 
     @PutMapping("/{id}")
-    public int postUpdate(@RequestBody Post post, @PathVariable Long id) {
+    public int postUpdate(@RequestBody IPost iPost, @PathVariable Long id) {
         try {
-            return postService.updatePost(post, id);
+            return postService.updatePost(iPost, id);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1;

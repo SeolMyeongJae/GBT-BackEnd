@@ -1,7 +1,10 @@
 package ksafinalproject.gbt.chat.service;
 
+import ksafinalproject.gbt.chat.dto.IChat;
 import ksafinalproject.gbt.chat.model.Chat;
 import ksafinalproject.gbt.chat.repository.ChatRepository;
+import ksafinalproject.gbt.customChallenge.repository.CustomChallengeRepository;
+import ksafinalproject.gbt.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,17 +21,19 @@ import java.util.Optional;
 public class ChatServiceImpl implements ChatService {
 
     private final ChatRepository chatRepository;
+    private final UserRepository userRepository;
+    private final CustomChallengeRepository customChallengeRepository;
 
     @Override
-    public int saveChat(Chat chat) {
-        log.info("save chat : {}", chat);
+    public int saveChat(IChat iChat) {
+        log.info("save chat : {}", iChat);
         try {
             chatRepository.save(Chat.builder()
-                    .id(chat.getId())
-                    .message(chat.getMessage())
+                    .id(iChat.getId())
+                    .message(iChat.getMessage())
                     .created(LocalDateTime.now())
-                    .userId(chat.getUserId())
-                    .customId(chat.getCustomId())
+                    .user(userRepository.findById(iChat.getUserId()).orElseThrow())
+                    .customChallenge(customChallengeRepository.findById(iChat.getCustomChallengeId()).orElseThrow())
                     .build());
             return 1;
         } catch (Exception e) {
@@ -39,12 +44,12 @@ public class ChatServiceImpl implements ChatService {
 
     @Transactional
     @Override
-    public int updateChat(Chat chat, Long id) {
-        log.info("update chat : {}, id : {}", chat, id);
+    public int updateChat(IChat iChat, Long id) {
+        log.info("update chat : {}, id : {}", iChat, id);
         try {
             Chat chat2 = chatRepository.findById(id).orElseThrow();
-            chat2.setUserId(chat.getUserId());
-            chat2.setMessage(chat.getMessage());
+            chat2.setUser(userRepository.findById(iChat.getUserId()).orElseThrow());
+            chat2.setMessage(iChat.getMessage());
             return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
@@ -98,10 +103,10 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
-    public List<Chat> getAllChatByCustomId(Long customId) {
-        log.info("find all chat by custom id : {}", customId);
+    public List<Chat> getAllChatByCustomChallengeId(Long customChallengeId) {
+        log.info("find all chat by custom id : {}", customChallengeId);
         try {
-            return chatRepository.findAllByCustomId(customId);
+            return chatRepository.findAllByCustomChallengeId(customChallengeId);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;

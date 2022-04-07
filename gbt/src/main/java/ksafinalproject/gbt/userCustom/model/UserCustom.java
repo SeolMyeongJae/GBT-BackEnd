@@ -1,14 +1,10 @@
 package ksafinalproject.gbt.userCustom.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import ksafinalproject.gbt.customChallenge.model.CustomChallenge;
+import ksafinalproject.gbt.user.model.User;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Getter
@@ -20,8 +16,19 @@ public class UserCustom {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     @NotNull
-    private Long userId;
+    private User user;
+    @ManyToOne
+    @JoinColumn(name = "custom_challenge_id")
     @NotNull
-    private Long customId;
+    private CustomChallenge customChallenge;
+
+    @Builder
+    public UserCustom(Long id, User user, CustomChallenge customChallenge) {
+        this.id = id;
+        this.user = user;
+        this.customChallenge = customChallenge;
+    }
 }

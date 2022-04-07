@@ -1,6 +1,5 @@
 package ksafinalproject.gbt.smoking.dto;
 
-
 import ksafinalproject.gbt.smoking.model.Smoking;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

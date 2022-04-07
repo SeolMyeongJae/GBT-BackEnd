@@ -1,6 +1,7 @@
 package ksafinalproject.gbt.proof.controller;
 
 import io.swagger.annotations.Api;
+import ksafinalproject.gbt.proof.dto.IProof;
 import ksafinalproject.gbt.proof.model.Proof;
 import ksafinalproject.gbt.proof.service.ProofService;
 import lombok.RequiredArgsConstructor;
@@ -21,9 +22,9 @@ public class ProofController {
     private final ProofService proofService;
 
     @PostMapping("")
-    public int proofSave(@RequestBody Proof proof) {
+    public int proofSave(@RequestBody IProof iProof) {
         try {
-            return proofService.saveProof(proof);
+            return proofService.saveProof(iProof);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1;
@@ -31,9 +32,9 @@ public class ProofController {
     }
 
     @PutMapping("/{id}")
-    public int proofUpdate(@RequestBody Proof proof, @PathVariable Long id) {
+    public int proofUpdate(@RequestBody IProof iProof, @PathVariable Long id) {
         try {
-            return proofService.updateProof(proof, id);
+            return proofService.updateProof(iProof, id);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1;

@@ -1,5 +1,6 @@
 package ksafinalproject.gbt.post.service;
 
+import ksafinalproject.gbt.post.dto.IPost;
 import ksafinalproject.gbt.post.model.Post;
 
 import java.util.List;
@@ -7,9 +8,9 @@ import java.util.Optional;
 
 public interface PostService {
 
-    int savePost(Post post);
+    int savePost(IPost iPost);
 
-    int updatePost(Post post, Long id);
+    int updatePost(IPost iPost, Long id);
 
     Optional<Post> getPostById(Long id);
 

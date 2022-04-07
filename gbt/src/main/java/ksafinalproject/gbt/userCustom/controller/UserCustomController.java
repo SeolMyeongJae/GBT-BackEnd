@@ -1,6 +1,7 @@
 package ksafinalproject.gbt.userCustom.controller;
 
 import io.swagger.annotations.Api;
+import ksafinalproject.gbt.userCustom.dto.IUserCustom;
 import ksafinalproject.gbt.userCustom.model.UserCustom;
 import ksafinalproject.gbt.userCustom.service.UserCustomService;
 import lombok.RequiredArgsConstructor;
@@ -21,9 +22,9 @@ public class UserCustomController {
     private final UserCustomService userCustomService;
 
     @PostMapping("")
-    public int userCustomSave(@RequestBody UserCustom userCustom) {
+    public int userCustomSave(@RequestBody IUserCustom iUserCustom) {
         try {
-            return userCustomService.saveUserCustom(userCustom);
+            return userCustomService.saveUserCustom(iUserCustom);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1;
@@ -31,9 +32,9 @@ public class UserCustomController {
     }
 
     @PutMapping("/{id}")
-    public int userCustomUpdate(@RequestBody UserCustom userCustom, @PathVariable Long id) {
+    public int userCustomUpdate(@RequestBody IUserCustom iUserCustom, @PathVariable Long id) {
         try {
-            return userCustomService.updateUserCustom(userCustom, id);
+            return userCustomService.updateUserCustom(iUserCustom, id);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1;
@@ -80,10 +81,10 @@ public class UserCustomController {
         }
     }
 
-    @GetMapping("/all/custom/{customId}")
-    public List<UserCustom> userCustomGetAllByCustomId(@PathVariable Long customId) {
+    @GetMapping("/all/custom-challenge/{customChallengeId}")
+    public List<UserCustom> userCustomGetAllByCustomChallengeId(@PathVariable Long customChallengeId) {
         try {
-            return userCustomService.getAllUserCustomByCustomId(customId);
+            return userCustomService.getAllUserCustomByCustomChallengeId(customChallengeId);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;

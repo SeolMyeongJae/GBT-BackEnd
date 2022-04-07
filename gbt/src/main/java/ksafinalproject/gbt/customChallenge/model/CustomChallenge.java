@@ -30,6 +30,9 @@ public class CustomChallenge {
     private String method;
     private Long frequency;
     @NotNull
+    @Column(length = 50)
+    private String summary;
+    @NotNull
     @Column(length = 255)
     private String description;
     private Long max;
@@ -37,7 +40,7 @@ public class CustomChallenge {
     private String img;
 
     @Builder
-    public CustomChallenge(Long id, Long creatorId, String title, LocalDateTime startDate, LocalDateTime endDate, String method, Long frequency, String description, Long max, String img) {
+    public CustomChallenge(Long id, Long creatorId, String title, LocalDateTime startDate, LocalDateTime endDate, String method, Long frequency, String summary, String description, Long max, String img) {
         this.id = id;
         this.creatorId = creatorId;
         this.title = title;
@@ -45,6 +48,7 @@ public class CustomChallenge {
         this.endDate = endDate;
         this.method = method;
         this.frequency = frequency;
+        this.summary = summary;
         this.description = description;
         this.max = max;
         this.img = img;

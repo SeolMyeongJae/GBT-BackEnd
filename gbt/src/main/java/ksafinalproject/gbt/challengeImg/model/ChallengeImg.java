@@ -1,10 +1,9 @@
 package ksafinalproject.gbt.challengeImg.model;
 
 import javax.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+
+import ksafinalproject.gbt.challenge.model.Challenge;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -21,6 +20,15 @@ public class ChallengeImg {
     @NotNull
     @Column(length = 255)
     private String url;
+    @ManyToOne
+    @JoinColumn(name = "challenge_id")
     @NotNull
-    private Long challengeId;
+    private Challenge challenge;
+
+    @Builder
+    public ChallengeImg(Long id, String url, Challenge challenge) {
+        this.id = id;
+        this.url = url;
+        this.challenge = challenge;
+    }
 }

@@ -1,7 +1,7 @@
 package ksafinalproject.gbt.challenge.service;
 
 import ksafinalproject.gbt.challenge.dto.IChallenge;
-import ksafinalproject.gbt.challenge.model.Challenge;
+import ksafinalproject.gbt.challenge.dto.OChallenge;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,9 +11,11 @@ public interface ChallengeService {
 
     int updateChallenge(IChallenge iChallenge, Long id);
 
-    Optional<Challenge> getChallengeById(Long id);
+    Optional<OChallenge> getChallengeById(Long id);
 
-    List<Challenge> getAllChallenge();
+    List<OChallenge> getAllChallenge();
+
+//    List<Challenge> getAllChallenge();
 
     int deleteChallengeById(Long id);
 
