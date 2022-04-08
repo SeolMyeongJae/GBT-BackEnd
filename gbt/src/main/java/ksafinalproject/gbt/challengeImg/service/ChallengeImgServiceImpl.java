@@ -1,5 +1,7 @@
 package ksafinalproject.gbt.challengeImg.service;
 
+import ksafinalproject.gbt.challenge.repository.ChallengeRepository;
+import ksafinalproject.gbt.challengeImg.dto.IChallengeImg;
 import ksafinalproject.gbt.challengeImg.model.ChallengeImg;
 import ksafinalproject.gbt.challengeImg.repository.ChallengeImgRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,12 +19,17 @@ import java.util.Optional;
 public class ChallengeImgServiceImpl implements ChallengeImgService {
 
     private final ChallengeImgRepository challengeImgRepository;
+    private final ChallengeRepository challengeRepository;
 
     @Override
-    public int saveChallengeImg(ChallengeImg challengeImg) {
-        log.info("save challenge img : {}", challengeImg);
+    public int saveChallengeImg(IChallengeImg iChallengeImg) {
+        log.info("save challenge img : {}", iChallengeImg);
         try {
-            challengeImgRepository.save(challengeImg);
+            challengeImgRepository.save(ChallengeImg.builder()
+                    .id(iChallengeImg.getId())
+                    .url(iChallengeImg.getUrl())
+                    .challenge(challengeRepository.findById(iChallengeImg.getChallengeId()).orElseThrow())
+                    .build());
             return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
@@ -32,11 +39,11 @@ public class ChallengeImgServiceImpl implements ChallengeImgService {
 
     @Transactional
     @Override
-    public int updateChallengeImg(ChallengeImg challengeImg, Long id) {
-        log.info("update challenge img : {}, id : {}", challengeImg, id);
+    public int updateChallengeImg(IChallengeImg iChallengeImg, Long id) {
+        log.info("update challenge img : {}, id : {}", iChallengeImg, id);
         try {
             ChallengeImg challengeImg2 = challengeImgRepository.findById(id).orElseThrow();
-            challengeImg2.setUrl(challengeImg.getUrl());
+            challengeImg2.setUrl(iChallengeImg.getUrl());
             return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());

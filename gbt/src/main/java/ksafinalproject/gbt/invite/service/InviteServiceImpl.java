@@ -1,7 +1,10 @@
 package ksafinalproject.gbt.invite.service;
 
+import ksafinalproject.gbt.customChallenge.repository.CustomChallengeRepository;
+import ksafinalproject.gbt.invite.dto.IInvite;
 import ksafinalproject.gbt.invite.model.Invite;
 import ksafinalproject.gbt.invite.repository.InviteRepository;
+import ksafinalproject.gbt.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,19 +20,21 @@ import java.util.Optional;
 public class InviteServiceImpl implements InviteService {
 
     private final InviteRepository inviteRepository;
+    private final UserRepository userRepository;
+    private final CustomChallengeRepository customChallengeRepository;
 
     @Override
-    public int saveInvite(Invite invite) {
-        log.info("save invite : {}", invite);
+    public int saveInvite(IInvite iInvite) {
+        log.info("save invite : {}", iInvite);
         try {
             inviteRepository.save(Invite.builder()
-                    .id(invite.getId())
-                    .title(invite.getTitle())
-                    .caller(invite.getCaller())
+                    .id(iInvite.getId())
+                    .title(iInvite.getTitle())
+                    .caller(iInvite.getCaller())
                     .date(LocalDate.now())
-                    .callerId(invite.getCallerId())
-                    .userId(invite.getUserId())
-                    .customChallengeId(invite.getCustomChallengeId())
+                    .callUser(userRepository.findById(iInvite.getCallerId()).orElseThrow())
+                    .user(userRepository.findById(iInvite.getUserId()).orElseThrow())
+                    .customChallenge(customChallengeRepository.findById(iInvite.getCustomChallengeId()).orElseThrow())
                     .build());
             return 1;
         } catch (Exception e) {
@@ -40,11 +45,11 @@ public class InviteServiceImpl implements InviteService {
 
     @Transactional
     @Override
-    public int updateInvite(Invite invite, Long id) {
-        log.info("update invite : {}, id : {}", invite, id);
+    public int updateInvite(IInvite iInvite, Long id) {
+        log.info("update invite : {}, id : {}", iInvite, id);
         try {
             Invite invite2 = inviteRepository.findById(id).orElseThrow();
-            invite2.setTitle(invite.getTitle());
+            invite2.setTitle(iInvite.getTitle());
             return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
@@ -98,10 +103,10 @@ public class InviteServiceImpl implements InviteService {
     }
 
     @Override
-    public List<Invite> getAllInviteByCallerId(Long callerId) {
-        log.info("get all invite by caller id : {}", callerId);
+    public List<Invite> getAllInviteByCallUserId(Long callUserId) {
+        log.info("get all invite by call user id : {}", callUserId);
         try {
-            return inviteRepository.findAllByCallerId(callerId);
+            return inviteRepository.findAllByCallUserId(callUserId);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;

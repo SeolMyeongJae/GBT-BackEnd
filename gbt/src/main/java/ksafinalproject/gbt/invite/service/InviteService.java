@@ -1,14 +1,15 @@
 package ksafinalproject.gbt.invite.service;
 
+import ksafinalproject.gbt.invite.dto.IInvite;
 import ksafinalproject.gbt.invite.model.Invite;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface InviteService {
-    int saveInvite(Invite invite);
+    int saveInvite(IInvite iInvite);
 
-    int updateInvite(Invite invite, Long id);
+    int updateInvite(IInvite iInvite, Long id);
 
     Optional<Invite> getInviteById(Long id);
 
@@ -18,6 +19,6 @@ public interface InviteService {
 
     List<Invite> getAllInviteByUserId(Long userId);
 
-    List<Invite> getAllInviteByCallerId(Long callerId);
+    List<Invite> getAllInviteByCallUserId(Long callUserId);
 
 }

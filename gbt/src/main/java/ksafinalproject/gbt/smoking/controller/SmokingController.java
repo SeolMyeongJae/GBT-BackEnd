@@ -1,6 +1,7 @@
 package ksafinalproject.gbt.smoking.controller;
 
 import io.swagger.annotations.Api;
+import ksafinalproject.gbt.smoking.dto.ISmoking;
 import ksafinalproject.gbt.smoking.dto.SmokingDto;
 import ksafinalproject.gbt.smoking.model.Smoking;
 import ksafinalproject.gbt.smoking.service.SmokingService;
@@ -22,9 +23,9 @@ public class SmokingController {
     private final SmokingService smokingService;
 
     @PostMapping("")
-    public int smokingSave(@RequestBody Smoking smoking) {
+    public int smokingSave(@RequestBody ISmoking iSmoking) {
         try {
-            return smokingService.saveSmoking(smoking);
+            return smokingService.saveSmoking(iSmoking);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1;
@@ -32,9 +33,9 @@ public class SmokingController {
     }
 
     @PutMapping("/{id}")
-    public int smokingUpdate(@RequestBody Smoking smoking, @PathVariable Long id) {
+    public int smokingUpdate(@RequestBody ISmoking iSmoking, @PathVariable Long id) {
         try {
-            return smokingService.updateSmoking(smoking, id);
+            return smokingService.updateSmoking(iSmoking, id);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1;

@@ -1,5 +1,6 @@
 package ksafinalproject.gbt.postImg.service;
 
+import ksafinalproject.gbt.postImg.dto.IPostImg;
 import ksafinalproject.gbt.postImg.model.PostImg;
 
 import java.util.List;
@@ -7,9 +8,9 @@ import java.util.Optional;
 
 public interface PostImgService {
 
-    int savePostImg(PostImg postImg);
+    int savePostImg(IPostImg iPostImg);
 
-    int updatePostImg(PostImg postImg, Long id);
+    int updatePostImg(IPostImg iPostImg, Long id);
 
     Optional<PostImg> getPostImgById(Long id);
 

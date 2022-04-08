@@ -3,6 +3,7 @@ package ksafinalproject.gbt.customChallenge.service;
 import ksafinalproject.gbt.customChallenge.dto.ICustomChallenge;
 import ksafinalproject.gbt.customChallenge.model.CustomChallenge;
 import ksafinalproject.gbt.customChallenge.repository.CustomChallengeRepository;
+import ksafinalproject.gbt.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,22 +21,24 @@ import java.util.Optional;
 public class CustomChallengeServiceImpl implements CustomChallengeService {
 
     private final CustomChallengeRepository customChallengeRepository;
+    private final UserRepository userRepository;
 
     @Override
     public int saveCustomChallenge(ICustomChallenge iCustomChallenge) {
         log.info("save custom challenge : {}", iCustomChallenge);
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
-            LocalDateTime startDate = LocalDateTime.parse(iCustomChallenge.getStartDate(), formatter);
-            LocalDateTime endDate = LocalDateTime.parse(iCustomChallenge.getEndDate(), formatter);
+//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
+//            LocalDateTime startDate = LocalDateTime.parse(iCustomChallenge.getStartDate(), formatter);
+//            LocalDateTime endDate = LocalDateTime.parse(iCustomChallenge.getEndDate(), formatter);
             customChallengeRepository.save(CustomChallenge.builder()
                     .id(iCustomChallenge.getId())
-                    .creatorId(iCustomChallenge.getCreatorId())
-                    .startDate(startDate)
-                    .endDate(endDate)
+                    .creator(userRepository.findById(iCustomChallenge.getCreatorId()).orElseThrow())
+                    .startDate(iCustomChallenge.getStartDate())
+                    .endDate(iCustomChallenge.getEndDate())
                     .method(iCustomChallenge.getMethod())
                     .title(iCustomChallenge.getTitle())
                     .frequency(iCustomChallenge.getFrequency())
+                    .summary(iCustomChallenge.getSummary())
                     .description(iCustomChallenge.getDescription())
                     .max(iCustomChallenge.getMax())
                     .img(iCustomChallenge.getImg())
@@ -51,18 +54,19 @@ public class CustomChallengeServiceImpl implements CustomChallengeService {
     @Transactional
     public int updateCustomChallenge(ICustomChallenge iCustomChallenge, Long id) {
         log.info("update custom challenge : {}, id : {}", iCustomChallenge, id);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
-        LocalDateTime startDate = LocalDateTime.parse(iCustomChallenge.getStartDate(), formatter);
-        LocalDateTime endDate = LocalDateTime.parse(iCustomChallenge.getEndDate(), formatter);
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
+//        LocalDateTime startDate = LocalDateTime.parse(iCustomChallenge.getStartDate(), formatter);
+//        LocalDateTime endDate = LocalDateTime.parse(iCustomChallenge.getEndDate(), formatter);
         try {
             if (customChallengeRepository.findById(id).isEmpty()) {
                 return -1;
             }
             CustomChallenge customChallenge = customChallengeRepository.findById(id).orElseThrow();
-            customChallenge.setStartDate(startDate);
-            customChallenge.setEndDate(endDate);
+            customChallenge.setStartDate(iCustomChallenge.getStartDate());
+            customChallenge.setEndDate(iCustomChallenge.getEndDate());
             customChallenge.setTitle(iCustomChallenge.getTitle());
             customChallenge.setFrequency(iCustomChallenge.getFrequency());
+            customChallenge.setSummary(iCustomChallenge.getSummary());
             customChallenge.setDescription(iCustomChallenge.getDescription());
             customChallenge.setMax(iCustomChallenge.getMax());
             customChallenge.setImg(iCustomChallenge.getImg());

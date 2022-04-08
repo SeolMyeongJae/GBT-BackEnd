@@ -2,6 +2,7 @@ package ksafinalproject.gbt.challenge.model;
 
 import javax.validation.constraints.NotNull;
 
+import ksafinalproject.gbt.challengeImg.model.ChallengeImg;
 import lombok.*;
 
 import javax.persistence.*;
@@ -30,6 +31,9 @@ public class Challenge {
     @NotNull
     private Long frequency;
     @NotNull
+    @Column(length = 50)
+    private String summary;
+    @NotNull
     @Column(length = 255)
     private String description;
     @NotNull
@@ -39,7 +43,7 @@ public class Challenge {
     private String img;
 
     @Builder
-    public Challenge(Long id, String title, LocalDateTime startDate, LocalDateTime endDate, String method, Long frequency, String description, Long max, String img) {
+    public Challenge(Long id, String title, LocalDateTime startDate, LocalDateTime endDate, String method, Long frequency, String description, String summary, Long max, String img) {
         this.id = id;
         this.title = title;
         this.startDate = startDate;
@@ -47,6 +51,7 @@ public class Challenge {
         this.method = method;
         this.frequency = frequency;
         this.description = description;
+        this.summary = summary;
         this.max = max;
         this.img = img;
     }

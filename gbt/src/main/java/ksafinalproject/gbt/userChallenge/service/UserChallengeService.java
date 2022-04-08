@@ -1,5 +1,6 @@
 package ksafinalproject.gbt.userChallenge.service;
 
+import ksafinalproject.gbt.userChallenge.dto.IUserChallenge;
 import ksafinalproject.gbt.userChallenge.model.UserChallenge;
 
 import java.util.List;
@@ -7,11 +8,13 @@ import java.util.Optional;
 
 public interface UserChallengeService {
 
-    int saveUserChallenge(UserChallenge userChallenge);
+    int saveUserChallenge(IUserChallenge iUserChallenge);
 
-    int updateUserChallenge(UserChallenge userChallenge, Long id);
+    int updateUserChallenge(IUserChallenge iUserChallenge, Long id);
 
     Optional<UserChallenge> getUserChallengeById(Long id);
+
+    Optional<UserChallenge> getUserChallengeByUserIdAndChallengeId(Long userId, Long challengeId);
 
     List<UserChallenge> getAllUserChallenge();
 

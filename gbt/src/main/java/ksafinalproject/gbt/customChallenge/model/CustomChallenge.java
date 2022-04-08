@@ -2,6 +2,7 @@ package ksafinalproject.gbt.customChallenge.model;
 
 import javax.validation.constraints.NotNull;
 
+import ksafinalproject.gbt.user.model.User;
 import lombok.*;
 
 import javax.persistence.*;
@@ -17,8 +18,10 @@ public class CustomChallenge {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @ManyToOne
+    @JoinColumn(name = "creator_id")
     @NotNull
-    private Long creatorId;
+    private User creator;
     @NotNull
     @Column(length = 255)
     private String title;
@@ -30,6 +33,9 @@ public class CustomChallenge {
     private String method;
     private Long frequency;
     @NotNull
+    @Column(length = 50)
+    private String summary;
+    @NotNull
     @Column(length = 255)
     private String description;
     private Long max;
@@ -37,14 +43,15 @@ public class CustomChallenge {
     private String img;
 
     @Builder
-    public CustomChallenge(Long id, Long creatorId, String title, LocalDateTime startDate, LocalDateTime endDate, String method, Long frequency, String description, Long max, String img) {
+    public CustomChallenge(Long id, User creator, String title, LocalDateTime startDate, LocalDateTime endDate, String method, Long frequency, String summary, String description, Long max, String img) {
         this.id = id;
-        this.creatorId = creatorId;
+        this.creator = creator;
         this.title = title;
         this.startDate = startDate;
         this.endDate = endDate;
         this.method = method;
         this.frequency = frequency;
+        this.summary = summary;
         this.description = description;
         this.max = max;
         this.img = img;

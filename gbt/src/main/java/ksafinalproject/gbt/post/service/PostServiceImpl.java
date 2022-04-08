@@ -1,7 +1,9 @@
 package ksafinalproject.gbt.post.service;
 
+import ksafinalproject.gbt.post.dto.IPost;
 import ksafinalproject.gbt.post.model.Post;
 import ksafinalproject.gbt.post.repository.PostRepository;
+import ksafinalproject.gbt.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
@@ -18,20 +20,21 @@ import java.util.Optional;
 public class PostServiceImpl implements PostService {
 
     private final PostRepository postRepository;
+    private final UserRepository userRepository;
 
     @Override
-    public int savePost(Post post) {
-        log.info("save post : {}", post);
+    public int savePost(IPost iPost) {
+        log.info("save post : {}", iPost);
         try {
             postRepository.save(Post.builder()
-                    .id(post.getId())
-                    .title(post.getTitle())
-                    .content(post.getContent())
-                    .author(post.getAuthor())
-                    .img(post.getImg())
-                    .category(post.getCategory())
+                    .id(iPost.getId())
+                    .title(iPost.getTitle())
+                    .content(iPost.getContent())
+                    .author(iPost.getAuthor())
+                    .img(iPost.getImg())
+                    .category(iPost.getCategory())
                     .created(LocalDateTime.now())
-                    .userId(post.getUserId())
+                    .user(userRepository.findById(iPost.getUserId()).orElseThrow())
                     .build());
             return 1;
         } catch (Exception e) {
@@ -42,15 +45,15 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional
-    public int updatePost(Post post, Long id) {
-        log.info("update post : {}, id : {}", post, id);
+    public int updatePost(IPost iPost, Long id) {
+        log.info("update post : {}, id : {}", iPost, id);
         try {
             Post post2 = postRepository.findById(id).orElseThrow();
-            post2.setTitle(post.getTitle());
-            post2.setContent(post.getContent());
-            post2.setAuthor(post.getAuthor());
-            post2.setImg(post.getImg());
-            post2.setCategory(post.getCategory());
+            post2.setTitle(iPost.getTitle());
+            post2.setContent(iPost.getContent());
+            post2.setAuthor(iPost.getAuthor());
+            post2.setImg(iPost.getImg());
+            post2.setCategory(iPost.getCategory());
             post2.setUpdated(LocalDateTime.now());
             return 1;
         } catch (Exception e) {

@@ -1,5 +1,7 @@
 package ksafinalproject.gbt.postImg.service;
 
+import ksafinalproject.gbt.post.repository.PostRepository;
+import ksafinalproject.gbt.postImg.dto.IPostImg;
 import ksafinalproject.gbt.postImg.model.PostImg;
 import ksafinalproject.gbt.postImg.repository.PostImgRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,12 +18,17 @@ import java.util.Optional;
 public class PostImgServiceImpl implements PostImgService {
 
     private final PostImgRepository postImgRepository;
+    private final PostRepository postRepository;
 
     @Override
-    public int savePostImg(PostImg postImg) {
-        log.info("save post img : {}", postImg);
+    public int savePostImg(IPostImg iPostImg) {
+        log.info("save post img : {}", iPostImg);
         try {
-            postImgRepository.save(postImg);
+            postImgRepository.save(PostImg.builder()
+                    .id(iPostImg.getId())
+                    .url(iPostImg.getUrl())
+                    .post(postRepository.findById(iPostImg.getPostId()).orElseThrow())
+                    .build());
             return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
@@ -31,16 +38,16 @@ public class PostImgServiceImpl implements PostImgService {
 
     @Transactional
     @Override
-    public int updatePostImg(PostImg postImg, Long id) {
+    public int updatePostImg(IPostImg iPostImg, Long id) {
         log.info("update post img by id : {}", id);
         try {
             PostImg postImg2 = postImgRepository.findById(id).orElseThrow();
-            postImg2.setUrl(postImg.getUrl());
-            postImg2.setPostId(postImg.getPostId());
+            postImg2.setUrl(iPostImg.getUrl());
+            postImg2.setPost(postRepository.findById(iPostImg.getPostId()).orElseThrow());
             return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
-            return 0;
+            return -1;
         }
     }
 

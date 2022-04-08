@@ -1,6 +1,7 @@
 package ksafinalproject.gbt.chat.controller;
 
 import io.swagger.annotations.Api;
+import ksafinalproject.gbt.chat.dto.IChat;
 import ksafinalproject.gbt.chat.model.Chat;
 import ksafinalproject.gbt.chat.service.ChatService;
 import lombok.RequiredArgsConstructor;
@@ -21,9 +22,9 @@ public class ChatController {
     private final ChatService chatService;
 
     @PostMapping("")
-    public int chatSave(@RequestBody Chat chat) {
+    public int chatSave(@RequestBody IChat iChat) {
         try {
-            return chatService.saveChat(chat);
+            return chatService.saveChat(iChat);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1;
@@ -31,9 +32,9 @@ public class ChatController {
     }
 
     @PutMapping("/{id}")
-    public int chatUpdate(@RequestBody Chat chat, Long id) {
+    public int chatUpdate(@RequestBody IChat iChat, Long id) {
         try {
-            return chatService.updateChat(chat, id);
+            return chatService.updateChat(iChat, id);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1;
@@ -80,10 +81,10 @@ public class ChatController {
         }
     }
 
-    @GetMapping("/all/custom/{customId}")
-    public List<Chat> chatGetAllByCustomId(@PathVariable Long customId) {
+    @GetMapping("/all/custom-challenge/{customChallengeId}")
+    public List<Chat> chatGetAllByCustomChallengeId(@PathVariable Long customChallengeId) {
         try {
-            return chatService.getAllChatByCustomId(customId);
+            return chatService.getAllChatByCustomChallengeId(customChallengeId);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;

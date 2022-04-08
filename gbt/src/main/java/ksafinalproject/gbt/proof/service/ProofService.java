@@ -1,5 +1,6 @@
 package ksafinalproject.gbt.proof.service;
 
+import ksafinalproject.gbt.proof.dto.IProof;
 import ksafinalproject.gbt.proof.model.Proof;
 
 import java.util.List;
@@ -7,9 +8,9 @@ import java.util.Optional;
 
 public interface ProofService {
 
-    int saveProof(Proof proof);
+    int saveProof(IProof iProof);
 
-    int updateProof(Proof proof, Long id);
+    int updateProof(IProof iProof, Long id);
 
     Optional<Proof> getProofById(Long id);
 

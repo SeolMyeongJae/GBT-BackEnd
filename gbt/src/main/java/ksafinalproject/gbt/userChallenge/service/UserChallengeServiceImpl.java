@@ -1,5 +1,8 @@
 package ksafinalproject.gbt.userChallenge.service;
 
+import ksafinalproject.gbt.challenge.repository.ChallengeRepository;
+import ksafinalproject.gbt.user.repository.UserRepository;
+import ksafinalproject.gbt.userChallenge.dto.IUserChallenge;
 import ksafinalproject.gbt.userChallenge.model.UserChallenge;
 import ksafinalproject.gbt.userChallenge.repository.UserChallengeRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,12 +19,21 @@ import java.util.Optional;
 public class UserChallengeServiceImpl implements UserChallengeService {
 
     private final UserChallengeRepository userChallengeRepository;
+    private final UserRepository userRepository;
+    private final ChallengeRepository challengeRepository;
 
     @Override
-    public int saveUserChallenge(UserChallenge userChallenge) {
-        log.info("save user challenge : {}", userChallenge);
+    public int saveUserChallenge(IUserChallenge iUserChallenge) {
+        log.info("save user challenge : {}", iUserChallenge);
         try {
-            userChallengeRepository.save(userChallenge);
+            if (userChallengeRepository.existsByUserIdAndChallengeId(iUserChallenge.getUserId(), iUserChallenge.getChallengeId())) {
+                return 3;
+            }
+            userChallengeRepository.save(UserChallenge.builder()
+                    .id(iUserChallenge.getId())
+                    .user(userRepository.findById(iUserChallenge.getUserId()).orElseThrow())
+                    .challenge(challengeRepository.findById(iUserChallenge.getChallengeId()).orElseThrow())
+                    .build());
             return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
@@ -31,11 +43,11 @@ public class UserChallengeServiceImpl implements UserChallengeService {
 
     @Transactional
     @Override
-    public int updateUserChallenge(UserChallenge userChallenge, Long id) {
-        log.info("update user challenge : {}, id : {}", userChallenge, id);
+    public int updateUserChallenge(IUserChallenge iUserChallenge, Long id) {
+        log.info("update user challenge : {}, id : {}", iUserChallenge, id);
         try {
             UserChallenge userChallenge2 = userChallengeRepository.findById(id).orElseThrow();
-            userChallenge2.setChallengeId(userChallenge.getChallengeId());
+            userChallenge2.setChallenge(challengeRepository.findById(iUserChallenge.getChallengeId()).orElseThrow());
             return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
@@ -48,6 +60,17 @@ public class UserChallengeServiceImpl implements UserChallengeService {
         log.info("find user challenge by id : {}", id);
         try {
             return userChallengeRepository.findById(id);
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return Optional.empty();
+        }
+    }
+
+    @Override
+    public Optional<UserChallenge> getUserChallengeByUserIdAndChallengeId(Long userId, Long challengeId) {
+        log.info("find user challenge by user id : {} , challenge id : {}", userId, challengeId);
+        try {
+            return userChallengeRepository.findByUserIdAndChallengeId(userId, challengeId);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return Optional.empty();

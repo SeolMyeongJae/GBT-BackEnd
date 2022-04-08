@@ -1,6 +1,8 @@
 package ksafinalproject.gbt.smoking.model;
 
 import javax.validation.constraints.NotNull;
+
+import ksafinalproject.gbt.user.model.User;
 import lombok.*;
 
 import javax.persistence.*;
@@ -20,17 +22,19 @@ public class Smoking {
     private Long count;
     @NotNull
     private LocalDate date;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     @NotNull
-    private Long userId;
+    private User user;
     @NotNull
     @Column(length = 10)
     private String provider;
 
     @Builder
-    public Smoking(Long id, Long count, LocalDate date, Long userId, String provider) {
+    public Smoking(Long id, Long count, LocalDate date, User user, String provider) {
         this.id = id;
         this.count = count;
-        this.userId = userId;
+        this.user = user;
         this.provider = provider;
         this.date = date;
     }

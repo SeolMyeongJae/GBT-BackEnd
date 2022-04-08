@@ -1,5 +1,8 @@
 package ksafinalproject.gbt.userCustom.service;
 
+import ksafinalproject.gbt.customChallenge.repository.CustomChallengeRepository;
+import ksafinalproject.gbt.user.repository.UserRepository;
+import ksafinalproject.gbt.userCustom.dto.IUserCustom;
 import ksafinalproject.gbt.userCustom.model.UserCustom;
 import ksafinalproject.gbt.userCustom.repository.UserCustomRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,12 +19,21 @@ import java.util.Optional;
 public class UserCustomServiceImpl implements UserCustomService {
 
     private final UserCustomRepository userCustomRepository;
+    private final UserRepository userRepository;
+    private final CustomChallengeRepository customChallengeRepository;
 
     @Override
-    public int saveUserCustom(UserCustom userCustom) {
-        log.info("save user custom : {}", userCustom);
+    public int saveUserCustom(IUserCustom iUserCustom) {
+        log.info("save user custom : {}", iUserCustom);
         try {
-            userCustomRepository.save(userCustom);
+            if (userCustomRepository.existsByUserIdAndCustomChallengeId(iUserCustom.getUserId(), iUserCustom.getCustomChallengeId())) {
+                return 3;
+            }
+            userCustomRepository.save(UserCustom.builder()
+                    .id(iUserCustom.getId())
+                    .user(userRepository.findById(iUserCustom.getUserId()).orElseThrow())
+                    .customChallenge(customChallengeRepository.findById(iUserCustom.getCustomChallengeId()).orElseThrow())
+                    .build());
             return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
@@ -31,11 +43,11 @@ public class UserCustomServiceImpl implements UserCustomService {
 
     @Transactional
     @Override
-    public int updateUserCustom(UserCustom userCustom, Long id) {
-        log.info("update user custom : {}, id : {}", userCustom, id);
+    public int updateUserCustom(IUserCustom iUserCustom, Long id) {
+        log.info("update user custom : {}, id : {}", iUserCustom, id);
         try {
             UserCustom userCustom2 = userCustomRepository.findById(id).orElseThrow();
-            userCustom2.setCustomId(userCustom.getCustomId());
+            userCustom2.setCustomChallenge(customChallengeRepository.findById(iUserCustom.getCustomChallengeId()).orElseThrow());
             return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
@@ -89,10 +101,10 @@ public class UserCustomServiceImpl implements UserCustomService {
     }
 
     @Override
-    public List<UserCustom> getAllUserCustomByCustomId(Long customId) {
-        log.info("find all user custom by custom id : {}", customId);
+    public List<UserCustom> getAllUserCustomByCustomChallengeId(Long customChallengeId) {
+        log.info("find all user custom by custom id : {}", customChallengeId);
         try {
-            return userCustomRepository.findAllByCustomId(customId);
+            return userCustomRepository.findAllByCustomChallengeId(customChallengeId);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;
