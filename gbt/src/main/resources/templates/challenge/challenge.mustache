@@ -10,12 +10,24 @@
   <table class="table table-horizontal table-bordered">
     <thead class="thead-strong">
     <tr>
-      <th>게시글번호</th>
-      <th>제목</th>
-      <th>작성자</th>
-      <th>최종수정일</th>
+      <th>챌린지번호</th>
+      <th>챌린지 제목</th>
+      <th>챌린지 내용</th>
+      <th>시작일</th>
+      <th>종료일</th>
     </tr>
     </thead>
+    <tbody id="tbody">
+    {{#challenges}}
+      <tr>
+        <td>{{id}}</td>
+        <td>{{title}}</td>
+        <td>{{summary}}</td>
+        <td>{{startDate}}</td>
+        <td>{{endDate}}</td>
+      </tr>
+    {{/challenges}}
+    </tbody>
   </table>
 </div>
 {{>index-bottom}}
