@@ -29,13 +29,13 @@ public class ChallengeServiceImpl implements ChallengeService {
     public int saveChallenge(IChallenge iChallenge) {
         log.info("save challenge : {}", iChallenge);
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
-            LocalDateTime startDate = LocalDateTime.parse(iChallenge.getStartDate(), formatter);
-            LocalDateTime endDate = LocalDateTime.parse(iChallenge.getEndDate(), formatter);
+//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
+//            LocalDateTime startDate = LocalDateTime.parse(iChallenge.getStartDate(), formatter);
+//            LocalDateTime endDate = LocalDateTime.parse(iChallenge.getEndDate(), formatter);
             challengeRepository.save(Challenge.builder()
                     .id(iChallenge.getId())
-                    .startDate(startDate)
-                    .endDate(endDate)
+                    .startDate(iChallenge.getStartDate())
+                    .endDate(iChallenge.getEndDate())
                     .method(iChallenge.getMethod())
                     .title(iChallenge.getTitle())
                     .frequency(iChallenge.getFrequency())
@@ -55,16 +55,16 @@ public class ChallengeServiceImpl implements ChallengeService {
     @Transactional
     public int updateChallenge(IChallenge iChallenge, Long id) {
         log.info("update challenge : {}, id : {}", iChallenge, id);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
-        LocalDateTime startDate = LocalDateTime.parse(iChallenge.getStartDate(), formatter);
-        LocalDateTime endDate = LocalDateTime.parse(iChallenge.getEndDate(), formatter);
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
+//        LocalDateTime startDate = LocalDateTime.parse(iChallenge.getStartDate(), formatter);
+//        LocalDateTime endDate = LocalDateTime.parse(iChallenge.getEndDate(), formatter);
         try {
             if (challengeRepository.findById(id).isEmpty()) {
                 return -1;
             }
             Challenge challenge = challengeRepository.findById(id).orElseThrow();
-            challenge.setStartDate(startDate);
-            challenge.setEndDate(endDate);
+            challenge.setStartDate(iChallenge.getStartDate());
+            challenge.setEndDate(iChallenge.getEndDate());
             challenge.setTitle(iChallenge.getTitle());
             challenge.setFrequency(iChallenge.getFrequency());
             challenge.setDescription(iChallenge.getDescription());

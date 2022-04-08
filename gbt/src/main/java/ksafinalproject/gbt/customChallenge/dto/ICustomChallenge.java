@@ -14,8 +14,8 @@ public class ICustomChallenge {
     private Long id;
     private Long creatorId;
     private String title;
-    private String startDate;
-    private String endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
     private String method;
     private Long frequency;
     private String description;
