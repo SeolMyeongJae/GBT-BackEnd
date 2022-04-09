@@ -1,11 +1,8 @@
 package ksafinalproject.gbt.challenge.dto;
 
-import ksafinalproject.gbt.challenge.model.Challenge;
-import ksafinalproject.gbt.challengeImg.model.ChallengeImg;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Setter
@@ -20,12 +17,13 @@ public class OChallenge {
     private Long frequency;
     private String summary;
     private String description;
+    private Boolean isJoin;
     private Long current;
     private Long max;
     private String img;
 
     @Builder
-    public OChallenge(Long id, String title, LocalDateTime startDate, LocalDateTime endDate, String method, Long frequency, String summary, String description, Long current, Long max, String img) {
+    public OChallenge(Long id, String title, LocalDateTime startDate, LocalDateTime endDate, String method, Long frequency, String summary, String description, Boolean isJoin, Long current, Long max, String img) {
         this.id = id;
         this.title = title;
         this.startDate = startDate;
@@ -34,6 +32,7 @@ public class OChallenge {
         this.frequency = frequency;
         this.summary = summary;
         this.description = description;
+        this.isJoin = isJoin;
         this.current = current;
         this.max = max;
         this.img = img;

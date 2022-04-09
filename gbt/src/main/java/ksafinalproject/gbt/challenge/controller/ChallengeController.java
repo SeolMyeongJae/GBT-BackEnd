@@ -61,6 +61,16 @@ public class ChallengeController {
         }
     }
 
+    @GetMapping("/all/{userId}")
+    public List<OChallenge> challengeGetAllIncludeUserId(@PathVariable Long userId) {
+        try {
+            return challengeService.getAllChallengeIncludeUserId(userId);
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return null;
+        }
+    }
+
     @DeleteMapping("/{id}")
     public int challengeDeleteById(@PathVariable Long id) {
         try {

@@ -15,6 +15,8 @@ public interface ChallengeService {
 
     List<OChallenge> getAllChallenge();
 
+    List<OChallenge> getAllChallengeIncludeUserId(Long userId);
+
 //    List<Challenge> getAllChallenge();
 
     int deleteChallengeById(Long id);
