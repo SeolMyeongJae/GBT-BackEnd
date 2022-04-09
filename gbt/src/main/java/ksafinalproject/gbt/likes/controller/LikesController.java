@@ -90,4 +90,14 @@ public class LikesController {
             return null;
         }
     }
+
+    @GetMapping("/count/post/{postId}")
+    public Long likeCountByPostId(@PathVariable Long postId) {
+        try {
+            return likeService.countLikeByPostId(postId);
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return null;
+        }
+    }
 }

@@ -14,4 +14,5 @@ public interface LikesRepository extends JpaRepository<Likes, Long> {
 
     List<Likes> findAllByUserId(Long userId);
 
+    Long countByPostId(Long postId);
 }

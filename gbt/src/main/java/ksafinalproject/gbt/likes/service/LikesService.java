@@ -22,6 +22,5 @@ public interface LikesService {
 
     List<Likes> getAllLikeByUserId(Long userId);
 
-
-
+    Long countLikeByPostId(Long postId);
 }

@@ -1,6 +1,7 @@
 package ksafinalproject.gbt.post.service;
 
 import ksafinalproject.gbt.post.dto.IPost;
+import ksafinalproject.gbt.post.dto.OPost;
 import ksafinalproject.gbt.post.model.Post;
 
 import java.util.List;
@@ -14,18 +15,18 @@ public interface PostService {
 
     Optional<Post> getPostById(Long id);
 
-    List<Post> getAllPost();
+    List<OPost> getAllPost();
 
-    List<Post> getAllPostByDesc();
+    List<OPost> getAllPostByDesc();
 
     int deletePostById(Long id);
 
-    List<Post> getAllPostByUserId(Long userid);
+    List<OPost> getAllPostByUserId(Long userid);
 
-    List<Post> getAllPostByTitleContains(String title);
+    List<OPost> getAllPostByTitleContains(String title);
 
-    List<Post> getAllPostByAuthorContains(String author);
+    List<OPost> getAllPostByAuthorContains(String author);
 
-    List<Post> getAllPostByCategory(String category);
+    List<OPost> getAllPostByCategory(String category);
 
 }
