@@ -120,8 +120,38 @@ public class ChallengeServiceImpl implements ChallengeService {
                         .frequency(challengeList.get(i).getFrequency())
                         .summary(challengeList.get(i).getSummary())
                         .description(challengeList.get(i).getDescription())
-                        .max(challengeList.get(i).getMax())
                         .current(current)
+                        .max(challengeList.get(i).getMax())
+                        .img(challengeList.get(i).getImg())
+                        .build());
+            }
+            return oChallenge;
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public List<OChallenge> getAllChallengeIncludeUserId(Long userId) {
+        log.info("find all challenge include user id : {}", userId);
+        try {
+            List<Challenge> challengeList = challengeRepository.findAll();
+            List<OChallenge> oChallenge = new ArrayList<>();
+            for (int i = 0; i < challengeList.size(); i++) {
+                Long current = userChallengeRepository.countByChallengeId(challengeList.get(i).getId());
+                oChallenge.add(OChallenge.builder()
+                        .id(challengeList.get(i).getId())
+                        .title(challengeList.get(i).getTitle())
+                        .startDate(challengeList.get(i).getStartDate())
+                        .endDate(challengeList.get(i).getEndDate())
+                        .method(challengeList.get(i).getMethod())
+                        .frequency(challengeList.get(i).getFrequency())
+                        .summary(challengeList.get(i).getSummary())
+                        .description(challengeList.get(i).getDescription())
+                        .isJoin(userChallengeRepository.existsByUserIdAndChallengeId(userId, challengeList.get(i).getId()))
+                        .current(current)
+                        .max(challengeList.get(i).getMax())
                         .img(challengeList.get(i).getImg())
                         .build());
             }
