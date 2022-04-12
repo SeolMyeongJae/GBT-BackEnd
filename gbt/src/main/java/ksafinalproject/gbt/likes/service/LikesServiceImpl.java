@@ -108,4 +108,15 @@ public class LikesServiceImpl implements LikesService {
             return null;
         }
     }
+
+    @Override
+    public Long countLikeByPostId(Long postId) {
+        log.info("count like by post id : {}", postId);
+        try {
+            return likeRepository.countByPostId(postId);
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return null;
+        }
+    }
 }

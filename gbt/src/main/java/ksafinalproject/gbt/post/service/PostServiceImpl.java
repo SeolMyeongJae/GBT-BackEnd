@@ -1,6 +1,8 @@
 package ksafinalproject.gbt.post.service;
 
+import ksafinalproject.gbt.likes.repository.LikesRepository;
 import ksafinalproject.gbt.post.dto.IPost;
+import ksafinalproject.gbt.post.dto.OPost;
 import ksafinalproject.gbt.post.model.Post;
 import ksafinalproject.gbt.post.repository.PostRepository;
 import ksafinalproject.gbt.user.repository.UserRepository;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +24,7 @@ public class PostServiceImpl implements PostService {
 
     private final PostRepository postRepository;
     private final UserRepository userRepository;
+    private final LikesRepository likesRepository;
 
     @Override
     public int savePost(IPost iPost) {
@@ -74,10 +78,27 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> getAllPost() {
+    public List<OPost> getAllPost() {
         log.info("find all post");
         try {
-            return postRepository.findAll();
+            List<Post> postList = postRepository.findAll();
+            List<OPost> oPostList = new ArrayList<>();
+            for (int i = 0; i < postList.size(); i++) {
+                Long likes = likesRepository.countByPostId(postList.get(i).getId());
+                oPostList.add(OPost.builder()
+                        .id(postList.get(i).getId())
+                        .title(postList.get(i).getTitle())
+                        .content(postList.get(i).getContent())
+                        .author(postList.get(i).getAuthor())
+                        .img(postList.get(i).getImg())
+                        .category(postList.get(i).getCategory())
+                        .created(postList.get(i).getCreated())
+                        .updated(postList.get(i).getUpdated())
+                        .userId(postList.get(i).getUser().getId())
+                        .likes(likes)
+                        .build());
+            }
+            return oPostList;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;
@@ -85,11 +106,28 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> getAllPostByDesc() {
+    public List<OPost> getAllPostByDesc() {
         log.info("find all post by desc");
         try {
             Sort sort = Sort.by(Sort.Direction.DESC, "id");
-            return postRepository.findAll(sort);
+            List<Post> postList = postRepository.findAll(sort);
+            List<OPost> oPostList = new ArrayList<>();
+            for (int i = 0; i < postList.size(); i++) {
+                Long likes = likesRepository.countByPostId(postList.get(i).getId());
+                oPostList.add(OPost.builder()
+                        .id(postList.get(i).getId())
+                        .title(postList.get(i).getTitle())
+                        .content(postList.get(i).getContent())
+                        .author(postList.get(i).getAuthor())
+                        .img(postList.get(i).getImg())
+                        .category(postList.get(i).getCategory())
+                        .created(postList.get(i).getCreated())
+                        .updated(postList.get(i).getUpdated())
+                        .userId(postList.get(i).getUser().getId())
+                        .likes(likes)
+                        .build());
+            }
+            return oPostList;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;
@@ -109,11 +147,28 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> getAllPostByUserId(Long userId) {
+    public List<OPost> getAllPostByUserId(Long userId) {
         log.info("find all post by user id : {}", userId);
         try {
             Sort sort = Sort.by(Sort.Direction.DESC, "id");
-            return postRepository.findAllByUserId(userId, sort);
+            List<Post> postList = postRepository.findAllByUserId(userId, sort);
+            List<OPost> oPostList = new ArrayList<>();
+            for (int i = 0; i < postList.size(); i++) {
+                Long likes = likesRepository.countByPostId(postList.get(i).getId());
+                oPostList.add(OPost.builder()
+                        .id(postList.get(i).getId())
+                        .title(postList.get(i).getTitle())
+                        .content(postList.get(i).getContent())
+                        .author(postList.get(i).getAuthor())
+                        .img(postList.get(i).getImg())
+                        .category(postList.get(i).getCategory())
+                        .created(postList.get(i).getCreated())
+                        .updated(postList.get(i).getUpdated())
+                        .userId(postList.get(i).getUser().getId())
+                        .likes(likes)
+                        .build());
+            }
+            return oPostList;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;
@@ -121,11 +176,28 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> getAllPostByTitleContains(String title) {
+    public List<OPost> getAllPostByTitleContains(String title) {
         log.info("find all post by title contains : {}", title);
         try {
             Sort sort = Sort.by(Sort.Direction.DESC, "id");
-            return postRepository.findAllByTitleContains(title, sort);
+            List<Post> postList = postRepository.findAllByTitleContains(title, sort);
+            List<OPost> oPostList = new ArrayList<>();
+            for (int i = 0; i < postList.size(); i++) {
+                Long likes = likesRepository.countByPostId(postList.get(i).getId());
+                oPostList.add(OPost.builder()
+                        .id(postList.get(i).getId())
+                        .title(postList.get(i).getTitle())
+                        .content(postList.get(i).getContent())
+                        .author(postList.get(i).getAuthor())
+                        .img(postList.get(i).getImg())
+                        .category(postList.get(i).getCategory())
+                        .created(postList.get(i).getCreated())
+                        .updated(postList.get(i).getUpdated())
+                        .userId(postList.get(i).getUser().getId())
+                        .likes(likes)
+                        .build());
+            }
+            return oPostList;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;
@@ -133,11 +205,28 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> getAllPostByAuthorContains(String author) {
+    public List<OPost> getAllPostByAuthorContains(String author) {
         log.info("find all post by author contains : {}", author);
         try {
             Sort sort = Sort.by(Sort.Direction.DESC, "id");
-            return postRepository.findAllByAuthorContains(author, sort);
+            List<Post> postList = postRepository.findAllByAuthorContains(author, sort);
+            List<OPost> oPostList = new ArrayList<>();
+            for (int i = 0; i < postList.size(); i++) {
+                Long likes = likesRepository.countByPostId(postList.get(i).getId());
+                oPostList.add(OPost.builder()
+                        .id(postList.get(i).getId())
+                        .title(postList.get(i).getTitle())
+                        .content(postList.get(i).getContent())
+                        .author(postList.get(i).getAuthor())
+                        .img(postList.get(i).getImg())
+                        .category(postList.get(i).getCategory())
+                        .created(postList.get(i).getCreated())
+                        .updated(postList.get(i).getUpdated())
+                        .userId(postList.get(i).getUser().getId())
+                        .likes(likes)
+                        .build());
+            }
+            return oPostList;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;
@@ -145,11 +234,28 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> getAllPostByCategory(String category) {
+    public List<OPost> getAllPostByCategory(String category) {
         log.info("find all post by category : {}", category);
         try {
             Sort sort = Sort.by(Sort.Direction.DESC, "id");
-            return postRepository.findAllByCategory(category, sort);
+            List<Post> postList = postRepository.findAllByCategory(category, sort);
+            List<OPost> oPostList = new ArrayList<>();
+            for (int i = 0; i < postList.size(); i++) {
+                Long likes = likesRepository.countByPostId(postList.get(i).getId());
+                oPostList.add(OPost.builder()
+                        .id(postList.get(i).getId())
+                        .title(postList.get(i).getTitle())
+                        .content(postList.get(i).getContent())
+                        .author(postList.get(i).getAuthor())
+                        .img(postList.get(i).getImg())
+                        .category(postList.get(i).getCategory())
+                        .created(postList.get(i).getCreated())
+                        .updated(postList.get(i).getUpdated())
+                        .userId(postList.get(i).getUser().getId())
+                        .likes(likes)
+                        .build());
+            }
+            return oPostList;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;
