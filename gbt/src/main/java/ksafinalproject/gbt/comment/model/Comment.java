@@ -12,7 +12,9 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 @Entity
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,14 +33,4 @@ public class Comment {
     @NotNull
     @JsonBackReference
     private Post post;
-
-    @Builder
-    public Comment(Long id, String comment, String author, LocalDateTime created, LocalDateTime updated, Post post) {
-        this.id = id;
-        this.comment = comment;
-        this.author = author;
-        this.created = created;
-        this.updated = updated;
-        this.post = post;
-    }
 }

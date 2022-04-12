@@ -7,7 +7,9 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class OPost {
     private Long id;
     private String title;
@@ -20,17 +22,4 @@ public class OPost {
     private Long userId;
     private Long likes;
 
-    @Builder
-    public OPost(Long id, String title, String content, String author, String img, String category, LocalDateTime created, LocalDateTime updated, Long userId, Long likes) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
-        this.author = author;
-        this.img = img;
-        this.category = category;
-        this.created = created;
-        this.updated = updated;
-        this.userId = userId;
-        this.likes = likes;
-    }
 }

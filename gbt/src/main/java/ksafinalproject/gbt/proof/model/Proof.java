@@ -12,7 +12,9 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 @Entity
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class Proof {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,12 +32,4 @@ public class Proof {
     @NotNull
     private Challenge challenge;
 
-    @Builder
-    public Proof(Long id, String content, LocalDateTime date, User user, Challenge challenge) {
-        this.id = id;
-        this.content = content;
-        this.date = date;
-        this.user = user;
-        this.challenge = challenge;
-    }
 }

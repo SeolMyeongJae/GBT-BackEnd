@@ -11,6 +11,8 @@ import javax.validation.constraints.NotNull;
 @Setter
 @ToString
 @Entity
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class UserChallenge {
     @Id
@@ -25,10 +27,4 @@ public class UserChallenge {
     @NotNull
     private Challenge challenge;
 
-    @Builder
-    public UserChallenge(Long id, User user, Challenge challenge) {
-        this.id = id;
-        this.user = user;
-        this.challenge = challenge;
-    }
 }

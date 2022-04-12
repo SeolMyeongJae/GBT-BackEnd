@@ -15,6 +15,8 @@ import java.util.Set;
 @Setter
 @ToString
 @Entity
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class Post {
     @Id
@@ -48,18 +50,4 @@ public class Post {
     @ToString.Exclude
     private Set<Likes> likes;
 
-    @Builder
-    public Post(Long id, String title, String content, String author, String img, String category, LocalDateTime created, LocalDateTime updated, User user, Set<Comment> comment, Set<Likes> likes) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
-        this.author = author;
-        this.img = img;
-        this.category = category;
-        this.created = created;
-        this.updated = updated;
-        this.user = user;
-        this.comment = comment;
-        this.likes = likes;
-    }
 }

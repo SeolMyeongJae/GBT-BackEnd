@@ -5,6 +5,7 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import ksafinalproject.gbt.chat.model.Chat;
 import ksafinalproject.gbt.customChallenge.model.CustomChallenge;
 import ksafinalproject.gbt.likes.model.Likes;
 import ksafinalproject.gbt.post.model.Post;
@@ -19,7 +20,9 @@ import java.util.Set;
 @Setter
 @ToString
 @Entity
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,26 +56,10 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "creator")
     @ToString.Exclude
     private Set<CustomChallenge> customChallenge;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "user")
+    private Set<Chat> chat;
 //    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, mappedBy = "user")
 //    @ToString.Exclude
 //    private Set<Likes> likes;
 
-    @Builder
-    public User(Long id, String userName, String gender, LocalDate birthYear, Long smokingYear, String comment, Long price, Long averageSmoking, Long ranking, String profileImg, String popupImg, Long point, Long badgeId, Set<Post> post, Set<CustomChallenge> customChallenge) {
-        this.id = id;
-        this.userName = userName;
-        this.gender = gender;
-        this.birthYear = birthYear;
-        this.smokingYear = smokingYear;
-        this.comment = comment;
-        this.price = price;
-        this.averageSmoking = averageSmoking;
-        this.ranking = ranking;
-        this.profileImg = profileImg;
-        this.popupImg = popupImg;
-        this.point = point;
-        this.badgeId = badgeId;
-        this.post = post;
-        this.customChallenge = customChallenge;
-    }
 }

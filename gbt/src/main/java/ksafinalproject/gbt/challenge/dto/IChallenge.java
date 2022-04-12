@@ -19,5 +19,4 @@ public class IChallenge {
     private String description;
     private String summary;
     private Long max;
-    private String img;
 }

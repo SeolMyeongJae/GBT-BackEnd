@@ -12,7 +12,9 @@ import javax.validation.constraints.NotNull;
 @Setter
 @ToString
 @Entity
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class Likes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,10 +30,4 @@ public class Likes {
     @NotNull
     private User user;
 
-    @Builder
-    public Likes(Long id, Post post, User user) {
-        this.id = id;
-        this.post = post;
-        this.user = user;
-    }
 }

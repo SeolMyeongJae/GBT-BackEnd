@@ -12,7 +12,9 @@ import java.time.LocalDate;
 @Setter
 @ToString
 @Entity
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class Smoking {
 
     @Id
@@ -30,12 +32,4 @@ public class Smoking {
     @Column(length = 10)
     private String provider;
 
-    @Builder
-    public Smoking(Long id, Long count, LocalDate date, User user, String provider) {
-        this.id = id;
-        this.count = count;
-        this.user = user;
-        this.provider = provider;
-        this.date = date;
-    }
 }
