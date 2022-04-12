@@ -80,4 +80,14 @@ public class CommentController {
             return null;
         }
     }
+
+    @DeleteMapping("/{id}")
+    public int commentDeleteById(@PathVariable Long id) {
+        try {
+            return commentService.deleteCommentById(id);
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return -1;
+        }
+    }
 }
