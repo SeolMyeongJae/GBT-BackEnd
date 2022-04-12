@@ -3,6 +3,8 @@ package ksafinalproject.gbt.customChallenge.model;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import ksafinalproject.gbt.user.model.User;
 import lombok.*;
 
@@ -20,9 +22,9 @@ public class CustomChallenge {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "creator_id")
+    @JoinColumn(name = "user_id")
     @NotNull
-    @JsonBackReference
+    @JsonIgnore
     private User creator;
     @NotNull
     @Column(length = 255)

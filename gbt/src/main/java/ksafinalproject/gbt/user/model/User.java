@@ -2,6 +2,9 @@ package ksafinalproject.gbt.user.model;
 
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import ksafinalproject.gbt.customChallenge.model.CustomChallenge;
 import ksafinalproject.gbt.likes.model.Likes;
 import ksafinalproject.gbt.post.model.Post;
