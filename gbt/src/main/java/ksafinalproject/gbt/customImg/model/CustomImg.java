@@ -11,7 +11,9 @@ import javax.persistence.*;
 @Setter
 @ToString
 @Entity
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class CustomImg {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,11 +25,4 @@ public class CustomImg {
     @JoinColumn(name = "custom_challenge_id")
     @NotNull
     private CustomChallenge customChallenge;
-
-    @Builder
-    public CustomImg(Long id, String url, CustomChallenge customChallenge) {
-        this.id = id;
-        this.url = url;
-        this.customChallenge = customChallenge;
-    }
 }

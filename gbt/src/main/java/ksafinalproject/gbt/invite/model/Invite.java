@@ -12,7 +12,9 @@ import java.time.LocalDate;
 @Setter
 @ToString
 @Entity
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class Invite {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,14 +40,4 @@ public class Invite {
     @NotNull
     private CustomChallenge customChallenge;
 
-    @Builder
-    public Invite(Long id, String title, String caller, LocalDate date, User callUser, User user, CustomChallenge customChallenge) {
-        this.id = id;
-        this.title = title;
-        this.caller = caller;
-        this.date = date;
-        this.callUser = callUser;
-        this.user = user;
-        this.customChallenge = customChallenge;
-    }
 }

@@ -42,7 +42,6 @@ public class ChallengeServiceImpl implements ChallengeService {
                     .summary(iChallenge.getSummary())
                     .description(iChallenge.getDescription())
                     .max(iChallenge.getMax())
-                    .img(iChallenge.getImg())
                     .build());
             return 1;
         } catch (Exception e) {
@@ -70,7 +69,6 @@ public class ChallengeServiceImpl implements ChallengeService {
             challenge.setDescription(iChallenge.getDescription());
             challenge.setSummary(iChallenge.getSummary());
             challenge.setMax(iChallenge.getMax());
-            challenge.setImg(iChallenge.getImg());
             return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
@@ -95,7 +93,7 @@ public class ChallengeServiceImpl implements ChallengeService {
             oChallenge.setSummary(challenge.orElseThrow().getSummary());
             oChallenge.setCurrent(current);
             oChallenge.setMax(challenge.orElseThrow().getMax());
-            oChallenge.setImg(challenge.orElseThrow().getImg());
+            oChallenge.setChallengeImg(challenge.orElseThrow().getChallengeImg());
             return Optional.of(oChallenge);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
@@ -109,20 +107,20 @@ public class ChallengeServiceImpl implements ChallengeService {
         try {
             List<Challenge> challengeList = challengeRepository.findAll();
             List<OChallenge> oChallenge = new ArrayList<>();
-            for (int i = 0; i < challengeList.size(); i++) {
-                Long current = userChallengeRepository.countByChallengeId(challengeList.get(i).getId());
+            for (Challenge challenge : challengeList) {
+                Long current = userChallengeRepository.countByChallengeId(challenge.getId());
                 oChallenge.add(OChallenge.builder()
-                        .id(challengeList.get(i).getId())
-                        .title(challengeList.get(i).getTitle())
-                        .startDate(challengeList.get(i).getStartDate())
-                        .endDate(challengeList.get(i).getEndDate())
-                        .method(challengeList.get(i).getMethod())
-                        .frequency(challengeList.get(i).getFrequency())
-                        .summary(challengeList.get(i).getSummary())
-                        .description(challengeList.get(i).getDescription())
+                        .id(challenge.getId())
+                        .title(challenge.getTitle())
+                        .startDate(challenge.getStartDate())
+                        .endDate(challenge.getEndDate())
+                        .method(challenge.getMethod())
+                        .frequency(challenge.getFrequency())
+                        .summary(challenge.getSummary())
+                        .description(challenge.getDescription())
                         .current(current)
-                        .max(challengeList.get(i).getMax())
-                        .img(challengeList.get(i).getImg())
+                        .max(challenge.getMax())
+                        .challengeImg(challenge.getChallengeImg())
                         .build());
             }
             return oChallenge;
@@ -138,21 +136,20 @@ public class ChallengeServiceImpl implements ChallengeService {
         try {
             List<Challenge> challengeList = challengeRepository.findAll();
             List<OChallenge> oChallenge = new ArrayList<>();
-            for (int i = 0; i < challengeList.size(); i++) {
-                Long current = userChallengeRepository.countByChallengeId(challengeList.get(i).getId());
+            for (Challenge challenge : challengeList) {
+                Long current = userChallengeRepository.countByChallengeId(challenge.getId());
                 oChallenge.add(OChallenge.builder()
-                        .id(challengeList.get(i).getId())
-                        .title(challengeList.get(i).getTitle())
-                        .startDate(challengeList.get(i).getStartDate())
-                        .endDate(challengeList.get(i).getEndDate())
-                        .method(challengeList.get(i).getMethod())
-                        .frequency(challengeList.get(i).getFrequency())
-                        .summary(challengeList.get(i).getSummary())
-                        .description(challengeList.get(i).getDescription())
-                        .isJoin(userChallengeRepository.existsByUserIdAndChallengeId(userId, challengeList.get(i).getId()))
+                        .id(challenge.getId())
+                        .title(challenge.getTitle())
+                        .startDate(challenge.getStartDate())
+                        .endDate(challenge.getEndDate())
+                        .method(challenge.getMethod())
+                        .frequency(challenge.getFrequency())
+                        .summary(challenge.getSummary())
+                        .description(challenge.getDescription())
+                        .isJoin(userChallengeRepository.existsByUserIdAndChallengeId(userId, challenge.getId()))
                         .current(current)
-                        .max(challengeList.get(i).getMax())
-                        .img(challengeList.get(i).getImg())
+                        .max(challenge.getMax())
                         .build());
             }
             return oChallenge;

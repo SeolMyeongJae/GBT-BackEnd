@@ -15,7 +15,9 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 @Entity
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class CustomChallenge {
 
     @Id
@@ -46,18 +48,4 @@ public class CustomChallenge {
     @Column(length = 255)
     private String img;
 
-    @Builder
-    public CustomChallenge(Long id, User creator, String title, LocalDateTime startDate, LocalDateTime endDate, String method, Long frequency, String summary, String description, Long max, String img) {
-        this.id = id;
-        this.creator = creator;
-        this.title = title;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.method = method;
-        this.frequency = frequency;
-        this.summary = summary;
-        this.description = description;
-        this.max = max;
-        this.img = img;
-    }
 }

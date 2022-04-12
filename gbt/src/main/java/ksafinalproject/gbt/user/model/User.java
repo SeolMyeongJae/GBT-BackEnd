@@ -19,7 +19,9 @@ import java.util.Set;
 @Setter
 @ToString
 @Entity
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,22 +59,4 @@ public class User {
 //    @ToString.Exclude
 //    private Set<Likes> likes;
 
-    @Builder
-    public User(Long id, String userName, String gender, LocalDate birthYear, Long smokingYear, String comment, Long price, Long averageSmoking, Long ranking, String profileImg, String popupImg, Long point, Long badgeId, Set<Post> post, Set<CustomChallenge> customChallenge) {
-        this.id = id;
-        this.userName = userName;
-        this.gender = gender;
-        this.birthYear = birthYear;
-        this.smokingYear = smokingYear;
-        this.comment = comment;
-        this.price = price;
-        this.averageSmoking = averageSmoking;
-        this.ranking = ranking;
-        this.profileImg = profileImg;
-        this.popupImg = popupImg;
-        this.point = point;
-        this.badgeId = badgeId;
-        this.post = post;
-        this.customChallenge = customChallenge;
-    }
 }

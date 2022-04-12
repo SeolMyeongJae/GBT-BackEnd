@@ -12,7 +12,9 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 @Entity
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class Chat {
 
     @Id
@@ -31,13 +33,4 @@ public class Chat {
     @JoinColumn(name = "custom_challenge_id")
     @NotNull
     private CustomChallenge customChallenge;
-
-    @Builder
-    public Chat(Long id, String message, LocalDateTime created, User user, CustomChallenge customChallenge) {
-        this.id = id;
-        this.message = message;
-        this.created = created;
-        this.user = user;
-        this.customChallenge = customChallenge;
-    }
 }
