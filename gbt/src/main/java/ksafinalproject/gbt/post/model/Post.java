@@ -47,7 +47,7 @@ public class Post {
     private Set<Comment> comment;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "post")
     private Set<Likes> likes;
-
+//
     @Builder
     public Post(Long id, String title, String content, String author, String img, String category, LocalDateTime created, LocalDateTime updated, User user, Set<Comment> comment, Set<Likes> likes) {
         this.id = id;
