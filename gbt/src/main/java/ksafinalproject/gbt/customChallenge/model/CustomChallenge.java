@@ -2,6 +2,7 @@ package ksafinalproject.gbt.customChallenge.model;
 
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import ksafinalproject.gbt.user.model.User;
 import lombok.*;
 
@@ -21,6 +22,7 @@ public class CustomChallenge {
     @ManyToOne
     @JoinColumn(name = "creator_id")
     @NotNull
+    @JsonBackReference
     private User creator;
     @NotNull
     @Column(length = 255)
