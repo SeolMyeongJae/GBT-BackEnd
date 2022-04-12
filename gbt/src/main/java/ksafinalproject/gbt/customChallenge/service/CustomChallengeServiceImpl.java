@@ -1,6 +1,8 @@
 package ksafinalproject.gbt.customChallenge.service;
 
+import ksafinalproject.gbt.challenge.dto.OChallenge;
 import ksafinalproject.gbt.customChallenge.dto.ICustomChallenge;
+import ksafinalproject.gbt.customChallenge.dto.OCustomChallenge;
 import ksafinalproject.gbt.customChallenge.model.CustomChallenge;
 import ksafinalproject.gbt.customChallenge.repository.CustomChallengeRepository;
 import ksafinalproject.gbt.user.repository.UserRepository;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -79,10 +82,25 @@ public class CustomChallengeServiceImpl implements CustomChallengeService {
 
 
     @Override
-    public Optional<CustomChallenge> getCustomChallengeById(Long id) {
+    public Optional<OCustomChallenge> getCustomChallengeById(Long id) {
         log.info("find custom challenge by id : {}", id);
         try {
-            return customChallengeRepository.findById(id);
+            Optional<CustomChallenge> customChallenge = customChallengeRepository.findById(id);
+            Long creatorId = customChallenge.orElseThrow().getCreator().getId();
+            OCustomChallenge oCustomChallenge = OCustomChallenge.builder()
+                    .id(customChallenge.orElseThrow().getId())
+                    .creatorId(creatorId)
+                    .title(customChallenge.orElseThrow().getTitle())
+                    .startDate(customChallenge.orElseThrow().getStartDate())
+                    .endDate(customChallenge.orElseThrow().getEndDate())
+                    .method(customChallenge.orElseThrow().getMethod())
+                    .frequency(customChallenge.orElseThrow().getFrequency())
+                    .summary(customChallenge.orElseThrow().getSummary())
+                    .description(customChallenge.orElseThrow().getDescription())
+                    .max(customChallenge.orElseThrow().getMax())
+                    .img(customChallenge.orElseThrow().getImg())
+                    .build();
+            return Optional.of(oCustomChallenge);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return Optional.empty();
@@ -90,10 +108,28 @@ public class CustomChallengeServiceImpl implements CustomChallengeService {
     }
 
     @Override
-    public List<CustomChallenge> getAllCustomChallenge() {
+    public List<OCustomChallenge> getAllCustomChallenge() {
         log.info("find all custom challenge");
         try {
-            return customChallengeRepository.findAll();
+            List<CustomChallenge> customChallengeList = customChallengeRepository.findAll();
+            List<OCustomChallenge> oCustomChallengeList = new ArrayList<>();
+            for (CustomChallenge customChallenge : customChallengeList) {
+                Long creatorId = customChallenge.getCreator().getId();
+                oCustomChallengeList.add(OCustomChallenge.builder()
+                        .id(customChallenge.getId())
+                        .creatorId(creatorId)
+                        .title(customChallenge.getTitle())
+                        .startDate(customChallenge.getStartDate())
+                        .endDate(customChallenge.getEndDate())
+                        .method(customChallenge.getMethod())
+                        .frequency(customChallenge.getFrequency())
+                        .summary(customChallenge.getSummary())
+                        .description(customChallenge.getDescription())
+                        .max(customChallenge.getMax())
+                        .img(customChallenge.getImg())
+                        .build());
+            }
+            return oCustomChallengeList;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;
@@ -101,10 +137,27 @@ public class CustomChallengeServiceImpl implements CustomChallengeService {
     }
 
     @Override
-    public List<CustomChallenge> getAllCustomChallengeByCreatorId(Long creatorId) {
+    public List<OCustomChallenge> getAllCustomChallengeByCreatorId(Long creatorId) {
         log.info("find all custom challenge by creator id : {}", creatorId);
         try {
-            return customChallengeRepository.findAllByCreatorId(creatorId);
+            List<CustomChallenge> customChallengeList = customChallengeRepository.findAllByCreatorId(creatorId);
+            List<OCustomChallenge> oCustomChallengeList = new ArrayList<>();
+            for (CustomChallenge customChallenge : customChallengeList) {
+                Long creatorId2 = customChallenge.getCreator().getId();
+                oCustomChallengeList.add(OCustomChallenge.builder()
+                        .id(customChallenge.getId())
+                        .creatorId(creatorId2)
+                        .title(customChallenge.getTitle())
+                        .startDate(customChallenge.getStartDate())
+                        .endDate(customChallenge.getEndDate())
+                        .method(customChallenge.getMethod())
+                        .frequency(customChallenge.getFrequency())
+                        .summary(customChallenge.getSummary())
+                        .description(customChallenge.getDescription())
+                        .max(customChallenge.getMax())
+                        .img(customChallenge.getImg())
+                        .build());
+            } return oCustomChallengeList;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;
