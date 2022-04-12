@@ -9,8 +9,6 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -44,8 +42,10 @@ public class Post {
     @JsonBackReference
     private User user;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "post")
+    @ToString.Exclude
     private Set<Comment> comment;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "post")
+    @ToString.Exclude
     private Set<Likes> likes;
 
     @Builder

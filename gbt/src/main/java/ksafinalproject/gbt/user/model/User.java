@@ -2,6 +2,7 @@ package ksafinalproject.gbt.user.model;
 
 import javax.validation.constraints.NotNull;
 
+import ksafinalproject.gbt.customChallenge.model.CustomChallenge;
 import ksafinalproject.gbt.likes.model.Likes;
 import ksafinalproject.gbt.post.model.Post;
 import lombok.*;
@@ -9,6 +10,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -42,13 +44,18 @@ public class User {
     private String popupImg;
     private Long point;
     private Long badgeId;
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, mappedBy = "user")
-    private List<Post> post;
-//    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "user")
-//    private List<Likes> likes;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "user")
+    @ToString.Exclude
+    private Set<Post> post;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "creator")
+    @ToString.Exclude
+    private Set<CustomChallenge> customChallenge;
+//    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, mappedBy = "user")
+//    @ToString.Exclude
+//    private Set<Likes> likes;
 
     @Builder
-    public User(Long id, String userName, String gender, LocalDate birthYear, Long smokingYear, String comment, Long price, Long averageSmoking, Long ranking, String profileImg, String popupImg, Long point, Long badgeId) {
+    public User(Long id, String userName, String gender, LocalDate birthYear, Long smokingYear, String comment, Long price, Long averageSmoking, Long ranking, String profileImg, String popupImg, Long point, Long badgeId, Set<Post> post, Set<CustomChallenge> customChallenge) {
         this.id = id;
         this.userName = userName;
         this.gender = gender;
@@ -62,5 +69,7 @@ public class User {
         this.popupImg = popupImg;
         this.point = point;
         this.badgeId = badgeId;
+        this.post = post;
+        this.customChallenge = customChallenge;
     }
 }
