@@ -2,6 +2,7 @@ package ksafinalproject.gbt.challengeImg.service;
 
 import ksafinalproject.gbt.challengeImg.dto.IChallengeImg;
 import ksafinalproject.gbt.challengeImg.model.ChallengeImg;
+import ksafinalproject.gbt.challengeImg.model.OChallengeImg;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,11 +12,11 @@ public interface ChallengeImgService {
 
     int updateChallengeImg(IChallengeImg iChallengeImg, Long id);
 
-    Optional<ChallengeImg> getChallengeImgById(Long id);
+    Optional<OChallengeImg> getChallengeImgById(Long id);
 
-    List<ChallengeImg> getAllChallengeImg();
+    List<OChallengeImg> getAllChallengeImg();
 
-    List<ChallengeImg> getAllChallengeImgByChallengeId(Long challengeId);
+    List<OChallengeImg> getAllChallengeImgByChallengeId(Long challengeId);
 
     int deleteChallengeImgById(Long id);
 

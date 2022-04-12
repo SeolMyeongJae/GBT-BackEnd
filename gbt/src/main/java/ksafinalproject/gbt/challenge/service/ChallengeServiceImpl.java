@@ -150,6 +150,7 @@ public class ChallengeServiceImpl implements ChallengeService {
                         .isJoin(userChallengeRepository.existsByUserIdAndChallengeId(userId, challenge.getId()))
                         .current(current)
                         .max(challenge.getMax())
+                        .challengeImg(challenge.getChallengeImg())
                         .build());
             }
             return oChallenge;
