@@ -1,6 +1,5 @@
 package ksafinalproject.gbt.smoking.dto;
 
-import ksafinalproject.gbt.smoking.model.Smoking;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,7 +10,7 @@ import java.util.List;
 @Setter
 @ToString
 @NoArgsConstructor
-public class SmokingDto {
+public class TotalSmoking {
     Long total;
-    List<Smoking> smokingList;
+    List<OSmoking> smokingList;
 }

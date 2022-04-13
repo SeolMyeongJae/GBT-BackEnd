@@ -1,6 +1,7 @@
 package ksafinalproject.gbt.userCustom.service;
 
 import ksafinalproject.gbt.userCustom.dto.IUserCustom;
+import ksafinalproject.gbt.userCustom.dto.OUserCustom;
 import ksafinalproject.gbt.userCustom.model.UserCustom;
 
 import java.util.List;
@@ -12,13 +13,13 @@ public interface UserCustomService {
 
     int updateUserCustom(IUserCustom iUserCustom, Long id);
 
-    Optional<UserCustom> getUserCustomById(Long id);
+    Optional<OUserCustom> getUserCustomById(Long id);
 
-    List<UserCustom> getAllUserCustom();
+    List<OUserCustom> getAllUserCustom();
 
     int deleteUserCustomById(Long id);
 
-    List<UserCustom> getAllUserCustomByUserId(Long userid);
+    List<OUserCustom> getAllUserCustomByUserId(Long userid);
 
-    List<UserCustom> getAllUserCustomByCustomChallengeId(Long customChallengeId);
+    List<OUserCustom> getAllUserCustomByCustomChallengeId(Long customChallengeId);
 }

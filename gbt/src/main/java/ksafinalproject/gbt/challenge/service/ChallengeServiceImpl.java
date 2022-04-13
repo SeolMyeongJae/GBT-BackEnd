@@ -34,7 +34,6 @@ public class ChallengeServiceImpl implements ChallengeService {
         log.info("save challenge : {}", iChallenge);
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-
             LocalDateTime startDate = LocalDateTime.parse(iChallenge.getStartDate(), formatter);
             LocalDateTime endDate = LocalDateTime.parse(iChallenge.getEndDate(), formatter);
             Long challengeId = challengeRepository.save(Challenge.builder()
@@ -72,22 +71,21 @@ public class ChallengeServiceImpl implements ChallengeService {
     @Transactional
     public int updateChallenge(IChallenge iChallenge, Long id) {
         log.info("update challenge : {}, id : {}", iChallenge, id);
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
-//        LocalDateTime startDate = LocalDateTime.parse(iChallenge.getStartDate(), formatter);
-//        LocalDateTime endDate = LocalDateTime.parse(iChallenge.getEndDate(), formatter);
         try {
             if (challengeRepository.findById(id).isEmpty()) {
                 return -1;
             }
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+            LocalDateTime startDate = LocalDateTime.parse(iChallenge.getStartDate(), formatter);
+            LocalDateTime endDate = LocalDateTime.parse(iChallenge.getEndDate(), formatter);
             Challenge challenge = challengeRepository.findById(id).orElseThrow();
-//            challenge.setStartDate(iChallenge.getStartDate());
-//            challenge.setEndDate(iChallenge.getEndDate());
+            challenge.setStartDate(startDate);
+            challenge.setEndDate(endDate);
             challenge.setTitle(iChallenge.getTitle());
             challenge.setFrequency(iChallenge.getFrequency());
             challenge.setDescription(iChallenge.getDescription());
             challenge.setSummary(iChallenge.getSummary());
             challenge.setMax(iChallenge.getMax());
-//            challenge.setImg(iChallenge.getImg());
             return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());

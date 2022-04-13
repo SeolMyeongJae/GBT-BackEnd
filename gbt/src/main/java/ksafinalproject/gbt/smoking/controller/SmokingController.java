@@ -2,7 +2,8 @@ package ksafinalproject.gbt.smoking.controller;
 
 import io.swagger.annotations.Api;
 import ksafinalproject.gbt.smoking.dto.ISmoking;
-import ksafinalproject.gbt.smoking.dto.SmokingDto;
+import ksafinalproject.gbt.smoking.dto.OSmoking;
+import ksafinalproject.gbt.smoking.dto.TotalSmoking;
 import ksafinalproject.gbt.smoking.model.Smoking;
 import ksafinalproject.gbt.smoking.service.SmokingService;
 import lombok.RequiredArgsConstructor;
@@ -43,7 +44,7 @@ public class SmokingController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Smoking> smokingGetById(@PathVariable Long id) {
+    public Optional<OSmoking> smokingGetById(@PathVariable Long id) {
         try {
             return smokingService.getSmokingById(id);
         } catch (Exception e) {
@@ -53,7 +54,7 @@ public class SmokingController {
     }
 
     @GetMapping("/all")
-    public List<Smoking> smokingGetAll() {
+    public List<OSmoking> smokingGetAll() {
         try {
             return smokingService.getAllSmoking();
         } catch (Exception e) {
@@ -63,7 +64,7 @@ public class SmokingController {
     }
 
     @GetMapping("/today/{userId}")
-    public Optional<Smoking> smokingTodayGetByUserId(@PathVariable Long userId) {
+    public Optional<OSmoking> smokingTodayGetByUserId(@PathVariable Long userId) {
         try {
             return smokingService.getTodaySmokingByUserId(userId);
         } catch (Exception e) {
@@ -73,7 +74,7 @@ public class SmokingController {
     }
 
     @GetMapping("/all/user/{userId}")
-    public List<Smoking> smokingGetAllByUserId(@PathVariable Long userId) {
+    public List<OSmoking> smokingGetAllByUserId(@PathVariable Long userId) {
         try {
             return smokingService.getAllSmokingByUserId(userId);
         } catch (Exception e) {
@@ -83,7 +84,7 @@ public class SmokingController {
     }
 
     @GetMapping("/all/day/{day}/user/{userId}")
-    public SmokingDto smokingGetByDate(@PathVariable Long day, @PathVariable Long userId) {
+    public TotalSmoking smokingGetByDate(@PathVariable Long day, @PathVariable Long userId) {
         try {
             return smokingService.getSmokingByDate(day, userId);
         } catch (Exception e) {
@@ -94,7 +95,7 @@ public class SmokingController {
     }
 
     @GetMapping("/all/this-month/user/{userId}")
-    public SmokingDto smokingGetByDateMonth(@PathVariable Long userId) {
+    public TotalSmoking smokingGetByDateMonth(@PathVariable Long userId) {
         try {
             return smokingService.getSmokingByMonth((userId));
         } catch (Exception e) {

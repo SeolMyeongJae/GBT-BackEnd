@@ -1,8 +1,8 @@
 package ksafinalproject.gbt.smoking.service;
 
-import ksafinalproject.gbt.smoking.dto.SmokingDto;
+import ksafinalproject.gbt.smoking.dto.OSmoking;
+import ksafinalproject.gbt.smoking.dto.TotalSmoking;
 import ksafinalproject.gbt.smoking.dto.ISmoking;
-import ksafinalproject.gbt.smoking.model.Smoking;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,19 +12,19 @@ public interface SmokingService {
 
     int updateSmoking(ISmoking iSmoking, Long id);
 
-    Optional<Smoking> getSmokingById(Long id);
+    Optional<OSmoking> getSmokingById(Long id);
 
-    Optional<Smoking> getTodaySmokingByUserId(Long userId);
+    Optional<OSmoking> getTodaySmokingByUserId(Long userId);
 
-    List<Smoking> getAllSmoking();
+    List<OSmoking> getAllSmoking();
 
     int deleteSmokingById(Long id);
 
-    Optional<Smoking> getSmokingByUserId(Long userId);
+    Optional<OSmoking> getSmokingByUserId(Long userId);
 
-    List<Smoking> getAllSmokingByUserId(Long userId);
+    List<OSmoking> getAllSmokingByUserId(Long userId);
 
-    SmokingDto getSmokingByDate(Long day, Long userId);
+    TotalSmoking getSmokingByDate(Long day, Long userId);
 
-    SmokingDto getSmokingByMonth(Long userId);
+    TotalSmoking getSmokingByMonth(Long userId);
 }
