@@ -2,6 +2,7 @@ package ksafinalproject.gbt.challenge.dto;
 
 import ksafinalproject.gbt.challengeImg.model.ChallengeImg;
 import ksafinalproject.gbt.proof.model.Proof;
+import ksafinalproject.gbt.userChallenge.model.UserChallenge;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -27,5 +28,6 @@ public class OChallenge {
     private Long max;
     private List<ChallengeImg> challengeImg;
     private List<Proof> proof;
+    private List<UserChallenge> userChallenge;
 
 }

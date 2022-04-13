@@ -11,6 +11,7 @@ import ksafinalproject.gbt.invite.model.Invite;
 import ksafinalproject.gbt.likes.model.Likes;
 import ksafinalproject.gbt.post.model.Post;
 import ksafinalproject.gbt.proof.model.Proof;
+import ksafinalproject.gbt.userChallenge.model.UserChallenge;
 import lombok.*;
 
 import javax.persistence.*;
@@ -73,4 +74,7 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "user")
     @ToString.Exclude
     private Set<Invite> inviteUser;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "user")
+    @ToString.Exclude
+    private Set<UserChallenge> userChallenge;
 }

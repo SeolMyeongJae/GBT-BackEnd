@@ -1,5 +1,6 @@
 package ksafinalproject.gbt.userChallenge.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import ksafinalproject.gbt.challenge.model.Challenge;
 import ksafinalproject.gbt.user.model.User;
 import lombok.*;
@@ -21,10 +22,12 @@ public class UserChallenge {
     @ManyToOne
     @JoinColumn(name = "user_id")
     @NotNull
+    @JsonIgnore
     private User user;
     @ManyToOne
     @JoinColumn(name = "challenge_id")
     @NotNull
+    @JsonIgnore
     private Challenge challenge;
 
 }
