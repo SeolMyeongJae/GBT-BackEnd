@@ -1,6 +1,7 @@
 package ksafinalproject.gbt.chat.service;
 
 import ksafinalproject.gbt.chat.dto.IChat;
+import ksafinalproject.gbt.chat.dto.OChat;
 import ksafinalproject.gbt.chat.model.Chat;
 import ksafinalproject.gbt.chat.repository.ChatRepository;
 import ksafinalproject.gbt.customChallenge.repository.CustomChallengeRepository;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -58,10 +60,18 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
-    public Optional<Chat> getChatById(Long id) {
+    public Optional<OChat> getChatById(Long id) {
         log.info("find chat by id : {}", id);
         try {
-            return chatRepository.findById(id);
+            Optional<Chat> chat = chatRepository.findById(id);
+            OChat oChat = OChat.builder()
+                    .id(chat.orElseThrow().getId())
+                    .userId(chat.orElseThrow().getUser().getId())
+                    .message(chat.orElseThrow().getMessage())
+                    .created(chat.orElseThrow().getCreated())
+                    .customChallengeId(chat.orElseThrow().getCustomChallenge().getId())
+                    .build();
+            return Optional.of(oChat);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return Optional.empty();
@@ -69,10 +79,23 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
-    public List<Chat> getAllChat() {
+    public List<OChat> getAllChat() {
         log.info("find all chat");
         try {
-            return chatRepository.findAll();
+            List<Chat> chatList = chatRepository.findAll();
+            List<OChat> oChatList = new ArrayList<>();
+            for (Chat chat : chatList) {
+                Long userId = chat.getUser().getId();
+                Long customChallengeId = chat.getCustomChallenge().getId();
+                oChatList.add(OChat.builder()
+                        .id(chat.getId())
+                        .userId(userId)
+                        .message(chat.getMessage())
+                        .created(chat.getCreated())
+                        .customChallengeId(customChallengeId)
+                        .build());
+            }
+            return oChatList;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;
@@ -92,10 +115,23 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
-    public List<Chat> getAllChatByUserId(Long userId) {
+    public List<OChat> getAllChatByUserId(Long userId) {
         log.info("find all chat by user id : {}", userId);
         try {
-            return chatRepository.findAllByUserId(userId);
+            List<Chat> chatList = chatRepository.findAllByUserId(userId);
+            List<OChat> oChatList = new ArrayList<>();
+            for (Chat chat : chatList) {
+                Long userId2 = chat.getUser().getId();
+                Long customChallengeId = chat.getCustomChallenge().getId();
+                oChatList.add(OChat.builder()
+                        .id(chat.getId())
+                        .userId(userId2)
+                        .message(chat.getMessage())
+                        .created(chat.getCreated())
+                        .customChallengeId(customChallengeId)
+                        .build());
+            }
+            return oChatList;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;
@@ -103,10 +139,23 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
-    public List<Chat> getAllChatByCustomChallengeId(Long customChallengeId) {
+    public List<OChat> getAllChatByCustomChallengeId(Long customChallengeId) {
         log.info("find all chat by custom id : {}", customChallengeId);
         try {
-            return chatRepository.findAllByCustomChallengeId(customChallengeId);
+            List<Chat> chatList = chatRepository.findAllByCustomChallengeId(customChallengeId);
+            List<OChat> oChatList = new ArrayList<>();
+            for (Chat chat : chatList) {
+                Long userId = chat.getUser().getId();
+                Long customChallengeId2 = chat.getCustomChallenge().getId();
+                oChatList.add(OChat.builder()
+                        .id(chat.getId())
+                        .userId(userId)
+                        .message(chat.getMessage())
+                        .created(chat.getCreated())
+                        .customChallengeId(customChallengeId2)
+                        .build());
+            }
+            return oChatList;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;

@@ -2,6 +2,7 @@ package ksafinalproject.gbt.chat.controller;
 
 import io.swagger.annotations.Api;
 import ksafinalproject.gbt.chat.dto.IChat;
+import ksafinalproject.gbt.chat.dto.OChat;
 import ksafinalproject.gbt.chat.model.Chat;
 import ksafinalproject.gbt.chat.service.ChatService;
 import lombok.RequiredArgsConstructor;
@@ -42,7 +43,7 @@ public class ChatController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Chat> chatGetById(@PathVariable Long id) {
+    public Optional<OChat> chatGetById(@PathVariable Long id) {
         try {
             return chatService.getChatById(id);
         } catch (Exception e) {
@@ -52,7 +53,7 @@ public class ChatController {
     }
 
     @GetMapping("/all")
-    public List<Chat> chatGetAll() {
+    public List<OChat> chatGetAll() {
         try {
             return chatService.getAllChat();
         } catch (Exception e) {
@@ -72,7 +73,7 @@ public class ChatController {
     }
 
     @GetMapping("/all/user/{userId}")
-    public List<Chat> chatGetAllByUserId(@PathVariable Long userId) {
+    public List<OChat> chatGetAllByUserId(@PathVariable Long userId) {
         try {
             return chatService.getAllChatByUserId(userId);
         } catch (Exception e) {
@@ -82,7 +83,7 @@ public class ChatController {
     }
 
     @GetMapping("/all/custom-challenge/{customChallengeId}")
-    public List<Chat> chatGetAllByCustomChallengeId(@PathVariable Long customChallengeId) {
+    public List<OChat> chatGetAllByCustomChallengeId(@PathVariable Long customChallengeId) {
         try {
             return chatService.getAllChatByCustomChallengeId(customChallengeId);
         } catch (Exception e) {

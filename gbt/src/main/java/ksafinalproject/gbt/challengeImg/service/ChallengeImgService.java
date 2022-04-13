@@ -1,8 +1,7 @@
 package ksafinalproject.gbt.challengeImg.service;
 
 import ksafinalproject.gbt.challengeImg.dto.IChallengeImg;
-import ksafinalproject.gbt.challengeImg.model.ChallengeImg;
-import ksafinalproject.gbt.challengeImg.model.OChallengeImg;
+import ksafinalproject.gbt.challengeImg.dto.OChallengeImg;
 
 import java.util.List;
 import java.util.Optional;
