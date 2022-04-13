@@ -7,6 +7,7 @@ import ksafinalproject.gbt.chat.model.Chat;
 import ksafinalproject.gbt.customImg.model.CustomImg;
 import ksafinalproject.gbt.invite.model.Invite;
 import ksafinalproject.gbt.user.model.User;
+import ksafinalproject.gbt.userCustom.model.UserCustom;
 import lombok.*;
 
 import javax.persistence.*;
@@ -58,4 +59,7 @@ public class CustomChallenge {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "customChallenge")
     @ToString.Exclude
     private List<Invite> invite;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "customChallenge")
+    @ToString.Exclude
+    private List<UserCustom> userCustom;
 }

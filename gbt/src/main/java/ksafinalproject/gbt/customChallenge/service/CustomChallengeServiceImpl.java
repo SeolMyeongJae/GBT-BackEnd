@@ -103,6 +103,7 @@ public class CustomChallengeServiceImpl implements CustomChallengeService {
                     .chat(customChallenge.orElseThrow().getChat())
                     .customImg(customChallenge.orElseThrow().getCustomImg())
                     .invite(customChallenge.orElseThrow().getInvite())
+                    .userCustom(customChallenge.orElseThrow().getUserCustom())
                     .build();
             return Optional.of(oCustomChallenge);
         } catch (Exception e) {
@@ -136,6 +137,7 @@ public class CustomChallengeServiceImpl implements CustomChallengeService {
                         .chat(customChallenge.getChat())
                         .customImg(customChallenge.getCustomImg())
                         .invite(customChallenge.getInvite())
+                        .userCustom(customChallenge.getUserCustom())
                         .build());
             }
             return oCustomChallengeList;
@@ -170,6 +172,7 @@ public class CustomChallengeServiceImpl implements CustomChallengeService {
                         .chat(customChallenge.getChat())
                         .customImg(customChallenge.getCustomImg())
                         .invite(customChallenge.getInvite())
+                        .userCustom(customChallenge.getUserCustom())
                         .build());
             }
             return oCustomChallengeList;
@@ -205,6 +208,7 @@ public class CustomChallengeServiceImpl implements CustomChallengeService {
                         .chat(customChallenge.getChat())
                         .customImg(customChallenge.getCustomImg())
                         .invite(customChallenge.getInvite())
+                        .userCustom(customChallenge.getUserCustom())
                         .build());
             }
             return oCustomChallengeList;

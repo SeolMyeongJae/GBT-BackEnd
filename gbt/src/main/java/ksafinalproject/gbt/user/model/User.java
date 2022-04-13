@@ -2,9 +2,6 @@ package ksafinalproject.gbt.user.model;
 
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import ksafinalproject.gbt.chat.model.Chat;
 import ksafinalproject.gbt.customChallenge.model.CustomChallenge;
 import ksafinalproject.gbt.invite.model.Invite;
@@ -12,11 +9,11 @@ import ksafinalproject.gbt.likes.model.Likes;
 import ksafinalproject.gbt.post.model.Post;
 import ksafinalproject.gbt.proof.model.Proof;
 import ksafinalproject.gbt.userChallenge.model.UserChallenge;
+import ksafinalproject.gbt.userCustom.model.UserCustom;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -77,4 +74,7 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "user")
     @ToString.Exclude
     private Set<UserChallenge> userChallenge;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "user")
+    @ToString.Exclude
+    private Set<UserCustom> userCustom;
 }
