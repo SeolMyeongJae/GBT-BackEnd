@@ -2,6 +2,7 @@ package ksafinalproject.gbt.proof.service;
 
 import ksafinalproject.gbt.challenge.repository.ChallengeRepository;
 import ksafinalproject.gbt.proof.dto.IProof;
+import ksafinalproject.gbt.proof.dto.OProof;
 import ksafinalproject.gbt.proof.model.Proof;
 import ksafinalproject.gbt.proof.repository.ProofRepository;
 import ksafinalproject.gbt.user.repository.UserRepository;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,10 +58,18 @@ public class ProofServiceImpl implements ProofService {
     }
 
     @Override
-    public Optional<Proof> getProofById(Long id) {
+    public Optional<OProof> getProofById(Long id) {
         log.info("find proof by id : {}", id);
         try {
-            return proofRepository.findById(id);
+            Optional<Proof> proof = proofRepository.findById(id);
+            OProof oProof = OProof.builder()
+                    .id(proof.orElseThrow().getId())
+                    .content(proof.orElseThrow().getContent())
+                    .date(proof.orElseThrow().getDate())
+                    .userId(proof.orElseThrow().getUser().getId())
+                    .challengeId(proof.orElseThrow().getId())
+                    .build();
+            return Optional.of(oProof);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return Optional.empty();
@@ -67,10 +77,21 @@ public class ProofServiceImpl implements ProofService {
     }
 
     @Override
-    public List<Proof> getAllProof() {
+    public List<OProof> getAllProof() {
         log.info("find all proof");
         try {
-            return proofRepository.findAll();
+            List<Proof> proofList = proofRepository.findAll();
+            List<OProof> oProofList = new ArrayList<>();
+            for (Proof proof : proofList) {
+                oProofList.add(OProof.builder()
+                        .id(proof.getId())
+                        .content(proof.getContent())
+                        .date(proof.getDate())
+                        .userId(proof.getId())
+                        .challengeId(proof.getId())
+                        .build());
+            }
+            return oProofList;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;
@@ -90,10 +111,21 @@ public class ProofServiceImpl implements ProofService {
     }
 
     @Override
-    public List<Proof> getAllProofByUserId(Long userId) {
+    public List<OProof> getAllProofByUserId(Long userId) {
         log.info("find all proof by user id : {}", userId);
         try {
-            return proofRepository.findAllByUserId(userId);
+            List<Proof> proofList = proofRepository.findAllByUserId(userId);
+            List<OProof> oProofList = new ArrayList<>();
+            for (Proof proof : proofList) {
+                oProofList.add(OProof.builder()
+                        .id(proof.getId())
+                        .content(proof.getContent())
+                        .date(proof.getDate())
+                        .userId(proof.getId())
+                        .challengeId(proof.getId())
+                        .build());
+            }
+            return oProofList;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;
@@ -101,10 +133,21 @@ public class ProofServiceImpl implements ProofService {
     }
 
     @Override
-    public List<Proof> getAllProofByChallengeId(Long challengeId) {
+    public List<OProof> getAllProofByChallengeId(Long challengeId) {
         log.info("find all proof by challenge id : {}", challengeId);
         try {
-            return proofRepository.findAllByChallengeId(challengeId);
+            List<Proof> proofList = proofRepository.findAllByChallengeId(challengeId);
+            List<OProof> oProofList = new ArrayList<>();
+            for (Proof proof : proofList) {
+                oProofList.add(OProof.builder()
+                        .id(proof.getId())
+                        .content(proof.getContent())
+                        .date(proof.getDate())
+                        .userId(proof.getId())
+                        .challengeId(proof.getId())
+                        .build());
+            }
+            return oProofList;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;

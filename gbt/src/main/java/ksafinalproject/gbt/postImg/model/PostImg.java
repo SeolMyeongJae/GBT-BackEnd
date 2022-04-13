@@ -1,5 +1,6 @@
 package ksafinalproject.gbt.postImg.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import ksafinalproject.gbt.post.model.Post;
 import lombok.*;
 
@@ -23,6 +24,7 @@ public class PostImg {
     @ManyToOne
     @JoinColumn(name = "post_id")
     @NotNull
+    @JsonIgnore
     private Post post;
 
 }

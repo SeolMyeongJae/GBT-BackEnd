@@ -1,6 +1,7 @@
 package ksafinalproject.gbt.challenge.dto;
 
 import ksafinalproject.gbt.challengeImg.model.ChallengeImg;
+import ksafinalproject.gbt.proof.model.Proof;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -25,5 +26,6 @@ public class OChallenge {
     private Long current;
     private Long max;
     private List<ChallengeImg> challengeImg;
+    private List<Proof> proof;
 
 }

@@ -94,6 +94,7 @@ public class ChallengeServiceImpl implements ChallengeService {
             oChallenge.setCurrent(current);
             oChallenge.setMax(challenge.orElseThrow().getMax());
             oChallenge.setChallengeImg(challenge.orElseThrow().getChallengeImg());
+            oChallenge.setProof(challenge.orElseThrow().getProof());
             return Optional.of(oChallenge);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
@@ -121,6 +122,7 @@ public class ChallengeServiceImpl implements ChallengeService {
                         .current(current)
                         .max(challenge.getMax())
                         .challengeImg(challenge.getChallengeImg())
+                        .proof(challenge.getProof())
                         .build());
             }
             return oChallenge;
@@ -151,6 +153,7 @@ public class ChallengeServiceImpl implements ChallengeService {
                         .current(current)
                         .max(challenge.getMax())
                         .challengeImg(challenge.getChallengeImg())
+                        .proof(challenge.getProof())
                         .build());
             }
             return oChallenge;

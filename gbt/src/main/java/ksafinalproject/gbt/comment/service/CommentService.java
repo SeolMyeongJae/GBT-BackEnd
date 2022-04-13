@@ -1,6 +1,7 @@
 package ksafinalproject.gbt.comment.service;
 
 import ksafinalproject.gbt.comment.dto.IComment;
+import ksafinalproject.gbt.comment.dto.OComment;
 import ksafinalproject.gbt.comment.model.Comment;
 
 import java.util.List;
@@ -12,14 +13,14 @@ public interface CommentService {
 
     int updateComment(IComment iComment, Long id);
 
-    Optional<Comment> getCommentById(Long id);
+    Optional<OComment> getCommentById(Long id);
 
-    List<Comment> getAllComment();
+    List<OComment> getAllComment();
 
-    List<Comment> getAllCommentByDesc();
+    List<OComment> getAllCommentByDesc();
 
     int deleteCommentById(Long id);
 
-    List<Comment> getAllCommentByPostId(Long postId);
+    List<OComment> getAllCommentByPostId(Long postId);
 
 }

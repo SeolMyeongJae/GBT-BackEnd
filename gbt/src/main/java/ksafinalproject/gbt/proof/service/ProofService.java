@@ -1,6 +1,7 @@
 package ksafinalproject.gbt.proof.service;
 
 import ksafinalproject.gbt.proof.dto.IProof;
+import ksafinalproject.gbt.proof.dto.OProof;
 import ksafinalproject.gbt.proof.model.Proof;
 
 import java.util.List;
@@ -12,14 +13,14 @@ public interface ProofService {
 
     int updateProof(IProof iProof, Long id);
 
-    Optional<Proof> getProofById(Long id);
+    Optional<OProof> getProofById(Long id);
 
-    List<Proof> getAllProof();
+    List<OProof> getAllProof();
 
     int deleteProofById(Long id);
 
-    List<Proof> getAllProofByUserId(Long userId);
+    List<OProof> getAllProofByUserId(Long userId);
 
-    List<Proof> getAllProofByChallengeId(Long challengeId);
+    List<OProof> getAllProofByChallengeId(Long challengeId);
 
 }

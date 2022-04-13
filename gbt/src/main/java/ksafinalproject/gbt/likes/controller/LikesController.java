@@ -2,6 +2,7 @@ package ksafinalproject.gbt.likes.controller;
 
 import io.swagger.annotations.Api;
 import ksafinalproject.gbt.likes.dto.ILikes;
+import ksafinalproject.gbt.likes.dto.OLikes;
 import ksafinalproject.gbt.likes.model.Likes;
 import ksafinalproject.gbt.likes.service.LikesService;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +33,7 @@ public class LikesController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Likes> likeGetById(@PathVariable Long id) {
+    public Optional<OLikes> likeGetById(@PathVariable Long id) {
         try {
             return likeService.getLikeById(id);
         } catch (Exception e) {
@@ -42,7 +43,7 @@ public class LikesController {
     }
 
     @GetMapping("/post/{postId}/user/{userId}")
-    public Optional<Likes> likeGetByPostIdAndUserId(@PathVariable Long postId, @PathVariable Long userId) {
+    public Optional<OLikes> likeGetByPostIdAndUserId(@PathVariable Long postId, @PathVariable Long userId) {
         try {
             return likeService.getLikeByPostIdAndUserId(postId, userId);
         } catch (Exception e) {
@@ -52,7 +53,7 @@ public class LikesController {
     }
 
     @GetMapping("/all")
-    public List<Likes> likeGetAll() {
+    public List<OLikes> likeGetAll() {
         try {
             return likeService.getAllLike();
         } catch (Exception e) {
@@ -72,7 +73,7 @@ public class LikesController {
     }
 
     @GetMapping("/all/post/{postId}")
-    public List<Likes> likeGetAllByPostId(@PathVariable Long postId) {
+    public List<OLikes> likeGetAllByPostId(@PathVariable Long postId) {
         try {
             return likeService.getAllLikeByPostId(postId);
         } catch (Exception e) {
@@ -82,7 +83,7 @@ public class LikesController {
     }
 
     @GetMapping("/all/user/{userId}")
-    public List<Likes> likeGetAllByUserId(@PathVariable Long userId) {
+    public List<OLikes> likeGetAllByUserId(@PathVariable Long userId) {
         try {
             return likeService.getAllLikeByUserId(userId);
         } catch (Exception e) {

@@ -13,7 +13,7 @@ public interface PostService {
 
     int updatePost(IPost iPost, Long id);
 
-    Optional<Post> getPostById(Long id);
+    Optional<OPost> getPostById(Long id);
 
     List<OPost> getAllPost();
 

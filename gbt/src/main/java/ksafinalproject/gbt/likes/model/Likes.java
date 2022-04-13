@@ -1,6 +1,7 @@
 package ksafinalproject.gbt.likes.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import ksafinalproject.gbt.post.model.Post;
 import ksafinalproject.gbt.user.model.User;
 import lombok.*;
@@ -22,11 +23,11 @@ public class Likes {
     @ManyToOne
     @JoinColumn(name = "post_id")
     @NotNull
-    @JsonBackReference
+    @JsonIgnore
     private Post post;
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonBackReference
+    @JsonIgnore
     @NotNull
     private User user;
 

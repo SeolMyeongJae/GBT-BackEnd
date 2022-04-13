@@ -2,6 +2,7 @@ package ksafinalproject.gbt.comment.controller;
 
 import io.swagger.annotations.Api;
 import ksafinalproject.gbt.comment.dto.IComment;
+import ksafinalproject.gbt.comment.dto.OComment;
 import ksafinalproject.gbt.comment.model.Comment;
 import ksafinalproject.gbt.comment.service.CommentService;
 import lombok.RequiredArgsConstructor;
@@ -42,7 +43,7 @@ public class CommentController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Comment> commentGetById(@PathVariable Long id) {
+    public Optional<OComment> commentGetById(@PathVariable Long id) {
         try {
             return commentService.getCommentById(id);
         } catch (Exception e) {
@@ -52,7 +53,7 @@ public class CommentController {
     }
 
     @GetMapping("/all")
-    public List<Comment> commentGetAll() {
+    public List<OComment> commentGetAll() {
         try {
             return commentService.getAllComment();
         } catch (Exception e) {
@@ -62,7 +63,7 @@ public class CommentController {
     }
 
     @GetMapping("/all/desc")
-    public List<Comment> commentGetAllByDesc() {
+    public List<OComment> commentGetAllByDesc() {
         try {
             return commentService.getAllCommentByDesc();
         } catch (Exception e) {
@@ -72,7 +73,7 @@ public class CommentController {
     }
 
     @GetMapping("/all/post/{postId}")
-    public List<Comment> commentGetAllByPostId(@PathVariable Long postId) {
+    public List<OComment> commentGetAllByPostId(@PathVariable Long postId) {
         try {
             return commentService.getAllCommentByPostId(postId);
         } catch (Exception e) {
