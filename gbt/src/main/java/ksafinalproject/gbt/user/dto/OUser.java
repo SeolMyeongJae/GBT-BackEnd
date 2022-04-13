@@ -6,6 +6,7 @@ import ksafinalproject.gbt.invite.model.Invite;
 import ksafinalproject.gbt.likes.model.Likes;
 import ksafinalproject.gbt.post.model.Post;
 import ksafinalproject.gbt.proof.model.Proof;
+import ksafinalproject.gbt.userChallenge.model.UserChallenge;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -37,4 +38,5 @@ public class OUser {
     private Set<Likes> likes;
     private Set<Invite> inviteCaller;
     private Set<Invite> inviteUser;
+    private Set<UserChallenge> userChallenge;
 }

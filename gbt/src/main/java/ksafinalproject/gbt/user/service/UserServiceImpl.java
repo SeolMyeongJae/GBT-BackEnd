@@ -96,6 +96,7 @@ public class UserServiceImpl implements UserService {
                     .likes(user.orElseThrow().getLikes())
                     .inviteCaller(user.orElseThrow().getInviteCaller())
                     .inviteUser(user.orElseThrow().getInviteUser())
+                    .userChallenge(user.orElseThrow().getUserChallenge())
                     .build();
             return Optional.of(oUser);
         } catch (Exception e) {
@@ -132,6 +133,7 @@ public class UserServiceImpl implements UserService {
                         .likes(user.getLikes())
                         .inviteCaller(user.getInviteCaller())
                         .inviteUser(user.getInviteUser())
+                        .userChallenge(user.getUserChallenge())
                         .build());
             }
             return oUserList;
@@ -179,6 +181,7 @@ public class UserServiceImpl implements UserService {
                     .likes(user.orElseThrow().getLikes())
                     .inviteCaller(user.orElseThrow().getInviteCaller())
                     .inviteUser(user.orElseThrow().getInviteUser())
+                    .userChallenge(user.orElseThrow().getUserChallenge())
                     .build();
             return Optional.of(oUser);
         } catch (Exception e) {
