@@ -4,6 +4,7 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import ksafinalproject.gbt.chat.model.Chat;
+import ksafinalproject.gbt.customImg.model.CustomImg;
 import ksafinalproject.gbt.user.model.User;
 import lombok.*;
 
@@ -45,9 +46,10 @@ public class CustomChallenge {
     @Column(length = 255)
     private String description;
     private Long max;
-    @Column(length = 255)
-    private String img;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "customChallenge")
     @ToString.Exclude
     private List<Chat> chat;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "customChallenge")
+    @ToString.Exclude
+    private List<CustomImg> customImg;
 }

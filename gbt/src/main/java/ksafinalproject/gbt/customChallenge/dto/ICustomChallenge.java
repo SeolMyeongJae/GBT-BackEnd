@@ -20,5 +20,4 @@ public class ICustomChallenge {
     private String description;
     private String summary;
     private Long max;
-    private String img;
 }

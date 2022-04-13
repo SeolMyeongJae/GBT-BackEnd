@@ -44,7 +44,6 @@ public class CustomChallengeServiceImpl implements CustomChallengeService {
                     .summary(iCustomChallenge.getSummary())
                     .description(iCustomChallenge.getDescription())
                     .max(iCustomChallenge.getMax())
-                    .img(iCustomChallenge.getImg())
                     .build());
             return 1;
         } catch (Exception e) {
@@ -72,7 +71,6 @@ public class CustomChallengeServiceImpl implements CustomChallengeService {
             customChallenge.setSummary(iCustomChallenge.getSummary());
             customChallenge.setDescription(iCustomChallenge.getDescription());
             customChallenge.setMax(iCustomChallenge.getMax());
-            customChallenge.setImg(iCustomChallenge.getImg());
             return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
@@ -98,8 +96,8 @@ public class CustomChallengeServiceImpl implements CustomChallengeService {
                     .summary(customChallenge.orElseThrow().getSummary())
                     .description(customChallenge.orElseThrow().getDescription())
                     .max(customChallenge.orElseThrow().getMax())
-                    .img(customChallenge.orElseThrow().getImg())
                     .chat(customChallenge.orElseThrow().getChat())
+                    .customImg(customChallenge.orElseThrow().getCustomImg())
                     .build();
             return Optional.of(oCustomChallenge);
         } catch (Exception e) {
@@ -127,8 +125,8 @@ public class CustomChallengeServiceImpl implements CustomChallengeService {
                         .summary(customChallenge.getSummary())
                         .description(customChallenge.getDescription())
                         .max(customChallenge.getMax())
-                        .img(customChallenge.getImg())
                         .chat(customChallenge.getChat())
+                        .customImg(customChallenge.getCustomImg())
                         .build());
             }
             return oCustomChallengeList;
@@ -157,8 +155,8 @@ public class CustomChallengeServiceImpl implements CustomChallengeService {
                         .summary(customChallenge.getSummary())
                         .description(customChallenge.getDescription())
                         .max(customChallenge.getMax())
-                        .img(customChallenge.getImg())
                         .chat(customChallenge.getChat())
+                        .customImg(customChallenge.getCustomImg())
                         .build());
             }
             return oCustomChallengeList;

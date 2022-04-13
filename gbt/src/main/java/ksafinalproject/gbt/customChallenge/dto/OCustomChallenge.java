@@ -1,6 +1,7 @@
 package ksafinalproject.gbt.customChallenge.dto;
 
 import ksafinalproject.gbt.chat.model.Chat;
+import ksafinalproject.gbt.customImg.model.CustomImg;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -22,7 +23,7 @@ public class OCustomChallenge {
     private String summary;
     private String description;
     private Long max;
-    private String img;
     private List<Chat> chat;
+    private List<CustomImg> customImg;
 
 }
