@@ -1,10 +1,10 @@
 package ksafinalproject.gbt.challenge.dto;
 
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
-import java.time.LocalDateTime;
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
@@ -12,12 +12,12 @@ import java.time.LocalDateTime;
 public class IChallenge {
     private Long id;
     private String title;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    private String startDate;
+    private String endDate;
     private String method;
     private Long frequency;
     private String description;
     private String summary;
     private Long max;
-    private String img;
+    private List<MultipartFile> img;
 }

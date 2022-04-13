@@ -12,6 +12,8 @@ import javax.persistence.*;
 @ToString
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class ChallengeImg {
 
     @Id
@@ -21,14 +23,7 @@ public class ChallengeImg {
     @Column(length = 255)
     private String url;
     @ManyToOne
-    @JoinColumn(name = "challenge_id")
+    @Column(name = "challenge_id")
     @NotNull
     private Challenge challenge;
-
-    @Builder
-    public ChallengeImg(Long id, String url, Challenge challenge) {
-        this.id = id;
-        this.url = url;
-        this.challenge = challenge;
-    }
 }

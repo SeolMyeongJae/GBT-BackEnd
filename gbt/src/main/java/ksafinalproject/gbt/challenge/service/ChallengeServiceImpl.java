@@ -1,9 +1,12 @@
 package ksafinalproject.gbt.challenge.service;
 
+import ksafinalproject.gbt.S3Uploader;
 import ksafinalproject.gbt.challenge.dto.IChallenge;
 import ksafinalproject.gbt.challenge.dto.OChallenge;
 import ksafinalproject.gbt.challenge.model.Challenge;
 import ksafinalproject.gbt.challenge.repository.ChallengeRepository;
+import ksafinalproject.gbt.challengeImg.model.ChallengeImg;
+import ksafinalproject.gbt.challengeImg.repository.ChallengeImgRepository;
 import ksafinalproject.gbt.userChallenge.repository.UserChallengeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,35 +18,49 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
-
 public class ChallengeServiceImpl implements ChallengeService {
 
     private final ChallengeRepository challengeRepository;
+    private final ChallengeImgRepository challengeImgRepository;
     private final UserChallengeRepository userChallengeRepository;
-
+    private final S3Uploader s3Uploader;
     @Override
     public int saveChallenge(IChallenge iChallenge) {
         log.info("save challenge : {}", iChallenge);
         try {
-//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
-//            LocalDateTime startDate = LocalDateTime.parse(iChallenge.getStartDate(), formatter);
-//            LocalDateTime endDate = LocalDateTime.parse(iChallenge.getEndDate(), formatter);
-            challengeRepository.save(Challenge.builder()
-                    .id(iChallenge.getId())
-                    .startDate(iChallenge.getStartDate())
-                    .endDate(iChallenge.getEndDate())
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+
+            LocalDateTime startDate = LocalDateTime.parse(iChallenge.getStartDate(), formatter);
+            LocalDateTime endDate = LocalDateTime.parse(iChallenge.getEndDate(), formatter);
+            Long challengeId = challengeRepository.save(Challenge.builder()
+                    .startDate(startDate)
+                    .endDate(endDate)
                     .method(iChallenge.getMethod())
                     .title(iChallenge.getTitle())
                     .frequency(iChallenge.getFrequency())
                     .summary(iChallenge.getSummary())
                     .description(iChallenge.getDescription())
                     .max(iChallenge.getMax())
-                    .img(iChallenge.getImg())
-                    .build());
+                    .build()).getId();
+
+            List<MultipartFile> imageFiles = iChallenge.getImg();
+            imageFiles.forEach(file -> {
+                try {
+                    String url = (s3Uploader.upload(file, "challengeImg"));
+                    ChallengeImg img = new ChallengeImg();
+                    img.setChallenge(challengeRepository.getById(challengeId));
+                    img.setUrl(url);
+                    System.out.println(">>> " + img.toString());
+                    challengeImgRepository.save(img);
+                } catch (Exception e) {
+                    log.error("Error : {}", e.getMessage());
+                }
+            });
             return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
@@ -63,14 +80,14 @@ public class ChallengeServiceImpl implements ChallengeService {
                 return -1;
             }
             Challenge challenge = challengeRepository.findById(id).orElseThrow();
-            challenge.setStartDate(iChallenge.getStartDate());
-            challenge.setEndDate(iChallenge.getEndDate());
+//            challenge.setStartDate(iChallenge.getStartDate());
+//            challenge.setEndDate(iChallenge.getEndDate());
             challenge.setTitle(iChallenge.getTitle());
             challenge.setFrequency(iChallenge.getFrequency());
             challenge.setDescription(iChallenge.getDescription());
             challenge.setSummary(iChallenge.getSummary());
             challenge.setMax(iChallenge.getMax());
-            challenge.setImg(iChallenge.getImg());
+//            challenge.setImg(iChallenge.getImg());
             return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
