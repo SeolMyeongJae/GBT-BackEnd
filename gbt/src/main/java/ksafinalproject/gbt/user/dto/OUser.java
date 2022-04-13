@@ -6,6 +6,7 @@ import ksafinalproject.gbt.invite.model.Invite;
 import ksafinalproject.gbt.likes.model.Likes;
 import ksafinalproject.gbt.post.model.Post;
 import ksafinalproject.gbt.proof.model.Proof;
+import ksafinalproject.gbt.smoking.model.Smoking;
 import ksafinalproject.gbt.userChallenge.model.UserChallenge;
 import ksafinalproject.gbt.userCustom.model.UserCustom;
 import lombok.*;
@@ -41,4 +42,5 @@ public class OUser {
     private Set<Invite> inviteUser;
     private Set<UserChallenge> userChallenge;
     private Set<UserCustom> userCustom;
+    private Set<Smoking> smoking;
 }

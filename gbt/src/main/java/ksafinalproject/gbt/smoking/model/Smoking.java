@@ -2,6 +2,7 @@ package ksafinalproject.gbt.smoking.model;
 
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import ksafinalproject.gbt.user.model.User;
 import lombok.*;
 
@@ -27,6 +28,7 @@ public class Smoking {
     @ManyToOne
     @JoinColumn(name = "user_id")
     @NotNull
+    @JsonIgnore
     private User user;
     @NotNull
     @Column(length = 10)

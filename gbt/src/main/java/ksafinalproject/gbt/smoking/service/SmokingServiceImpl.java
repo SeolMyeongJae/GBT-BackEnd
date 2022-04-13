@@ -1,7 +1,8 @@
 package ksafinalproject.gbt.smoking.service;
 
 import ksafinalproject.gbt.smoking.dto.ISmoking;
-import ksafinalproject.gbt.smoking.dto.SmokingDto;
+import ksafinalproject.gbt.smoking.dto.OSmoking;
+import ksafinalproject.gbt.smoking.dto.TotalSmoking;
 import ksafinalproject.gbt.smoking.model.Smoking;
 import ksafinalproject.gbt.smoking.repository.SmokingRepository;
 import ksafinalproject.gbt.user.repository.UserRepository;
@@ -28,12 +29,12 @@ public class SmokingServiceImpl implements SmokingService {
     @Transactional
     public int saveSmoking(ISmoking iSmoking) {
         log.info("save smoking : {} ", iSmoking);
-        List<Smoking> smokingList = smokingRepository.findAllByUserId(iSmoking.getUserId());
-        LocalDate now = LocalDate.now();
         try {
-            for (int i = 0; i < smokingList.size(); i++) {
-                if (smokingList.get(i).getDate().getDayOfYear() == now.getDayOfYear() && smokingList.get(i).getDate().getYear() == now.getYear()) {
-                    smokingList.get(i).setCount(smokingList.get(i).getCount() + 1);
+            List<Smoking> smokingList = smokingRepository.findAllByUserId(iSmoking.getUserId());
+            LocalDate now = LocalDate.now();
+            for (Smoking smoking : smokingList) {
+                if (smoking.getDate().getDayOfYear() == now.getDayOfYear() && smoking.getDate().getYear() == now.getYear()) {
+                    smoking.setCount(smoking.getCount() + 1);
                     return 2;
                 }
             }
@@ -67,10 +68,18 @@ public class SmokingServiceImpl implements SmokingService {
     }
 
     @Override
-    public Optional<Smoking> getSmokingById(Long id) {
+    public Optional<OSmoking> getSmokingById(Long id) {
         log.info("find smoking by id : {}", id);
         try {
-            return smokingRepository.findById(id);
+            Optional<Smoking> smoking = smokingRepository.findById(id);
+            OSmoking oSmoking = OSmoking.builder()
+                    .id(smoking.orElseThrow().getId())
+                    .count(smoking.orElseThrow().getCount())
+                    .date(smoking.orElseThrow().getDate())
+                    .userId(smoking.orElseThrow().getUser().getId())
+                    .provider(smoking.orElseThrow().getProvider())
+                    .build();
+            return Optional.of(oSmoking);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return Optional.empty();
@@ -78,10 +87,21 @@ public class SmokingServiceImpl implements SmokingService {
     }
 
     @Override
-    public List<Smoking> getAllSmoking() {
+    public List<OSmoking> getAllSmoking() {
         log.info("find all smoking");
         try {
-            return smokingRepository.findAll();
+            List<Smoking> smokingList = smokingRepository.findAll();
+            List<OSmoking> oSmokingList = new ArrayList<>();
+            for (Smoking smoking : smokingList) {
+                oSmokingList.add(OSmoking.builder()
+                        .id(smoking.getId())
+                        .count(smoking.getCount())
+                        .date(smoking.getDate())
+                        .userId(smoking.getUser().getId())
+                        .provider(smoking.getProvider())
+                        .build());
+            }
+            return oSmokingList;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;
@@ -101,10 +121,18 @@ public class SmokingServiceImpl implements SmokingService {
     }
 
     @Override
-    public Optional<Smoking> getSmokingByUserId(Long userId) {
+    public Optional<OSmoking> getSmokingByUserId(Long userId) {
         log.info("find smoking by userid : {}", userId);
         try {
-            return smokingRepository.findSmokingByUserId(userId);
+            Optional<Smoking> smoking = smokingRepository.findSmokingByUserId(userId);
+            OSmoking oSmoking = OSmoking.builder()
+                    .id(smoking.orElseThrow().getId())
+                    .count(smoking.orElseThrow().getCount())
+                    .date(smoking.orElseThrow().getDate())
+                    .userId(smoking.orElseThrow().getUser().getId())
+                    .provider(smoking.orElseThrow().getProvider())
+                    .build();
+            return Optional.of(oSmoking);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return Optional.empty();
@@ -112,14 +140,21 @@ public class SmokingServiceImpl implements SmokingService {
     }
 
     @Override
-    public Optional<Smoking> getTodaySmokingByUserId(Long userId) {
+    public Optional<OSmoking> getTodaySmokingByUserId(Long userId) {
         log.info("find today smoking by userid : {} ", userId);
-        List<Smoking> smokingList = smokingRepository.findAllByUserId(userId);
-        LocalDate now = LocalDate.now();
         try {
-            for (int i = 0; i < smokingList.size(); i++) {
-                if (smokingList.get(i).getDate().isAfter(now.minusDays(1))) {
-                    return Optional.ofNullable(smokingList.get(i));
+            List<Smoking> smokingList = smokingRepository.findAllByUserId(userId);
+            LocalDate now = LocalDate.now();
+            for (Smoking smoking : smokingList) {
+                if (smoking.getDate().isAfter(now.minusDays(1))) {
+                    OSmoking oSmoking = OSmoking.builder()
+                            .id(smoking.getId())
+                            .count(smoking.getCount())
+                            .date(smoking.getDate())
+                            .userId(smoking.getUser().getId())
+                            .provider(smoking.getProvider())
+                            .build();
+                    return Optional.of(oSmoking);
                 }
             }
             return Optional.empty();
@@ -130,10 +165,21 @@ public class SmokingServiceImpl implements SmokingService {
     }
 
     @Override
-    public List<Smoking> getAllSmokingByUserId(Long userId) {
+    public List<OSmoking> getAllSmokingByUserId(Long userId) {
         log.info("find all smoking by user id {}", userId);
         try {
-            return smokingRepository.findAllByUserId(userId);
+            List<Smoking> smokingList = smokingRepository.findAllByUserId(userId);
+            List<OSmoking> oSmokingList = new ArrayList<>();
+            for (Smoking smoking : smokingList) {
+                oSmokingList.add(OSmoking.builder()
+                        .id(smoking.getId())
+                        .count(smoking.getCount())
+                        .date(smoking.getDate())
+                        .userId(smoking.getUser().getId())
+                        .provider(smoking.getProvider())
+                        .build());
+            }
+            return oSmokingList;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;
@@ -141,18 +187,24 @@ public class SmokingServiceImpl implements SmokingService {
     }
 
     @Override
-    public SmokingDto getSmokingByDate(Long day, Long userId) {
+    public TotalSmoking getSmokingByDate(Long day, Long userId) {
         log.info("find all smoking by day {}, user id {}", day, userId);
-        List<Smoking> smokingList = smokingRepository.findAllByUserId(userId);
-        List<Smoking> result = new ArrayList<>();
-        Long total = 0L;
-        SmokingDto smokingDto = new SmokingDto();
-        LocalDate now = LocalDate.now();
         try {
-            for (int i = 0; i < smokingList.size(); i++) {
-                if (smokingList.get(i).getDate().isAfter(now.minusDays(day))) {
-                    result.add(smokingList.get(i));
-                    total += smokingList.get(i).getCount();
+            List<Smoking> smokingList = smokingRepository.findAllByUserId(userId);
+            List<OSmoking> result = new ArrayList<>();
+            Long total = 0L;
+            TotalSmoking smokingDto = new TotalSmoking();
+            LocalDate now = LocalDate.now();
+            for (Smoking smoking : smokingList) {
+                if (smoking.getDate().isAfter(now.minusDays(day))) {
+                    result.add(OSmoking.builder()
+                            .id(smoking.getId())
+                            .count(smoking.getCount())
+                            .date(smoking.getDate())
+                            .userId(smoking.getUser().getId())
+                            .provider(smoking.getProvider())
+                            .build());
+                    total += smoking.getCount();
                 }
             }
             smokingDto.setSmokingList(result);
@@ -165,18 +217,24 @@ public class SmokingServiceImpl implements SmokingService {
     }
 
     @Override
-    public SmokingDto getSmokingByMonth(Long userId) {
+    public TotalSmoking getSmokingByMonth(Long userId) {
         log.info("find all this month smoking by user id {}", userId);
-        List<Smoking> smokingList = smokingRepository.findAllByUserId(userId);
-        List<Smoking> result = new ArrayList<>();
-        Long total = 0L;
-        SmokingDto smokingDto = new SmokingDto();
-        LocalDate now = LocalDate.now();
         try {
-            for (int i = 0; i < smokingList.size(); i++) {
-                if (smokingList.get(i).getDate().getMonthValue() == now.getMonthValue() && smokingList.get(i).getDate().getYear() == now.getYear()) {
-                    result.add(smokingList.get(i));
-                    total += smokingList.get(i).getCount();
+            List<Smoking> smokingList = smokingRepository.findAllByUserId(userId);
+            List<OSmoking> result = new ArrayList<>();
+            Long total = 0L;
+            TotalSmoking smokingDto = new TotalSmoking();
+            LocalDate now = LocalDate.now();
+            for (Smoking smoking : smokingList) {
+                if (smoking.getDate().getMonthValue() == now.getMonthValue() && smoking.getDate().getYear() == now.getYear()) {
+                    result.add(OSmoking.builder()
+                            .id(smoking.getId())
+                            .count(smoking.getCount())
+                            .date(smoking.getDate())
+                            .userId(smoking.getUser().getId())
+                            .provider(smoking.getProvider())
+                            .build());
+                    total += smoking.getCount();
                 }
             }
             smokingDto.setSmokingList(result);
