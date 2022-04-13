@@ -43,7 +43,7 @@ public class PostController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Post> postGetById(@PathVariable Long id) {
+    public Optional<OPost> postGetById(@PathVariable Long id) {
         try {
             return postService.getPostById(id);
         } catch (Exception e) {

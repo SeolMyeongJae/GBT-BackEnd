@@ -35,7 +35,6 @@ public class PostServiceImpl implements PostService {
                     .title(iPost.getTitle())
                     .content(iPost.getContent())
                     .author(iPost.getAuthor())
-                    .img(iPost.getImg())
                     .category(iPost.getCategory())
                     .created(LocalDateTime.now())
                     .user(userRepository.findById(iPost.getUserId()).orElseThrow())
@@ -56,7 +55,6 @@ public class PostServiceImpl implements PostService {
             post2.setTitle(iPost.getTitle());
             post2.setContent(iPost.getContent());
             post2.setAuthor(iPost.getAuthor());
-            post2.setImg(iPost.getImg());
             post2.setCategory(iPost.getCategory());
             post2.setUpdated(LocalDateTime.now());
             return 1;
@@ -67,10 +65,26 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Optional<Post> getPostById(Long id) {
+    public Optional<OPost> getPostById(Long id) {
         log.info("find post by id : {}", id);
         try {
-            return postRepository.findById(id);
+            Optional<Post> post = postRepository.findById(id);
+            Long likesCount = likesRepository.countByPostId(post.orElseThrow().getId());
+            OPost oPost = OPost.builder()
+                    .id(post.orElseThrow().getId())
+                    .title(post.orElseThrow().getTitle())
+                    .content(post.orElseThrow().getContent())
+                    .author(post.orElseThrow().getAuthor())
+                    .category(post.orElseThrow().getCategory())
+                    .created(post.orElseThrow().getCreated())
+                    .updated(post.orElseThrow().getCreated())
+                    .userId(post.orElseThrow().getUser().getId())
+                    .likesCount(likesCount)
+                    .postImg(post.orElseThrow().getPostImg())
+                    .comment(post.orElseThrow().getComment())
+                    .likes(post.orElseThrow().getLikes())
+                    .build();
+            return Optional.of(oPost);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return Optional.empty();
@@ -83,19 +97,21 @@ public class PostServiceImpl implements PostService {
         try {
             List<Post> postList = postRepository.findAll();
             List<OPost> oPostList = new ArrayList<>();
-            for (int i = 0; i < postList.size(); i++) {
-                Long likes = likesRepository.countByPostId(postList.get(i).getId());
+            for (Post post : postList) {
+                Long likesCount = likesRepository.countByPostId(post.getId());
                 oPostList.add(OPost.builder()
-                        .id(postList.get(i).getId())
-                        .title(postList.get(i).getTitle())
-                        .content(postList.get(i).getContent())
-                        .author(postList.get(i).getAuthor())
-                        .img(postList.get(i).getImg())
-                        .category(postList.get(i).getCategory())
-                        .created(postList.get(i).getCreated())
-                        .updated(postList.get(i).getUpdated())
-                        .userId(postList.get(i).getUser().getId())
-                        .likes(likes)
+                        .id(post.getId())
+                        .title(post.getTitle())
+                        .content(post.getContent())
+                        .author(post.getAuthor())
+                        .category(post.getCategory())
+                        .created(post.getCreated())
+                        .updated(post.getUpdated())
+                        .userId(post.getUser().getId())
+                        .likesCount(likesCount)
+                        .postImg(post.getPostImg())
+                        .comment(post.getComment())
+                        .likes(post.getLikes())
                         .build());
             }
             return oPostList;
@@ -112,19 +128,21 @@ public class PostServiceImpl implements PostService {
             Sort sort = Sort.by(Sort.Direction.DESC, "id");
             List<Post> postList = postRepository.findAll(sort);
             List<OPost> oPostList = new ArrayList<>();
-            for (int i = 0; i < postList.size(); i++) {
-                Long likes = likesRepository.countByPostId(postList.get(i).getId());
+            for (Post post : postList) {
+                Long likesCount = likesRepository.countByPostId(post.getId());
                 oPostList.add(OPost.builder()
-                        .id(postList.get(i).getId())
-                        .title(postList.get(i).getTitle())
-                        .content(postList.get(i).getContent())
-                        .author(postList.get(i).getAuthor())
-                        .img(postList.get(i).getImg())
-                        .category(postList.get(i).getCategory())
-                        .created(postList.get(i).getCreated())
-                        .updated(postList.get(i).getUpdated())
-                        .userId(postList.get(i).getUser().getId())
-                        .likes(likes)
+                        .id(post.getId())
+                        .title(post.getTitle())
+                        .content(post.getContent())
+                        .author(post.getAuthor())
+                        .category(post.getCategory())
+                        .created(post.getCreated())
+                        .updated(post.getUpdated())
+                        .userId(post.getUser().getId())
+                        .likesCount(likesCount)
+                        .postImg(post.getPostImg())
+                        .comment(post.getComment())
+                        .likes(post.getLikes())
                         .build());
             }
             return oPostList;
@@ -153,19 +171,21 @@ public class PostServiceImpl implements PostService {
             Sort sort = Sort.by(Sort.Direction.DESC, "id");
             List<Post> postList = postRepository.findAllByUserId(userId, sort);
             List<OPost> oPostList = new ArrayList<>();
-            for (int i = 0; i < postList.size(); i++) {
-                Long likes = likesRepository.countByPostId(postList.get(i).getId());
+            for (Post post : postList) {
+                Long likesCount = likesRepository.countByPostId(post.getId());
                 oPostList.add(OPost.builder()
-                        .id(postList.get(i).getId())
-                        .title(postList.get(i).getTitle())
-                        .content(postList.get(i).getContent())
-                        .author(postList.get(i).getAuthor())
-                        .img(postList.get(i).getImg())
-                        .category(postList.get(i).getCategory())
-                        .created(postList.get(i).getCreated())
-                        .updated(postList.get(i).getUpdated())
-                        .userId(postList.get(i).getUser().getId())
-                        .likes(likes)
+                        .id(post.getId())
+                        .title(post.getTitle())
+                        .content(post.getContent())
+                        .author(post.getAuthor())
+                        .category(post.getCategory())
+                        .created(post.getCreated())
+                        .updated(post.getUpdated())
+                        .userId(post.getUser().getId())
+                        .likesCount(likesCount)
+                        .postImg(post.getPostImg())
+                        .comment(post.getComment())
+                        .likes(post.getLikes())
                         .build());
             }
             return oPostList;
@@ -182,19 +202,21 @@ public class PostServiceImpl implements PostService {
             Sort sort = Sort.by(Sort.Direction.DESC, "id");
             List<Post> postList = postRepository.findAllByTitleContains(title, sort);
             List<OPost> oPostList = new ArrayList<>();
-            for (int i = 0; i < postList.size(); i++) {
-                Long likes = likesRepository.countByPostId(postList.get(i).getId());
+            for (Post post : postList) {
+                Long likesCount = likesRepository.countByPostId(post.getId());
                 oPostList.add(OPost.builder()
-                        .id(postList.get(i).getId())
-                        .title(postList.get(i).getTitle())
-                        .content(postList.get(i).getContent())
-                        .author(postList.get(i).getAuthor())
-                        .img(postList.get(i).getImg())
-                        .category(postList.get(i).getCategory())
-                        .created(postList.get(i).getCreated())
-                        .updated(postList.get(i).getUpdated())
-                        .userId(postList.get(i).getUser().getId())
-                        .likes(likes)
+                        .id(post.getId())
+                        .title(post.getTitle())
+                        .content(post.getContent())
+                        .author(post.getAuthor())
+                        .category(post.getCategory())
+                        .created(post.getCreated())
+                        .updated(post.getUpdated())
+                        .userId(post.getUser().getId())
+                        .likesCount(likesCount)
+                        .postImg(post.getPostImg())
+                        .comment(post.getComment())
+                        .likes(post.getLikes())
                         .build());
             }
             return oPostList;
@@ -211,19 +233,21 @@ public class PostServiceImpl implements PostService {
             Sort sort = Sort.by(Sort.Direction.DESC, "id");
             List<Post> postList = postRepository.findAllByAuthorContains(author, sort);
             List<OPost> oPostList = new ArrayList<>();
-            for (int i = 0; i < postList.size(); i++) {
-                Long likes = likesRepository.countByPostId(postList.get(i).getId());
+            for (Post post : postList) {
+                Long likesCount = likesRepository.countByPostId(post.getId());
                 oPostList.add(OPost.builder()
-                        .id(postList.get(i).getId())
-                        .title(postList.get(i).getTitle())
-                        .content(postList.get(i).getContent())
-                        .author(postList.get(i).getAuthor())
-                        .img(postList.get(i).getImg())
-                        .category(postList.get(i).getCategory())
-                        .created(postList.get(i).getCreated())
-                        .updated(postList.get(i).getUpdated())
-                        .userId(postList.get(i).getUser().getId())
-                        .likes(likes)
+                        .id(post.getId())
+                        .title(post.getTitle())
+                        .content(post.getContent())
+                        .author(post.getAuthor())
+                        .category(post.getCategory())
+                        .created(post.getCreated())
+                        .updated(post.getUpdated())
+                        .userId(post.getUser().getId())
+                        .likesCount(likesCount)
+                        .postImg(post.getPostImg())
+                        .comment(post.getComment())
+                        .likes(post.getLikes())
                         .build());
             }
             return oPostList;
@@ -240,19 +264,21 @@ public class PostServiceImpl implements PostService {
             Sort sort = Sort.by(Sort.Direction.DESC, "id");
             List<Post> postList = postRepository.findAllByCategory(category, sort);
             List<OPost> oPostList = new ArrayList<>();
-            for (int i = 0; i < postList.size(); i++) {
-                Long likes = likesRepository.countByPostId(postList.get(i).getId());
+            for (Post post : postList) {
+                Long likesCount = likesRepository.countByPostId(post.getId());
                 oPostList.add(OPost.builder()
-                        .id(postList.get(i).getId())
-                        .title(postList.get(i).getTitle())
-                        .content(postList.get(i).getContent())
-                        .author(postList.get(i).getAuthor())
-                        .img(postList.get(i).getImg())
-                        .category(postList.get(i).getCategory())
-                        .created(postList.get(i).getCreated())
-                        .updated(postList.get(i).getUpdated())
-                        .userId(postList.get(i).getUser().getId())
-                        .likes(likes)
+                        .id(post.getId())
+                        .title(post.getTitle())
+                        .content(post.getContent())
+                        .author(post.getAuthor())
+                        .category(post.getCategory())
+                        .created(post.getCreated())
+                        .updated(post.getUpdated())
+                        .userId(post.getUser().getId())
+                        .likesCount(likesCount)
+                        .postImg(post.getPostImg())
+                        .comment(post.getComment())
+                        .likes(post.getLikes())
                         .build());
             }
             return oPostList;

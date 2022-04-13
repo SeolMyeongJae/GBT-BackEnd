@@ -1,6 +1,7 @@
 package ksafinalproject.gbt.comment.service;
 
 import ksafinalproject.gbt.comment.dto.IComment;
+import ksafinalproject.gbt.comment.dto.OComment;
 import ksafinalproject.gbt.comment.model.Comment;
 import ksafinalproject.gbt.comment.repository.CommentRepository;
 import ksafinalproject.gbt.post.repository.PostRepository;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,10 +59,20 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Optional<Comment> getCommentById(Long id) {
+    public Optional<OComment> getCommentById(Long id) {
         log.info("find comment by id : {}", id);
         try {
-            return commentRepository.findById(id);
+            Optional<Comment> comment = commentRepository.findById(id);
+            Long postId = comment.orElseThrow().getPost().getId();
+            OComment oComment = OComment.builder()
+                    .id(comment.orElseThrow().getId())
+                    .author(comment.orElseThrow().getAuthor())
+                    .comment(comment.orElseThrow().getComment())
+                    .created(comment.orElseThrow().getCreated())
+                    .updated(comment.orElseThrow().getUpdated())
+                    .postId(postId)
+                    .build();
+            return Optional.of(oComment);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return Optional.empty();
@@ -68,10 +80,23 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<Comment> getAllComment() {
+    public List<OComment> getAllComment() {
         log.info("find all comment");
         try {
-            return commentRepository.findAll();
+            List<Comment> commentList = commentRepository.findAll();
+            List<OComment> oCommentList = new ArrayList<>();
+            for (Comment comment : commentList) {
+                Long postId = comment.getPost().getId();
+                oCommentList.add(OComment.builder()
+                        .id(comment.getId())
+                        .author(comment.getAuthor())
+                        .comment(comment.getComment())
+                        .created(comment.getCreated())
+                        .updated(comment.getUpdated())
+                        .postId(postId)
+                        .build());
+            }
+            return oCommentList;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;
@@ -79,11 +104,24 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<Comment> getAllCommentByDesc() {
+    public List<OComment> getAllCommentByDesc() {
         log.info("find all comment by desc");
         try {
             Sort sort = Sort.by(Sort.Direction.DESC, "id");
-            return commentRepository.findAll(sort);
+            List<Comment> commentList = commentRepository.findAll(sort);
+            List<OComment> oCommentList = new ArrayList<>();
+            for (Comment comment : commentList) {
+                Long postId = comment.getPost().getId();
+                oCommentList.add(OComment.builder()
+                        .id(comment.getId())
+                        .author(comment.getAuthor())
+                        .comment(comment.getComment())
+                        .created(comment.getCreated())
+                        .updated(comment.getUpdated())
+                        .postId(postId)
+                        .build());
+            }
+            return oCommentList;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;
@@ -103,11 +141,24 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<Comment> getAllCommentByPostId(Long postId) {
+    public List<OComment> getAllCommentByPostId(Long postId) {
         log.info("find all comment by post id : {}", postId);
         try {
             Sort sort = Sort.by(Sort.Direction.DESC, "id");
-            return commentRepository.findAllByPostId(postId, sort);
+            List<Comment> commentList = commentRepository.findAllByPostId(postId, sort);
+            List<OComment> oCommentList = new ArrayList<>();
+            for (Comment comment : commentList) {
+                Long postId2 = comment.getPost().getId();
+                oCommentList.add(OComment.builder()
+                        .id(comment.getId())
+                        .author(comment.getAuthor())
+                        .comment(comment.getComment())
+                        .created(comment.getCreated())
+                        .updated(comment.getUpdated())
+                        .postId(postId2)
+                        .build());
+            }
+            return oCommentList;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;

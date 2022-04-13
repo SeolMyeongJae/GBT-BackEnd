@@ -9,6 +9,7 @@ import ksafinalproject.gbt.chat.model.Chat;
 import ksafinalproject.gbt.customChallenge.model.CustomChallenge;
 import ksafinalproject.gbt.likes.model.Likes;
 import ksafinalproject.gbt.post.model.Post;
+import ksafinalproject.gbt.proof.model.Proof;
 import lombok.*;
 
 import javax.persistence.*;
@@ -57,9 +58,13 @@ public class User {
     @ToString.Exclude
     private Set<CustomChallenge> customChallenge;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "user")
+    @ToString.Exclude
     private Set<Chat> chat;
-//    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, mappedBy = "user")
-//    @ToString.Exclude
-//    private Set<Likes> likes;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "user")
+    @ToString.Exclude
+    private Set<Proof> proof;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "user")
+    @ToString.Exclude
+    private Set<Likes> likes;
 
 }

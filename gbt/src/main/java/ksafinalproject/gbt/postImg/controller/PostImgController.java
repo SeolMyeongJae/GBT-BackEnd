@@ -2,6 +2,7 @@ package ksafinalproject.gbt.postImg.controller;
 
 import io.swagger.annotations.Api;
 import ksafinalproject.gbt.postImg.dto.IPostImg;
+import ksafinalproject.gbt.postImg.dto.OPostImg;
 import ksafinalproject.gbt.postImg.model.PostImg;
 import ksafinalproject.gbt.postImg.service.PostImgService;
 import lombok.RequiredArgsConstructor;
@@ -42,7 +43,7 @@ public class PostImgController {
     }
 
     @GetMapping("/{id}")
-    public Optional<PostImg> postImgGetById(@PathVariable Long id) {
+    public Optional<OPostImg> postImgGetById(@PathVariable Long id) {
         try {
             return postImgService.getPostImgById(id);
         } catch (Exception e) {
@@ -52,7 +53,7 @@ public class PostImgController {
     }
 
     @GetMapping("/all")
-    public List<PostImg> postImgGetAll() {
+    public List<OPostImg> postImgGetAll() {
         try {
             return postImgService.getAllPostImg();
         } catch (Exception e) {
@@ -72,7 +73,7 @@ public class PostImgController {
     }
 
     @GetMapping("/all/post/{postId}")
-    public List<PostImg> postImgGetAllByPostId(@PathVariable Long postId) {
+    public List<OPostImg> postImgGetAllByPostId(@PathVariable Long postId) {
         try {
             return postImgService.getAllPostImgByPostId(postId);
         } catch (Exception e) {

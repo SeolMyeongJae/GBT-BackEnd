@@ -3,6 +3,7 @@ package ksafinalproject.gbt.post.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import ksafinalproject.gbt.comment.model.Comment;
 import ksafinalproject.gbt.likes.model.Likes;
+import ksafinalproject.gbt.postImg.model.PostImg;
 import ksafinalproject.gbt.user.model.User;
 import lombok.*;
 
@@ -30,8 +31,6 @@ public class Post {
     @NotNull
     @Column(length = 20)
     private String author;
-    @Column(length = 255)
-    private String img;
     @NotNull
     @Column(length = 255)
     private String category;
@@ -43,6 +42,9 @@ public class Post {
     @NotNull
     @JsonBackReference
     private User user;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "post")
+    @ToString.Exclude
+    private Set<PostImg> postImg;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "post")
     @ToString.Exclude
     private Set<Comment> comment;

@@ -1,8 +1,12 @@
 package ksafinalproject.gbt.post.dto;
 
+import ksafinalproject.gbt.comment.model.Comment;
+import ksafinalproject.gbt.likes.model.Likes;
+import ksafinalproject.gbt.postImg.model.PostImg;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Getter
 @ToString
@@ -14,11 +18,13 @@ public class OPost {
     private String title;
     private String content;
     private String author;
-    private String img;
     private String category;
     private LocalDateTime created;
     private LocalDateTime updated;
     private Long userId;
-    private Long likes;
+    private Long likesCount;
+    private Set<PostImg> postImg;
+    private Set<Comment> comment;
+    private Set<Likes> likes;
 
 }

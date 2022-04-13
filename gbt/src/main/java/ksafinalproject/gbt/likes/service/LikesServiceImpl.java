@@ -1,6 +1,7 @@
 package ksafinalproject.gbt.likes.service;
 
 import ksafinalproject.gbt.likes.dto.ILikes;
+import ksafinalproject.gbt.likes.dto.OLikes;
 import ksafinalproject.gbt.likes.model.Likes;
 import ksafinalproject.gbt.likes.repository.LikesRepository;
 import ksafinalproject.gbt.post.repository.PostRepository;
@@ -9,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,10 +45,16 @@ public class LikesServiceImpl implements LikesService {
     }
 
     @Override
-    public Optional<Likes> getLikeById(Long id) {
+    public Optional<OLikes> getLikeById(Long id) {
         log.info("find like by id : {}", id);
         try {
-            return likeRepository.findById(id);
+            Optional<Likes> likes = likeRepository.findById(id);
+            OLikes oLikes = OLikes.builder()
+                    .id(likes.orElseThrow().getId())
+                    .postId(likes.orElseThrow().getPost().getId())
+                    .userid(likes.orElseThrow().getUser().getId())
+                    .build();
+            return Optional.of(oLikes);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return Optional.empty();
@@ -54,10 +62,16 @@ public class LikesServiceImpl implements LikesService {
     }
 
     @Override
-    public Optional<Likes> getLikeByPostIdAndUserId(Long postId, Long userId) {
+    public Optional<OLikes> getLikeByPostIdAndUserId(Long postId, Long userId) {
         log.info("find like by post id : {}, user id : {}", postId, userId);
         try {
-            return likeRepository.findByPostIdAndUserId(postId, userId);
+            Optional<Likes> likes = likeRepository.findByPostIdAndUserId(postId, userId);
+            OLikes oLikes = OLikes.builder()
+                    .id(likes.orElseThrow().getId())
+                    .postId(likes.orElseThrow().getPost().getId())
+                    .userid(likes.orElseThrow().getUser().getId())
+                    .build();
+            return Optional.of(oLikes);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return Optional.empty();
@@ -65,10 +79,19 @@ public class LikesServiceImpl implements LikesService {
     }
 
     @Override
-    public List<Likes> getAllLike() {
+    public List<OLikes> getAllLike() {
         log.info("find all like");
         try {
-            return likeRepository.findAll();
+            List<Likes> likesList = likeRepository.findAll();
+            List<OLikes> oLikesList = new ArrayList<>();
+            for (Likes likes : likesList) {
+                oLikesList.add(OLikes.builder()
+                        .id(likes.getId())
+                        .postId(likes.getPost().getId())
+                        .userid(likes.getUser().getId())
+                        .build());
+            }
+            return oLikesList;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;
@@ -88,10 +111,19 @@ public class LikesServiceImpl implements LikesService {
     }
 
     @Override
-    public List<Likes> getAllLikeByPostId(Long postId) {
+    public List<OLikes> getAllLikeByPostId(Long postId) {
         log.info("find all like by post id : {}", postId);
         try {
-            return likeRepository.findAllByPostId(postId);
+            List<Likes> likesList = likeRepository.findAllByPostId(postId);
+            List<OLikes> oLikesList = new ArrayList<>();
+            for (Likes likes : likesList) {
+                oLikesList.add(OLikes.builder()
+                        .id(likes.getId())
+                        .postId(likes.getPost().getId())
+                        .userid(likes.getUser().getId())
+                        .build());
+            }
+            return oLikesList;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;
@@ -99,10 +131,19 @@ public class LikesServiceImpl implements LikesService {
     }
 
     @Override
-    public List<Likes> getAllLikeByUserId(Long userId) {
+    public List<OLikes> getAllLikeByUserId(Long userId) {
         log.info("find all like by user id : {}", userId);
         try {
-            return likeRepository.findAllByUserId(userId);
+            List<Likes> likesList = likeRepository.findAllByUserId(userId);
+            List<OLikes> oLikesList = new ArrayList<>();
+            for (Likes likes : likesList) {
+                oLikesList.add(OLikes.builder()
+                        .id(likes.getId())
+                        .postId(likes.getPost().getId())
+                        .userid(likes.getUser().getId())
+                        .build());
+            }
+            return oLikesList;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;

@@ -15,7 +15,6 @@ public class IPost {
     private String title;
     private String content;
     private String author;
-    private String img;
     private String category;
     private LocalDateTime created;
     private LocalDateTime updated;

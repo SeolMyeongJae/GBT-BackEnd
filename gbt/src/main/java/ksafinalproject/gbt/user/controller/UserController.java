@@ -2,6 +2,7 @@ package ksafinalproject.gbt.user.controller;
 
 import io.swagger.annotations.Api;
 import ksafinalproject.gbt.user.dto.IUser;
+import ksafinalproject.gbt.user.dto.OUser;
 import ksafinalproject.gbt.user.model.User;
 import ksafinalproject.gbt.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -41,7 +42,7 @@ public class UserController{
     }
 
     @GetMapping("/{id}")
-    public Optional<User> userGetById(@PathVariable Long id) {
+    public Optional<OUser> userGetById(@PathVariable Long id) {
         try {
             return userService.getUserById(id);
         } catch (Exception e) {
@@ -51,7 +52,7 @@ public class UserController{
     }
 
     @GetMapping("/all")
-    public List<User> userGetAll() {
+    public List<OUser> userGetAll() {
         try {
             return userService.getAllUser();
         } catch (Exception e) {
@@ -71,7 +72,7 @@ public class UserController{
     }
 
     @GetMapping("/username/{userName}")
-    public Optional<User> userGetByUserName(@PathVariable String userName) {
+    public Optional<OUser> userGetByUserName(@PathVariable String userName) {
         try {
             return userService.getUserByUserName(userName);
         } catch (Exception e) {

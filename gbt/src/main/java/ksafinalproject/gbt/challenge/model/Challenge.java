@@ -3,6 +3,7 @@ package ksafinalproject.gbt.challenge.model;
 import javax.validation.constraints.NotNull;
 
 import ksafinalproject.gbt.challengeImg.model.ChallengeImg;
+import ksafinalproject.gbt.proof.model.Proof;
 import lombok.*;
 
 import javax.persistence.*;
@@ -44,5 +45,8 @@ public class Challenge {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "challenge")
     @ToString.Exclude
     private List<ChallengeImg> challengeImg;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "challenge")
+    @ToString.Exclude
+    private List<Proof> proof;
 
 }

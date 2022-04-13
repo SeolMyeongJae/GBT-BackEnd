@@ -1,6 +1,7 @@
 package ksafinalproject.gbt.postImg.service;
 
 import ksafinalproject.gbt.postImg.dto.IPostImg;
+import ksafinalproject.gbt.postImg.dto.OPostImg;
 import ksafinalproject.gbt.postImg.model.PostImg;
 
 import java.util.List;
@@ -12,11 +13,11 @@ public interface PostImgService {
 
     int updatePostImg(IPostImg iPostImg, Long id);
 
-    Optional<PostImg> getPostImgById(Long id);
+    Optional<OPostImg> getPostImgById(Long id);
 
-    List<PostImg> getAllPostImg();
+    List<OPostImg> getAllPostImg();
 
     int deletePostImgById(Long id);
 
-    List<PostImg> getAllPostImgByPostId(Long postId);
+    List<OPostImg> getAllPostImgByPostId(Long postId);
 }
