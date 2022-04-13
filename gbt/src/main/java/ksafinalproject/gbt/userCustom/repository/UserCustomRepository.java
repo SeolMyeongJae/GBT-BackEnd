@@ -11,6 +11,8 @@ public interface UserCustomRepository extends JpaRepository<UserCustom, Long> {
 
     List<UserCustom> findAllByCustomChallengeId(Long customChallengeId);
 
+    Optional<UserCustom> findByUserIdAndCustomChallengeId(Long userId, Long customChallengeId);
+
     boolean existsByUserIdAndCustomChallengeId(Long userId, Long customChallengeId);
 
     Long countByCustomChallengeId(Long customChallengeId);

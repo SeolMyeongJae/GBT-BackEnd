@@ -17,6 +17,7 @@ public class ICustomChallenge {
     private LocalDateTime endDate;
     private String method;
     private Long frequency;
+    private String bet;
     private String description;
     private String summary;
     private Long max;

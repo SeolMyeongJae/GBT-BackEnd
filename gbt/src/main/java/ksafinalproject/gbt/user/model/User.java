@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import ksafinalproject.gbt.chat.model.Chat;
 import ksafinalproject.gbt.customChallenge.model.CustomChallenge;
+import ksafinalproject.gbt.invite.model.Invite;
 import ksafinalproject.gbt.likes.model.Likes;
 import ksafinalproject.gbt.post.model.Post;
 import ksafinalproject.gbt.proof.model.Proof;
@@ -66,5 +67,10 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "user")
     @ToString.Exclude
     private Set<Likes> likes;
-
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "callUser")
+    @ToString.Exclude
+    private Set<Invite> inviteCaller;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "user")
+    @ToString.Exclude
+    private Set<Invite> inviteUser;
 }

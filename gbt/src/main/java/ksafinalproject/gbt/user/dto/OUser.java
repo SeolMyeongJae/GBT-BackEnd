@@ -2,6 +2,7 @@ package ksafinalproject.gbt.user.dto;
 
 import ksafinalproject.gbt.chat.model.Chat;
 import ksafinalproject.gbt.customChallenge.model.CustomChallenge;
+import ksafinalproject.gbt.invite.model.Invite;
 import ksafinalproject.gbt.likes.model.Likes;
 import ksafinalproject.gbt.post.model.Post;
 import ksafinalproject.gbt.proof.model.Proof;
@@ -34,4 +35,6 @@ public class OUser {
     private Set<Chat> chat;
     private Set<Proof> proof;
     private Set<Likes> likes;
+    private Set<Invite> inviteCaller;
+    private Set<Invite> inviteUser;
 }
