@@ -1,33 +1,58 @@
+var uploadFiles = [];
 var challenge = {
-  init: () => {
+  init: function () {
     var _this = this;
-    $("#btn-save").on("click", () => {
+    $("#btn-save").on("click", function ()  {
       _this.save();
     });
-  },
 
-  save: () => {
-    var data = {
-      title: $("#title").val(),
-      summary: $("#summary").val(),
-      description: $("#description").val(),
-      startDate: $("#startDate").val(),
-      endDate: $("#endDate").val(),
-      method: $("#method").val(),
-      frequency: $("#frequency").val(),
-      max: $("#max").val(),
-      img: "코드 바꿔야함"
-    };
-
-    $.ajax({
-      type: "POST",
-      url: "http://54.219.40.82/api/challenge",
-      dataType: "json",
-      contentType: "application/json; charset=utf-8",
-      data: JSON.stringify(data)
-    }).done(() => {
-      alert("등록되었습니다");
-      window.location.href = "/api/admin/challenge";
-    });
-  }
+    $(document).ready(function () {
+            var reader = new FileReader();
+            $("#fileInput").on("change", (e) => {
+              var filename = e.target.files[0].name;
+              var file = e.target.files[0];
+              reader.onload = (e) => {
+                var img = document.createElement("img");
+                img.setAttribute("src", e.target.result);
+                img.setAttribute("style", "width: 150px; height: 150px;");
+                img.setAttribute("class", "auto");
+                document.querySelector("div#image_container").appendChild(img);
+                uploadFiles.push(file);
+              };
+              reader.readAsDataURL(file);
+              $("#userfile").val(filename);
+            });
+          });
+    },
+  save: function () {
+      var form = new FormData($("#input-form")[0]);
+      for(var file of uploadFiles) {
+        form.append('img', file, file.name);
+      }
+//      var data = {
+//        title: $("#title").val(),
+//        summary: $("#summary").val(),
+//        description: $("#description").val(),
+//        startDate: $("#startDate").val(),
+//        endDate: $("#endDate").val(),
+//        method: $("#method").val(),
+//        frequency: $("#frequency").val(),
+//        max: $("#max").val(),
+//        img: uploadFiles
+//      };
+      for(var value of form.entries()) {console.log(value)}
+      $.ajax({
+        type: "POST",
+        url: "http://localhost:8080/api/challenge",
+        dataType: "json",
+        data: form,
+        contentType: false,
+        processData: false
+      }).done(() => {
+        alert("등록되었습니다");
+//        window.location.href = "/api/admin/challenge";
+      });
+    }
 };
+
+challenge.init();
