@@ -1,11 +1,12 @@
 package ksafinalproject.gbt.customChallenge.dto;
 
+import ksafinalproject.gbt.chat.model.Chat;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
-@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,5 +23,6 @@ public class OCustomChallenge {
     private String description;
     private Long max;
     private String img;
+    private List<Chat> chat;
 
 }

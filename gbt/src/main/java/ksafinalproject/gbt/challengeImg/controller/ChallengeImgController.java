@@ -2,8 +2,7 @@ package ksafinalproject.gbt.challengeImg.controller;
 
 import io.swagger.annotations.Api;
 import ksafinalproject.gbt.challengeImg.dto.IChallengeImg;
-import ksafinalproject.gbt.challengeImg.model.ChallengeImg;
-import ksafinalproject.gbt.challengeImg.model.OChallengeImg;
+import ksafinalproject.gbt.challengeImg.dto.OChallengeImg;
 import ksafinalproject.gbt.challengeImg.service.ChallengeImgService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

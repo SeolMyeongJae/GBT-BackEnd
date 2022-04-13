@@ -3,7 +3,7 @@ package ksafinalproject.gbt.challengeImg.service;
 import ksafinalproject.gbt.challenge.repository.ChallengeRepository;
 import ksafinalproject.gbt.challengeImg.dto.IChallengeImg;
 import ksafinalproject.gbt.challengeImg.model.ChallengeImg;
-import ksafinalproject.gbt.challengeImg.model.OChallengeImg;
+import ksafinalproject.gbt.challengeImg.dto.OChallengeImg;
 import ksafinalproject.gbt.challengeImg.repository.ChallengeImgRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

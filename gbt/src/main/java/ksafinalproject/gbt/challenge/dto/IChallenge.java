@@ -7,7 +7,6 @@ import lombok.ToString;
 import java.time.LocalDateTime;
 
 @Getter
-@Setter
 @ToString
 public class IChallenge {
     private Long id;

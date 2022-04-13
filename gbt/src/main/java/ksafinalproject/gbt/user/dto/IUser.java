@@ -3,7 +3,6 @@ package ksafinalproject.gbt.user.dto;
 import lombok.*;
 
 @Getter
-@Setter
 @ToString
 @NoArgsConstructor
 public class IUser {

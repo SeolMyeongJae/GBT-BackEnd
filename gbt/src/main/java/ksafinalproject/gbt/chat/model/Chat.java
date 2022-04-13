@@ -34,5 +34,6 @@ public class Chat {
     @ManyToOne
     @JoinColumn(name = "custom_challenge_id")
     @NotNull
+    @JsonIgnore
     private CustomChallenge customChallenge;
 }

@@ -99,6 +99,7 @@ public class CustomChallengeServiceImpl implements CustomChallengeService {
                     .description(customChallenge.orElseThrow().getDescription())
                     .max(customChallenge.orElseThrow().getMax())
                     .img(customChallenge.orElseThrow().getImg())
+                    .chat(customChallenge.orElseThrow().getChat())
                     .build();
             return Optional.of(oCustomChallenge);
         } catch (Exception e) {
@@ -127,6 +128,7 @@ public class CustomChallengeServiceImpl implements CustomChallengeService {
                         .description(customChallenge.getDescription())
                         .max(customChallenge.getMax())
                         .img(customChallenge.getImg())
+                        .chat(customChallenge.getChat())
                         .build());
             }
             return oCustomChallengeList;
@@ -156,8 +158,10 @@ public class CustomChallengeServiceImpl implements CustomChallengeService {
                         .description(customChallenge.getDescription())
                         .max(customChallenge.getMax())
                         .img(customChallenge.getImg())
+                        .chat(customChallenge.getChat())
                         .build());
-            } return oCustomChallengeList;
+            }
+            return oCustomChallengeList;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;
