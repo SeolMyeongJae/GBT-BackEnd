@@ -3,7 +3,6 @@ package ksafinalproject.gbt.challenge.controller;
 import io.swagger.annotations.Api;
 import ksafinalproject.gbt.challenge.dto.IChallenge;
 import ksafinalproject.gbt.challenge.dto.OChallenge;
-import ksafinalproject.gbt.challenge.model.Challenge;
 import ksafinalproject.gbt.challenge.service.ChallengeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,8 +21,9 @@ public class ChallengeController {
     private final ChallengeService challengeService;
 
     @PostMapping("")
-    public int challengeSave(@RequestBody IChallenge iChallenge) {
+    public int challengeSave(IChallenge iChallenge) {
         try {
+            log.info("Test {}", iChallenge.toString());
             return challengeService.saveChallenge(iChallenge);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());

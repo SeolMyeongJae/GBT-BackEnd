@@ -23,7 +23,6 @@ import org.springframework.web.multipart.MultipartFile;
 @Component
 public class S3Uploader {
     private final AmazonS3Client amazonS3Client;
-    private final UserRepository userRepository;
 
     @Value("${cloud.aws.s3.bucket}")
     public String bucket;  // S3 버킷 이름
@@ -39,10 +38,6 @@ public class S3Uploader {
         String fileName = dirName + "/" + uploadFile.getName();
         String uploadImageUrl = putS3(uploadFile, fileName); // s3로 업로드
         removeNewFile(uploadFile);
-        System.out.println(uploadImageUrl);
-        User user = new User();
-        user.setProfileImg(uploadImageUrl);
-        userRepository.save(user);
         return uploadImageUrl;
     }
 
