@@ -1,5 +1,6 @@
 package ksafinalproject.gbt.userChallenge.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import ksafinalproject.gbt.challenge.model.Challenge;
 import ksafinalproject.gbt.user.model.User;
 import lombok.*;
@@ -11,6 +12,8 @@ import javax.validation.constraints.NotNull;
 @Setter
 @ToString
 @Entity
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class UserChallenge {
     @Id
@@ -19,16 +22,12 @@ public class UserChallenge {
     @ManyToOne
     @JoinColumn(name = "user_id")
     @NotNull
+    @JsonIgnore
     private User user;
     @ManyToOne
     @JoinColumn(name = "challenge_id")
     @NotNull
+    @JsonIgnore
     private Challenge challenge;
 
-    @Builder
-    public UserChallenge(Long id, User user, Challenge challenge) {
-        this.id = id;
-        this.user = user;
-        this.challenge = challenge;
-    }
 }

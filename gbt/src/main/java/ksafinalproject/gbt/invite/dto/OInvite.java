@@ -1,17 +1,15 @@
 package ksafinalproject.gbt.invite.dto;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDate;
 
 @Getter
 @ToString
+@Builder
 @NoArgsConstructor
-public class IInvite {
-
+@AllArgsConstructor
+public class OInvite {
     private Long id;
     private String title;
     private String caller;

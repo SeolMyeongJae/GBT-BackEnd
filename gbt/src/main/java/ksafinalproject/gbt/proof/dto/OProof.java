@@ -1,16 +1,15 @@
 package ksafinalproject.gbt.proof.dto;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Getter
 @ToString
+@Builder
 @NoArgsConstructor
-public class IProof {
+@AllArgsConstructor
+public class OProof {
     private Long id;
     private String content;
     private LocalDateTime date;

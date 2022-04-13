@@ -2,7 +2,7 @@ package ksafinalproject.gbt.challengeImg.controller;
 
 import io.swagger.annotations.Api;
 import ksafinalproject.gbt.challengeImg.dto.IChallengeImg;
-import ksafinalproject.gbt.challengeImg.model.ChallengeImg;
+import ksafinalproject.gbt.challengeImg.dto.OChallengeImg;
 import ksafinalproject.gbt.challengeImg.service.ChallengeImgService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -42,7 +42,7 @@ public class ChallengeImgController {
     }
 
     @GetMapping("/all")
-    public List<ChallengeImg> challengeImgGetAll() {
+    public List<OChallengeImg> challengeImgGetAll() {
         try {
             return challengeImgService.getAllChallengeImg();
         } catch (Exception e) {
@@ -52,7 +52,7 @@ public class ChallengeImgController {
     }
 
     @GetMapping("/{id}")
-    public Optional<ChallengeImg> challengeImgGetById(@PathVariable Long id) {
+    public Optional<OChallengeImg> challengeImgGetById(@PathVariable Long id) {
         try {
             return challengeImgService.getChallengeImgById(id);
         } catch (Exception e) {
@@ -62,7 +62,7 @@ public class ChallengeImgController {
     }
 
     @GetMapping("/all/challenge/{challengeId}")
-    public List<ChallengeImg> challengeImgGetAllByChallengeId(@PathVariable Long challengeId) {
+    public List<OChallengeImg> challengeImgGetAllByChallengeId(@PathVariable Long challengeId) {
         try {
             return challengeImgService.getAllChallengeImgByChallengeId(challengeId);
         } catch (Exception e) {

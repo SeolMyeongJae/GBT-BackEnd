@@ -2,6 +2,7 @@ package ksafinalproject.gbt.proof.controller;
 
 import io.swagger.annotations.Api;
 import ksafinalproject.gbt.proof.dto.IProof;
+import ksafinalproject.gbt.proof.dto.OProof;
 import ksafinalproject.gbt.proof.model.Proof;
 import ksafinalproject.gbt.proof.service.ProofService;
 import lombok.RequiredArgsConstructor;
@@ -42,7 +43,7 @@ public class ProofController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Proof> proofGetById(@PathVariable Long id) {
+    public Optional<OProof> proofGetById(@PathVariable Long id) {
         try {
             return proofService.getProofById(id);
         } catch (Exception e) {
@@ -52,7 +53,7 @@ public class ProofController {
     }
 
     @GetMapping("/all")
-    public List<Proof> proofGetAll() {
+    public List<OProof> proofGetAll() {
         try {
             return proofService.getAllProof();
         } catch (Exception e) {
@@ -72,7 +73,7 @@ public class ProofController {
     }
 
     @GetMapping("/all/user/{userId}")
-    public List<Proof> proofGetAllByUserId(@PathVariable Long userId) {
+    public List<OProof> proofGetAllByUserId(@PathVariable Long userId) {
         try {
             return proofService.getAllProofByUserId(userId);
         } catch (Exception e) {
@@ -82,7 +83,7 @@ public class ProofController {
     }
 
     @GetMapping("/all/challenge/{challengeId}")
-    public List<Proof> proofGetAllByChallengeId(@PathVariable Long challengeId) {
+    public List<OProof> proofGetAllByChallengeId(@PathVariable Long challengeId) {
         try {
             return proofService.getAllProofByChallengeId(challengeId);
         } catch (Exception e) {

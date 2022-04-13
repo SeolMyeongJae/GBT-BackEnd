@@ -1,14 +1,13 @@
 package ksafinalproject.gbt.userChallenge.dto;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @Getter
 @ToString
+@Builder
 @NoArgsConstructor
-public class IUserChallenge {
+@AllArgsConstructor
+public class OUserChallenge {
     private Long id;
     private Long userId;
     private Long challengeId;

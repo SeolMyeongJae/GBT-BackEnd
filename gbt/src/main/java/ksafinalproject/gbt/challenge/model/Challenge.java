@@ -3,16 +3,21 @@ package ksafinalproject.gbt.challenge.model;
 import javax.validation.constraints.NotNull;
 
 import ksafinalproject.gbt.challengeImg.model.ChallengeImg;
+import ksafinalproject.gbt.proof.model.Proof;
+import ksafinalproject.gbt.userChallenge.model.UserChallenge;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
 @ToString
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Challenge {
 
     @Id
@@ -38,21 +43,13 @@ public class Challenge {
     private String description;
     @NotNull
     private Long max;
-    @NotNull
-    @Column(length = 255)
-    private String img;
-
-    @Builder
-    public Challenge(Long id, String title, LocalDateTime startDate, LocalDateTime endDate, String method, Long frequency, String description, String summary, Long max, String img) {
-        this.id = id;
-        this.title = title;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.method = method;
-        this.frequency = frequency;
-        this.description = description;
-        this.summary = summary;
-        this.max = max;
-        this.img = img;
-    }
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "challenge")
+    @ToString.Exclude
+    private List<ChallengeImg> challengeImg;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "challenge")
+    @ToString.Exclude
+    private List<Proof> proof;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "challenge")
+    @ToString.Exclude
+    private List<UserChallenge> userChallenge;
 }

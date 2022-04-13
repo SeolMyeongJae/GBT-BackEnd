@@ -2,6 +2,7 @@ package ksafinalproject.gbt.customChallenge.controller;
 
 import io.swagger.annotations.Api;
 import ksafinalproject.gbt.customChallenge.dto.ICustomChallenge;
+import ksafinalproject.gbt.customChallenge.dto.OCustomChallenge;
 import ksafinalproject.gbt.customChallenge.model.CustomChallenge;
 import ksafinalproject.gbt.customChallenge.service.CustomChallengeService;
 import lombok.RequiredArgsConstructor;
@@ -42,7 +43,7 @@ public class CustomChallengeController {
     }
 
     @GetMapping("/{id}")
-    public Optional<CustomChallenge> customChallengeGetById(@PathVariable Long id) {
+    public Optional<OCustomChallenge> customChallengeGetById(@PathVariable Long id) {
         try {
             return customChallengeService.getCustomChallengeById(id);
         } catch (Exception e) {
@@ -52,7 +53,7 @@ public class CustomChallengeController {
     }
 
     @GetMapping("/all")
-    public List<CustomChallenge> customChallengeGetAll() {
+    public List<OCustomChallenge> customChallengeGetAll() {
         try {
             return customChallengeService.getAllCustomChallenge();
         } catch (Exception e) {
@@ -62,9 +63,19 @@ public class CustomChallengeController {
     }
 
     @GetMapping("/all/creator/{creatorId}")
-    public List<CustomChallenge> customChallengeGetAllByCreatorId(@PathVariable Long creatorId) {
+    public List<OCustomChallenge> customChallengeGetAllByCreatorId(@PathVariable Long creatorId) {
         try {
             return customChallengeService.getAllCustomChallengeByCreatorId(creatorId);
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return null;
+        }
+    }
+
+    @GetMapping("/all/{userId}")
+    public List<OCustomChallenge> customChallengeGetAllIncludeUserId(@PathVariable Long userId) {
+        try {
+            return customChallengeService.getAllCustomChallengeByIncludeUserId(userId);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;

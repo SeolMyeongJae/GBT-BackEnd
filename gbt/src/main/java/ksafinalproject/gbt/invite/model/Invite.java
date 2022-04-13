@@ -1,5 +1,6 @@
 package ksafinalproject.gbt.invite.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import ksafinalproject.gbt.customChallenge.model.CustomChallenge;
 import ksafinalproject.gbt.user.model.User;
 import lombok.*;
@@ -12,7 +13,9 @@ import java.time.LocalDate;
 @Setter
 @ToString
 @Entity
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class Invite {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,26 +29,19 @@ public class Invite {
     @NotNull
     private LocalDate date;
     @ManyToOne
-    @JoinColumn(name = "call_user_id")
+    @JoinColumn(name = "callUser_id")
     @NotNull
+    @JsonIgnore
     private User callUser;
     @ManyToOne
     @JoinColumn(name = "user_id")
     @NotNull
+    @JsonIgnore
     private User user;
     @ManyToOne
     @JoinColumn(name = "custom_challenge_id")
     @NotNull
+    @JsonIgnore
     private CustomChallenge customChallenge;
 
-    @Builder
-    public Invite(Long id, String title, String caller, LocalDate date, User callUser, User user, CustomChallenge customChallenge) {
-        this.id = id;
-        this.title = title;
-        this.caller = caller;
-        this.date = date;
-        this.callUser = callUser;
-        this.user = user;
-        this.customChallenge = customChallenge;
-    }
 }

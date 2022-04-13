@@ -1,5 +1,7 @@
 package ksafinalproject.gbt.likes.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import ksafinalproject.gbt.post.model.Post;
 import ksafinalproject.gbt.user.model.User;
 import lombok.*;
@@ -11,7 +13,9 @@ import javax.validation.constraints.NotNull;
 @Setter
 @ToString
 @Entity
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class Likes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,16 +23,12 @@ public class Likes {
     @ManyToOne
     @JoinColumn(name = "post_id")
     @NotNull
+    @JsonIgnore
     private Post post;
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     @NotNull
     private User user;
 
-    @Builder
-    public Likes(Long id, Post post, User user) {
-        this.id = id;
-        this.post = post;
-        this.user = user;
-    }
 }

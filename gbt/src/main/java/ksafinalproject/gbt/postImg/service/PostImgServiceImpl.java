@@ -2,6 +2,7 @@ package ksafinalproject.gbt.postImg.service;
 
 import ksafinalproject.gbt.post.repository.PostRepository;
 import ksafinalproject.gbt.postImg.dto.IPostImg;
+import ksafinalproject.gbt.postImg.dto.OPostImg;
 import ksafinalproject.gbt.postImg.model.PostImg;
 import ksafinalproject.gbt.postImg.repository.PostImgRepository;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,10 +54,16 @@ public class PostImgServiceImpl implements PostImgService {
     }
 
     @Override
-    public Optional<PostImg> getPostImgById(Long id) {
+    public Optional<OPostImg> getPostImgById(Long id) {
         log.info("find post img by id");
         try {
-            return postImgRepository.findById(id);
+            Optional<PostImg> postImg = postImgRepository.findById(id);
+            OPostImg oPostImg = OPostImg.builder()
+                    .id(postImg.orElseThrow().getId())
+                    .url(postImg.orElseThrow().getUrl())
+                    .postId(postImg.orElseThrow().getPost().getId())
+                    .build();
+            return Optional.of(oPostImg);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return Optional.empty();
@@ -63,10 +71,19 @@ public class PostImgServiceImpl implements PostImgService {
     }
 
     @Override
-    public List<PostImg> getAllPostImg() {
+    public List<OPostImg> getAllPostImg() {
         log.info("find all post img");
         try {
-            return postImgRepository.findAll();
+            List<PostImg> postImgList = postImgRepository.findAll();
+            List<OPostImg> oPostImgList = new ArrayList<>();
+            for (PostImg postImg : postImgList) {
+                oPostImgList.add(OPostImg.builder()
+                        .id(postImg.getId())
+                        .url(postImg.getUrl())
+                        .postId(postImg.getPost().getId())
+                        .build());
+            }
+            return oPostImgList;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;
@@ -86,10 +103,19 @@ public class PostImgServiceImpl implements PostImgService {
     }
 
     @Override
-    public List<PostImg> getAllPostImgByPostId(Long postId) {
+    public List<OPostImg> getAllPostImgByPostId(Long postId) {
         log.info("find all post img by user id : {}", postId);
         try {
-            return postImgRepository.findAllByPostId(postId);
+            List<PostImg> postImgList = postImgRepository.findAllByPostId(postId);
+            List<OPostImg> oPostImgList = new ArrayList<>();
+            for (PostImg postImg : postImgList) {
+                oPostImgList.add(OPostImg.builder()
+                        .id(postImg.getId())
+                        .url(postImg.getUrl())
+                        .postId(postImg.getPost().getId())
+                        .build());
+            }
+            return oPostImgList;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;

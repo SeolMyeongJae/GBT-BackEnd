@@ -2,6 +2,7 @@ package ksafinalproject.gbt.customImg.service;
 
 import ksafinalproject.gbt.customChallenge.repository.CustomChallengeRepository;
 import ksafinalproject.gbt.customImg.dto.ICustomImg;
+import ksafinalproject.gbt.customImg.dto.OCustomImg;
 import ksafinalproject.gbt.customImg.model.CustomImg;
 import ksafinalproject.gbt.customImg.repository.CustomImgRepository;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,10 +54,19 @@ public class CustomImgServiceImpl implements CustomImgService {
     }
 
     @Override
-    public List<CustomImg> getAllCustomImg() {
+    public List<OCustomImg> getAllCustomImg() {
         log.info("find all custom img");
         try {
-            return customImgRepository.findAll();
+            List<CustomImg> customImgList = customImgRepository.findAll();
+            List<OCustomImg> oCustomImgList = new ArrayList<>();
+            for (CustomImg customImg : customImgList) {
+                oCustomImgList.add(OCustomImg.builder()
+                        .id(customImg.getId())
+                        .url(customImg.getUrl())
+                        .customChallengeId(customImg.getCustomChallenge().getId())
+                        .build());
+            }
+            return oCustomImgList;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;
@@ -63,10 +74,16 @@ public class CustomImgServiceImpl implements CustomImgService {
     }
 
     @Override
-    public Optional<CustomImg> getCustomImgById(Long id) {
+    public Optional<OCustomImg> getCustomImgById(Long id) {
         log.info("find custom img by id : {}", id);
         try {
-            return customImgRepository.findById(id);
+            Optional<CustomImg> customImg = customImgRepository.findById(id);
+            OCustomImg oCustomImg = OCustomImg.builder()
+                    .id(customImg.orElseThrow().getId())
+                    .url(customImg.orElseThrow().getUrl())
+                    .customChallengeId(customImg.orElseThrow().getCustomChallenge().getId())
+                    .build();
+            return Optional.of(oCustomImg);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return Optional.empty();
@@ -74,10 +91,19 @@ public class CustomImgServiceImpl implements CustomImgService {
     }
 
     @Override
-    public List<CustomImg> getAllCustomImgByCustomChallengeId(Long customChallengeId) {
+    public List<OCustomImg> getAllCustomImgByCustomChallengeId(Long customChallengeId) {
         log.info("find all custom img by custom challenge id");
         try {
-            return customImgRepository.findAllByCustomChallengeId(customChallengeId);
+            List<CustomImg> customImgList = customImgRepository.findAllByCustomChallengeId(customChallengeId);
+            List<OCustomImg> oCustomImgList = new ArrayList<>();
+            for (CustomImg customImg : customImgList) {
+                oCustomImgList.add(OCustomImg.builder()
+                        .id(customImg.getId())
+                        .url(customImg.getUrl())
+                        .customChallengeId(customImg.getCustomChallenge().getId())
+                        .build());
+            }
+            return oCustomImgList;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;

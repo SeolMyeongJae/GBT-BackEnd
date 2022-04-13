@@ -112,7 +112,9 @@ public class ChallengeServiceImpl implements ChallengeService {
             oChallenge.setSummary(challenge.orElseThrow().getSummary());
             oChallenge.setCurrent(current);
             oChallenge.setMax(challenge.orElseThrow().getMax());
-            oChallenge.setImg(challenge.orElseThrow().getImg());
+            oChallenge.setChallengeImg(challenge.orElseThrow().getChallengeImg());
+            oChallenge.setProof(challenge.orElseThrow().getProof());
+            oChallenge.setUserChallenge(challenge.orElseThrow().getUserChallenge());
             return Optional.of(oChallenge);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
@@ -126,20 +128,54 @@ public class ChallengeServiceImpl implements ChallengeService {
         try {
             List<Challenge> challengeList = challengeRepository.findAll();
             List<OChallenge> oChallenge = new ArrayList<>();
-            for (int i = 0; i < challengeList.size(); i++) {
-                Long current = userChallengeRepository.countByChallengeId(challengeList.get(i).getId());
+            for (Challenge challenge : challengeList) {
+                Long current = userChallengeRepository.countByChallengeId(challenge.getId());
                 oChallenge.add(OChallenge.builder()
-                        .id(challengeList.get(i).getId())
-                        .title(challengeList.get(i).getTitle())
-                        .startDate(challengeList.get(i).getStartDate())
-                        .endDate(challengeList.get(i).getEndDate())
-                        .method(challengeList.get(i).getMethod())
-                        .frequency(challengeList.get(i).getFrequency())
-                        .summary(challengeList.get(i).getSummary())
-                        .description(challengeList.get(i).getDescription())
-                        .max(challengeList.get(i).getMax())
+                        .id(challenge.getId())
+                        .title(challenge.getTitle())
+                        .startDate(challenge.getStartDate())
+                        .endDate(challenge.getEndDate())
+                        .method(challenge.getMethod())
+                        .frequency(challenge.getFrequency())
+                        .summary(challenge.getSummary())
+                        .description(challenge.getDescription())
                         .current(current)
-                        .img(challengeList.get(i).getImg())
+                        .max(challenge.getMax())
+                        .challengeImg(challenge.getChallengeImg())
+                        .proof(challenge.getProof())
+                        .userChallenge(challenge.getUserChallenge())
+                        .build());
+            }
+            return oChallenge;
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public List<OChallenge> getAllChallengeIncludeUserId(Long userId) {
+        log.info("find all challenge include user id : {}", userId);
+        try {
+            List<Challenge> challengeList = challengeRepository.findAll();
+            List<OChallenge> oChallenge = new ArrayList<>();
+            for (Challenge challenge : challengeList) {
+                Long current = userChallengeRepository.countByChallengeId(challenge.getId());
+                oChallenge.add(OChallenge.builder()
+                        .id(challenge.getId())
+                        .title(challenge.getTitle())
+                        .startDate(challenge.getStartDate())
+                        .endDate(challenge.getEndDate())
+                        .method(challenge.getMethod())
+                        .frequency(challenge.getFrequency())
+                        .summary(challenge.getSummary())
+                        .description(challenge.getDescription())
+                        .isJoin(userChallengeRepository.existsByUserIdAndChallengeId(userId, challenge.getId()))
+                        .current(current)
+                        .max(challenge.getMax())
+                        .challengeImg(challenge.getChallengeImg())
+                        .proof(challenge.getProof())
+                        .userChallenge(challenge.getUserChallenge())
                         .build());
             }
             return oChallenge;

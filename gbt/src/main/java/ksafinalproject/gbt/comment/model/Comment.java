@@ -1,5 +1,6 @@
 package ksafinalproject.gbt.comment.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import ksafinalproject.gbt.post.model.Post;
 import lombok.*;
 
@@ -11,7 +12,9 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 @Entity
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,15 +31,6 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "post_id")
     @NotNull
+    @JsonBackReference
     private Post post;
-
-    @Builder
-    public Comment(Long id, String comment, String author, LocalDateTime created, LocalDateTime updated, Post post) {
-        this.id = id;
-        this.comment = comment;
-        this.author = author;
-        this.created = created;
-        this.updated = updated;
-        this.post = post;
-    }
 }

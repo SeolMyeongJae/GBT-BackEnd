@@ -1,5 +1,6 @@
 package ksafinalproject.gbt.postImg.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import ksafinalproject.gbt.post.model.Post;
 import lombok.*;
 
@@ -10,7 +11,9 @@ import javax.validation.constraints.NotNull;
 @Setter
 @ToString
 @Entity
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class PostImg {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,12 +24,7 @@ public class PostImg {
     @ManyToOne
     @JoinColumn(name = "post_id")
     @NotNull
+    @JsonIgnore
     private Post post;
 
-    @Builder
-    public PostImg(Long id, String url, Post post) {
-        this.id = id;
-        this.url = url;
-        this.post = post;
-    }
 }

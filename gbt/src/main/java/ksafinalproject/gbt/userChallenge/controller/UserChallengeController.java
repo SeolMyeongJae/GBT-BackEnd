@@ -2,6 +2,7 @@ package ksafinalproject.gbt.userChallenge.controller;
 
 import io.swagger.annotations.Api;
 import ksafinalproject.gbt.userChallenge.dto.IUserChallenge;
+import ksafinalproject.gbt.userChallenge.dto.OUserChallenge;
 import ksafinalproject.gbt.userChallenge.model.UserChallenge;
 import ksafinalproject.gbt.userChallenge.service.UserChallengeService;
 import lombok.RequiredArgsConstructor;
@@ -42,7 +43,7 @@ public class UserChallengeController {
     }
 
     @GetMapping("/{id}")
-    public Optional<UserChallenge> userChallengeGetById(@PathVariable Long id) {
+    public Optional<OUserChallenge> userChallengeGetById(@PathVariable Long id) {
         try {
             return userChallengeService.getUserChallengeById(id);
         } catch (Exception e) {
@@ -52,7 +53,7 @@ public class UserChallengeController {
     }
 
     @GetMapping("/user/{userId}/challenge/{challengeId}")
-    public Optional<UserChallenge> userChallengeGetByUserIdAndChallengeId(@PathVariable Long userId, @PathVariable Long challengeId) {
+    public Optional<OUserChallenge> userChallengeGetByUserIdAndChallengeId(@PathVariable Long userId, @PathVariable Long challengeId) {
         try {
             return userChallengeService.getUserChallengeByUserIdAndChallengeId(userId, challengeId);
         } catch (Exception e) {
@@ -62,7 +63,7 @@ public class UserChallengeController {
     }
 
     @GetMapping("/all")
-    public List<UserChallenge> userChallengeGetAll() {
+    public List<OUserChallenge> userChallengeGetAll() {
         try {
             return userChallengeService.getAllUserChallenge();
         } catch (Exception e) {
@@ -82,7 +83,7 @@ public class UserChallengeController {
     }
 
     @GetMapping("/all/user/{userId}")
-    public List<UserChallenge> userChallengeGetAllByUserId(@PathVariable Long userId) {
+    public List<OUserChallenge> userChallengeGetAllByUserId(@PathVariable Long userId) {
         try {
             return userChallengeService.getAllUserChallengeByUserId(userId);
         } catch (Exception e) {
@@ -92,7 +93,7 @@ public class UserChallengeController {
     }
 
     @GetMapping("/all/challenge/{challengeId}")
-    public List<UserChallenge> userChallengeGetAllByChallengeId(@PathVariable Long challengeId) {
+    public List<OUserChallenge> userChallengeGetAllByChallengeId(@PathVariable Long challengeId) {
         try {
             return userChallengeService.getAllUserChallengeByChallengeId(challengeId);
         } catch (Exception e) {

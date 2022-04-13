@@ -1,14 +1,13 @@
 package ksafinalproject.gbt.challengeImg.dto;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @Getter
 @ToString
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
-public class IChallengeImg {
-
+public class OChallengeImg {
     private Long id;
     private String url;
     private Long challengeId;

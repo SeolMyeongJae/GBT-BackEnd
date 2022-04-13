@@ -1,6 +1,7 @@
 package ksafinalproject.gbt.chat.service;
 
 import ksafinalproject.gbt.chat.dto.IChat;
+import ksafinalproject.gbt.chat.dto.OChat;
 import ksafinalproject.gbt.chat.model.Chat;
 
 import java.util.List;
@@ -11,13 +12,13 @@ public interface ChatService {
 
     int updateChat(IChat iChat, Long id);
 
-    Optional<Chat> getChatById(Long id);
+    Optional<OChat> getChatById(Long id);
 
-    List<Chat> getAllChat();
+    List<OChat> getAllChat();
 
     int deleteChatById(Long id);
 
-    List<Chat> getAllChatByUserId(Long userId);
+    List<OChat> getAllChatByUserId(Long userId);
 
-    List<Chat> getAllChatByCustomChallengeId(Long customChallengeId);
+    List<OChat> getAllChatByCustomChallengeId(Long customChallengeId);
 }

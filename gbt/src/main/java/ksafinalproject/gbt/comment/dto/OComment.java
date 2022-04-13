@@ -1,17 +1,15 @@
 package ksafinalproject.gbt.comment.dto;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Getter
 @ToString
+@Builder
 @NoArgsConstructor
-public class IComment {
-
+@AllArgsConstructor
+public class OComment {
     private Long id;
     private String comment;
     private String author;

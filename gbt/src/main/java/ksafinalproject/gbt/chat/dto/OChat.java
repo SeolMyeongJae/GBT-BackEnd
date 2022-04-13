@@ -1,16 +1,15 @@
 package ksafinalproject.gbt.chat.dto;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Getter
 @ToString
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
-public class IChat {
+public class OChat {
 
     private Long id;
     private String message;

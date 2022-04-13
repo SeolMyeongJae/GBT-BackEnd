@@ -1,13 +1,13 @@
 package ksafinalproject.gbt.postImg.dto;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @Getter
 @ToString
+@Builder
 @NoArgsConstructor
-public class IPostImg {
+@AllArgsConstructor
+public class OPostImg {
     private Long id;
     private String url;
     private Long postId;

@@ -2,6 +2,7 @@ package ksafinalproject.gbt.challengeImg.model;
 
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import ksafinalproject.gbt.challenge.model.Challenge;
 import lombok.*;
 
@@ -11,9 +12,9 @@ import javax.persistence.*;
 @Setter
 @ToString
 @Entity
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class ChallengeImg {
 
     @Id
@@ -23,7 +24,8 @@ public class ChallengeImg {
     @Column(length = 255)
     private String url;
     @ManyToOne
-    @Column(name = "challenge_id")
+    @JoinColumn(name = "challenge_id")
     @NotNull
+    @JsonIgnore
     private Challenge challenge;
 }

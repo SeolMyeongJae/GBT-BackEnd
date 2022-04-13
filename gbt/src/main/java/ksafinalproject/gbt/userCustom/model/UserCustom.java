@@ -11,7 +11,9 @@ import javax.validation.constraints.NotNull;
 @Setter
 @ToString
 @Entity
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class UserCustom {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,11 +26,5 @@ public class UserCustom {
     @JoinColumn(name = "custom_challenge_id")
     @NotNull
     private CustomChallenge customChallenge;
-
-    @Builder
-    public UserCustom(Long id, User user, CustomChallenge customChallenge) {
-        this.id = id;
-        this.user = user;
-        this.customChallenge = customChallenge;
-    }
+    
 }

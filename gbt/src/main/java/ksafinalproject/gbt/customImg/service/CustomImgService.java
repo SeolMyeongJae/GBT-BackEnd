@@ -1,6 +1,7 @@
 package ksafinalproject.gbt.customImg.service;
 
 import ksafinalproject.gbt.customImg.dto.ICustomImg;
+import ksafinalproject.gbt.customImg.dto.OCustomImg;
 import ksafinalproject.gbt.customImg.model.CustomImg;
 
 import java.util.List;
@@ -12,11 +13,11 @@ public interface CustomImgService {
 
     int updateCustomImg(ICustomImg iCustomImg, Long id);
 
-    Optional<CustomImg> getCustomImgById(Long id);
+    Optional<OCustomImg> getCustomImgById(Long id);
 
-    List<CustomImg> getAllCustomImg();
+    List<OCustomImg> getAllCustomImg();
 
-    List<CustomImg> getAllCustomImgByCustomChallengeId(Long customChallengeId);
+    List<OCustomImg> getAllCustomImgByCustomChallengeId(Long customChallengeId);
 
     int deleteCustomImgById(Long id);
 }

@@ -1,33 +1,34 @@
-package ksafinalproject.gbt.challenge.dto;
+package ksafinalproject.gbt.customChallenge.dto;
 
-import ksafinalproject.gbt.challengeImg.model.ChallengeImg;
-import ksafinalproject.gbt.proof.model.Proof;
-import ksafinalproject.gbt.userChallenge.model.UserChallenge;
+import ksafinalproject.gbt.chat.model.Chat;
+import ksafinalproject.gbt.customImg.model.CustomImg;
+import ksafinalproject.gbt.invite.model.Invite;
 import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
-@Setter
-@ToString
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class OChallenge {
+@AllArgsConstructor
+public class OCustomChallenge {
+
     private Long id;
+    private Long creatorId;
     private String title;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private String method;
     private Long frequency;
+    private String bet;
     private String summary;
     private String description;
     private Boolean isJoin;
     private Long current;
     private Long max;
-    private List<ChallengeImg> challengeImg;
-    private List<Proof> proof;
-    private List<UserChallenge> userChallenge;
+    private List<Chat> chat;
+    private List<CustomImg> customImg;
+    private List<Invite> invite;
 
 }

@@ -1,5 +1,6 @@
 package ksafinalproject.gbt.chat.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import ksafinalproject.gbt.customChallenge.model.CustomChallenge;
 import ksafinalproject.gbt.user.model.User;
 import lombok.*;
@@ -12,7 +13,9 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 @Entity
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class Chat {
 
     @Id
@@ -26,18 +29,11 @@ public class Chat {
     @ManyToOne
     @JoinColumn(name = "user_id")
     @NotNull
+    @JsonIgnore
     private User user;
     @ManyToOne
     @JoinColumn(name = "custom_challenge_id")
     @NotNull
+    @JsonIgnore
     private CustomChallenge customChallenge;
-
-    @Builder
-    public Chat(Long id, String message, LocalDateTime created, User user, CustomChallenge customChallenge) {
-        this.id = id;
-        this.message = message;
-        this.created = created;
-        this.user = user;
-        this.customChallenge = customChallenge;
-    }
 }

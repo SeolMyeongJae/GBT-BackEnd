@@ -2,16 +2,30 @@ package ksafinalproject.gbt.user.model;
 
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import ksafinalproject.gbt.chat.model.Chat;
+import ksafinalproject.gbt.customChallenge.model.CustomChallenge;
+import ksafinalproject.gbt.invite.model.Invite;
+import ksafinalproject.gbt.likes.model.Likes;
+import ksafinalproject.gbt.post.model.Post;
+import ksafinalproject.gbt.proof.model.Proof;
+import ksafinalproject.gbt.userChallenge.model.UserChallenge;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
 @ToString
 @Entity
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,21 +53,28 @@ public class User {
     private String popupImg;
     private Long point;
     private Long badgeId;
-
-    @Builder
-    public User(Long id, String userName, String gender, LocalDate birthYear, Long smokingYear, String comment, Long price, Long averageSmoking, Long ranking, String profileImg, String popupImg, Long point, Long badgeId) {
-        this.id = id;
-        this.userName = userName;
-        this.gender = gender;
-        this.birthYear = birthYear;
-        this.smokingYear = smokingYear;
-        this.comment = comment;
-        this.price = price;
-        this.averageSmoking = averageSmoking;
-        this.ranking = ranking;
-        this.profileImg = profileImg;
-        this.popupImg = popupImg;
-        this.point = point;
-        this.badgeId = badgeId;
-    }
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "user")
+    @ToString.Exclude
+    private Set<Post> post;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "creator")
+    @ToString.Exclude
+    private Set<CustomChallenge> customChallenge;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "user")
+    @ToString.Exclude
+    private Set<Chat> chat;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "user")
+    @ToString.Exclude
+    private Set<Proof> proof;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "user")
+    @ToString.Exclude
+    private Set<Likes> likes;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "callUser")
+    @ToString.Exclude
+    private Set<Invite> inviteCaller;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "user")
+    @ToString.Exclude
+    private Set<Invite> inviteUser;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "user")
+    @ToString.Exclude
+    private Set<UserChallenge> userChallenge;
 }
