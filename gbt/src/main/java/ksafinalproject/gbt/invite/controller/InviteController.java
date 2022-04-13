@@ -2,6 +2,7 @@ package ksafinalproject.gbt.invite.controller;
 
 import io.swagger.annotations.Api;
 import ksafinalproject.gbt.invite.dto.IInvite;
+import ksafinalproject.gbt.invite.dto.OInvite;
 import ksafinalproject.gbt.invite.model.Invite;
 import ksafinalproject.gbt.invite.service.InviteService;
 import lombok.RequiredArgsConstructor;
@@ -41,7 +42,7 @@ public class InviteController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Invite> inviteGetById(@PathVariable Long id) {
+    public Optional<OInvite> inviteGetById(@PathVariable Long id) {
         try {
             return inviteService.getInviteById(id);
         } catch (Exception e) {
@@ -51,7 +52,7 @@ public class InviteController {
     }
 
     @GetMapping("/all")
-    public List<Invite> inviteGetAll() {
+    public List<OInvite> inviteGetAll() {
         try {
             return inviteService.getAllInvite();
         } catch (Exception e) {
@@ -71,7 +72,7 @@ public class InviteController {
     }
 
     @GetMapping("/all/call-user/{callUserId}")
-    public List<Invite> inviteGetAllByCallUserId(@PathVariable Long callUserId) {
+    public List<OInvite> inviteGetAllByCallUserId(@PathVariable Long callUserId) {
         try {
             return inviteService.getAllInviteByCallUserId(callUserId);
         } catch (Exception e) {
@@ -81,7 +82,7 @@ public class InviteController {
     }
 
     @GetMapping("/all/user/{userId}")
-    public List<Invite> inviteGetAllByUserId(@PathVariable Long userId) {
+    public List<OInvite> inviteGetAllByUserId(@PathVariable Long userId) {
         try {
             return inviteService.getAllInviteByUserId(userId);
         } catch (Exception e) {

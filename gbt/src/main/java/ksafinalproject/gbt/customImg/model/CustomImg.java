@@ -2,6 +2,7 @@ package ksafinalproject.gbt.customImg.model;
 
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import ksafinalproject.gbt.customChallenge.model.CustomChallenge;
 import lombok.*;
 
@@ -24,5 +25,6 @@ public class CustomImg {
     @ManyToOne
     @JoinColumn(name = "custom_challenge_id")
     @NotNull
+    @JsonIgnore
     private CustomChallenge customChallenge;
 }

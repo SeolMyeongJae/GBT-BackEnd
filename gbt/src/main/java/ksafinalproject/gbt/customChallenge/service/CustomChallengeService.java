@@ -18,5 +18,7 @@ public interface CustomChallengeService {
 
     List<OCustomChallenge> getAllCustomChallengeByCreatorId(Long creatorId);
 
+    List<OCustomChallenge> getAllCustomChallengeByIncludeUserId(Long userId);
+
     int deleteCustomChallengeById(Long id);
 }

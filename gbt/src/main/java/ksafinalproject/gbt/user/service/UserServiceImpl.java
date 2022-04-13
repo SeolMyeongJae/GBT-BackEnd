@@ -94,6 +94,8 @@ public class UserServiceImpl implements UserService {
                     .chat(user.orElseThrow().getChat())
                     .proof(user.orElseThrow().getProof())
                     .likes(user.orElseThrow().getLikes())
+                    .inviteCaller(user.orElseThrow().getInviteCaller())
+                    .inviteUser(user.orElseThrow().getInviteUser())
                     .build();
             return Optional.of(oUser);
         } catch (Exception e) {
@@ -128,6 +130,8 @@ public class UserServiceImpl implements UserService {
                         .chat(user.getChat())
                         .proof(user.getProof())
                         .likes(user.getLikes())
+                        .inviteCaller(user.getInviteCaller())
+                        .inviteUser(user.getInviteUser())
                         .build());
             }
             return oUserList;
@@ -173,6 +177,8 @@ public class UserServiceImpl implements UserService {
                     .chat(user.orElseThrow().getChat())
                     .proof(user.orElseThrow().getProof())
                     .likes(user.orElseThrow().getLikes())
+                    .inviteCaller(user.orElseThrow().getInviteCaller())
+                    .inviteUser(user.orElseThrow().getInviteUser())
                     .build();
             return Optional.of(oUser);
         } catch (Exception e) {

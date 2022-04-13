@@ -1,5 +1,6 @@
 package ksafinalproject.gbt.invite.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import ksafinalproject.gbt.customChallenge.model.CustomChallenge;
 import ksafinalproject.gbt.user.model.User;
 import lombok.*;
@@ -28,16 +29,19 @@ public class Invite {
     @NotNull
     private LocalDate date;
     @ManyToOne
-    @JoinColumn(name = "call_user_id")
+    @JoinColumn(name = "callUser_id")
     @NotNull
+    @JsonIgnore
     private User callUser;
     @ManyToOne
     @JoinColumn(name = "user_id")
     @NotNull
+    @JsonIgnore
     private User user;
     @ManyToOne
     @JoinColumn(name = "custom_challenge_id")
     @NotNull
+    @JsonIgnore
     private CustomChallenge customChallenge;
 
 }

@@ -2,6 +2,7 @@ package ksafinalproject.gbt.invite.service;
 
 import ksafinalproject.gbt.customChallenge.repository.CustomChallengeRepository;
 import ksafinalproject.gbt.invite.dto.IInvite;
+import ksafinalproject.gbt.invite.dto.OInvite;
 import ksafinalproject.gbt.invite.model.Invite;
 import ksafinalproject.gbt.invite.repository.InviteRepository;
 import ksafinalproject.gbt.user.repository.UserRepository;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -58,10 +60,20 @@ public class InviteServiceImpl implements InviteService {
     }
 
     @Override
-    public Optional<Invite> getInviteById(Long id) {
+    public Optional<OInvite> getInviteById(Long id) {
         log.info("get invite by id : {}", id);
         try {
-            return inviteRepository.findById(id);
+            Optional<Invite> invite = inviteRepository.findById(id);
+            OInvite oInvite = OInvite.builder()
+                    .id(invite.orElseThrow().getId())
+                    .title(invite.orElseThrow().getTitle())
+                    .caller(invite.orElseThrow().getCaller())
+                    .date(invite.orElseThrow().getDate())
+                    .callerId(invite.orElseThrow().getCallUser().getId())
+                    .userId(invite.orElseThrow().getUser().getId())
+                    .customChallengeId(invite.orElseThrow().getCustomChallenge().getId())
+                    .build();
+            return Optional.of(oInvite);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return Optional.empty();
@@ -69,10 +81,23 @@ public class InviteServiceImpl implements InviteService {
     }
 
     @Override
-    public List<Invite> getAllInvite() {
+    public List<OInvite> getAllInvite() {
         log.info("get all invite");
         try {
-            return inviteRepository.findAll();
+            List<Invite> inviteList = inviteRepository.findAll();
+            List<OInvite> oInviteList = new ArrayList<>();
+            for (Invite invite : inviteList) {
+                oInviteList.add(OInvite.builder()
+                        .id(invite.getId())
+                        .title(invite.getTitle())
+                        .caller(invite.getCaller())
+                        .date(invite.getDate())
+                        .callerId(invite.getCallUser().getId())
+                        .userId(invite.getUser().getId())
+                        .customChallengeId(invite.getCustomChallenge().getId())
+                        .build());
+            }
+            return oInviteList;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;
@@ -92,10 +117,23 @@ public class InviteServiceImpl implements InviteService {
     }
 
     @Override
-    public List<Invite> getAllInviteByUserId(Long userId) {
+    public List<OInvite> getAllInviteByUserId(Long userId) {
         log.info("get all invite by user id : {}", userId);
         try {
-            return inviteRepository.findAllByUserId(userId);
+            List<Invite> inviteList = inviteRepository.findAllByUserId(userId);
+            List<OInvite> oInviteList = new ArrayList<>();
+            for (Invite invite : inviteList) {
+                oInviteList.add(OInvite.builder()
+                        .id(invite.getId())
+                        .title(invite.getTitle())
+                        .caller(invite.getCaller())
+                        .date(invite.getDate())
+                        .callerId(invite.getCallUser().getId())
+                        .userId(invite.getUser().getId())
+                        .customChallengeId(invite.getCustomChallenge().getId())
+                        .build());
+            }
+            return oInviteList;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;
@@ -103,10 +141,23 @@ public class InviteServiceImpl implements InviteService {
     }
 
     @Override
-    public List<Invite> getAllInviteByCallUserId(Long callUserId) {
+    public List<OInvite> getAllInviteByCallUserId(Long callUserId) {
         log.info("get all invite by call user id : {}", callUserId);
         try {
-            return inviteRepository.findAllByCallUserId(callUserId);
+            List<Invite> inviteList = inviteRepository.findAllByCallUserId(callUserId);
+            List<OInvite> oInviteList = new ArrayList<>();
+            for (Invite invite : inviteList) {
+                oInviteList.add(OInvite.builder()
+                        .id(invite.getId())
+                        .title(invite.getTitle())
+                        .caller(invite.getCaller())
+                        .date(invite.getDate())
+                        .callerId(invite.getCallUser().getId())
+                        .userId(invite.getUser().getId())
+                        .customChallengeId(invite.getCustomChallenge().getId())
+                        .build());
+            }
+            return oInviteList;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;
