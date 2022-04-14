@@ -3,6 +3,7 @@ package ksafinalproject.gbt.post.controller;
 import io.swagger.annotations.Api;
 import ksafinalproject.gbt.post.dto.IPost;
 import ksafinalproject.gbt.post.dto.OPost;
+import ksafinalproject.gbt.post.dto.OPostList;
 import ksafinalproject.gbt.post.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -51,7 +52,7 @@ public class PostController {
     }
 
     @GetMapping("/all")
-    public List<OPost> postGetAll() {
+    public List<OPostList> postGetAll() {
         try {
             return postService.getAllPost();
         } catch (Exception e) {
@@ -61,7 +62,7 @@ public class PostController {
     }
 
     @GetMapping("/all/desc")
-    public List<OPost> postGetAllByDesc() {
+    public List<OPostList> postGetAllByDesc() {
         try {
             return postService.getAllPostByDesc();
         } catch (Exception e) {
@@ -81,7 +82,7 @@ public class PostController {
     }
 
     @GetMapping("/all/user/{userId}")
-    public List<OPost> postGetAllByUserId(@PathVariable Long userId) {
+    public List<OPostList> postGetAllByUserId(@PathVariable Long userId) {
         try {
             return postService.getAllPostByUserId(userId);
         } catch (Exception e) {
@@ -91,7 +92,7 @@ public class PostController {
     }
 
     @GetMapping("/all/title/{title}")
-    public List<OPost> postGetAllByTitleContains(@PathVariable String title) {
+    public List<OPostList> postGetAllByTitleContains(@PathVariable String title) {
         try {
             return postService.getAllPostByTitleContains(title);
         } catch (Exception e) {
@@ -101,7 +102,7 @@ public class PostController {
     }
 
     @GetMapping("/all/author/{author}")
-    public List<OPost> postGetAllByAuthorContains(@PathVariable String author) {
+    public List<OPostList> postGetAllByAuthorContains(@PathVariable String author) {
         try {
             return postService.getAllPostByAuthorContains(author);
         } catch (Exception e) {
@@ -111,7 +112,7 @@ public class PostController {
     }
 
     @GetMapping("/all/category/{category}")
-    public List<OPost> postGetAllByCategory(@PathVariable String category) {
+    public List<OPostList> postGetAllByCategory(@PathVariable String category) {
         try {
             return postService.getAllPostByCategory(category);
         } catch (Exception e) {

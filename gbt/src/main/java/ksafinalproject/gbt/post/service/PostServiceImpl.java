@@ -1,8 +1,10 @@
 package ksafinalproject.gbt.post.service;
 
+import ksafinalproject.gbt.comment.repository.CommentRepository;
 import ksafinalproject.gbt.likes.repository.LikesRepository;
 import ksafinalproject.gbt.post.dto.IPost;
 import ksafinalproject.gbt.post.dto.OPost;
+import ksafinalproject.gbt.post.dto.OPostList;
 import ksafinalproject.gbt.post.model.Post;
 import ksafinalproject.gbt.post.repository.PostRepository;
 import ksafinalproject.gbt.user.repository.UserRepository;
@@ -25,6 +27,7 @@ public class PostServiceImpl implements PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
     private final LikesRepository likesRepository;
+    private final CommentRepository commentRepository;
 
     @Override
     public int savePost(IPost iPost) {
@@ -92,14 +95,14 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<OPost> getAllPost() {
+    public List<OPostList> getAllPost() {
         log.info("find all post");
         try {
             List<Post> postList = postRepository.findAll();
-            List<OPost> oPostList = new ArrayList<>();
+            List<OPostList> oPostList = new ArrayList<>();
             for (Post post : postList) {
                 Long likesCount = likesRepository.countByPostId(post.getId());
-                oPostList.add(OPost.builder()
+                oPostList.add(OPostList.builder()
                         .id(post.getId())
                         .title(post.getTitle())
                         .author(post.getAuthor())
@@ -107,7 +110,7 @@ public class PostServiceImpl implements PostService {
                         .created(post.getCreated())
                         .likesCount(likesCount)
                         .postImg(post.getPostImg())
-                        .comment(post.getComment())
+                        .commentCount(commentRepository.countByPostId(post.getId()))
                         .build());
             }
             return oPostList;
@@ -118,15 +121,15 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<OPost> getAllPostByDesc() {
+    public List<OPostList> getAllPostByDesc() {
         log.info("find all post by desc");
         try {
             Sort sort = Sort.by(Sort.Direction.DESC, "id");
             List<Post> postList = postRepository.findAll(sort);
-            List<OPost> oPostList = new ArrayList<>();
+            List<OPostList> oPostList = new ArrayList<>();
             for (Post post : postList) {
                 Long likesCount = likesRepository.countByPostId(post.getId());
-                oPostList.add(OPost.builder()
+                oPostList.add(OPostList.builder()
                         .id(post.getId())
                         .title(post.getTitle())
                         .author(post.getAuthor())
@@ -134,7 +137,7 @@ public class PostServiceImpl implements PostService {
                         .created(post.getCreated())
                         .likesCount(likesCount)
                         .postImg(post.getPostImg())
-                        .comment(post.getComment())
+                        .commentCount(commentRepository.countByPostId(post.getId()))
                         .build());
             }
             return oPostList;
@@ -157,15 +160,15 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<OPost> getAllPostByUserId(Long userId) {
+    public List<OPostList> getAllPostByUserId(Long userId) {
         log.info("find all post by user id : {}", userId);
         try {
             Sort sort = Sort.by(Sort.Direction.DESC, "id");
             List<Post> postList = postRepository.findAllByUserId(userId, sort);
-            List<OPost> oPostList = new ArrayList<>();
+            List<OPostList> oPostList = new ArrayList<>();
             for (Post post : postList) {
                 Long likesCount = likesRepository.countByPostId(post.getId());
-                oPostList.add(OPost.builder()
+                oPostList.add(OPostList.builder()
                         .id(post.getId())
                         .title(post.getTitle())
                         .author(post.getAuthor())
@@ -173,7 +176,7 @@ public class PostServiceImpl implements PostService {
                         .created(post.getCreated())
                         .likesCount(likesCount)
                         .postImg(post.getPostImg())
-                        .comment(post.getComment())
+                        .commentCount(commentRepository.countByPostId(post.getId()))
                         .build());
             }
             return oPostList;
@@ -184,15 +187,15 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<OPost> getAllPostByTitleContains(String title) {
+    public List<OPostList> getAllPostByTitleContains(String title) {
         log.info("find all post by title contains : {}", title);
         try {
             Sort sort = Sort.by(Sort.Direction.DESC, "id");
             List<Post> postList = postRepository.findAllByTitleContains(title, sort);
-            List<OPost> oPostList = new ArrayList<>();
+            List<OPostList> oPostList = new ArrayList<>();
             for (Post post : postList) {
                 Long likesCount = likesRepository.countByPostId(post.getId());
-                oPostList.add(OPost.builder()
+                oPostList.add(OPostList.builder()
                         .id(post.getId())
                         .title(post.getTitle())
                         .author(post.getAuthor())
@@ -200,7 +203,7 @@ public class PostServiceImpl implements PostService {
                         .created(post.getCreated())
                         .likesCount(likesCount)
                         .postImg(post.getPostImg())
-                        .comment(post.getComment())
+                        .commentCount(commentRepository.countByPostId(post.getId()))
                         .build());
             }
             return oPostList;
@@ -211,27 +214,23 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<OPost> getAllPostByAuthorContains(String author) {
+    public List<OPostList> getAllPostByAuthorContains(String author) {
         log.info("find all post by author contains : {}", author);
         try {
             Sort sort = Sort.by(Sort.Direction.DESC, "id");
             List<Post> postList = postRepository.findAllByAuthorContains(author, sort);
-            List<OPost> oPostList = new ArrayList<>();
+            List<OPostList> oPostList = new ArrayList<>();
             for (Post post : postList) {
                 Long likesCount = likesRepository.countByPostId(post.getId());
-                oPostList.add(OPost.builder()
+                oPostList.add(OPostList.builder()
                         .id(post.getId())
                         .title(post.getTitle())
-                        .content(post.getContent())
                         .author(post.getAuthor())
                         .category(post.getCategory())
                         .created(post.getCreated())
-                        .updated(post.getUpdated())
-                        .userId(post.getUser().getId())
                         .likesCount(likesCount)
                         .postImg(post.getPostImg())
-                        .comment(post.getComment())
-                        .likes(post.getLikes())
+                        .commentCount(commentRepository.countByPostId(post.getId()))
                         .build());
             }
             return oPostList;
@@ -242,15 +241,15 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<OPost> getAllPostByCategory(String category) {
+    public List<OPostList> getAllPostByCategory(String category) {
         log.info("find all post by category : {}", category);
         try {
             Sort sort = Sort.by(Sort.Direction.DESC, "id");
             List<Post> postList = postRepository.findAllByCategory(category, sort);
-            List<OPost> oPostList = new ArrayList<>();
+            List<OPostList> oPostList = new ArrayList<>();
             for (Post post : postList) {
                 Long likesCount = likesRepository.countByPostId(post.getId());
-                oPostList.add(OPost.builder()
+                oPostList.add(OPostList.builder()
                         .id(post.getId())
                         .title(post.getTitle())
                         .author(post.getAuthor())
@@ -258,7 +257,7 @@ public class PostServiceImpl implements PostService {
                         .created(post.getCreated())
                         .likesCount(likesCount)
                         .postImg(post.getPostImg())
-                        .comment(post.getComment())
+                        .commentCount(commentRepository.countByPostId(post.getId()))
                         .build());
             }
             return oPostList;
