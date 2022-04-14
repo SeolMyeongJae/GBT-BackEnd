@@ -31,7 +31,7 @@ public class CustomChallengeServiceImpl implements CustomChallengeService {
     public int saveCustomChallenge(ICustomChallenge iCustomChallenge) {
         log.info("save custom challenge : {}", iCustomChallenge);
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-d-H-m");
             LocalDateTime startDate = LocalDateTime.parse(iCustomChallenge.getStartDate(), formatter);
             LocalDateTime endDate = LocalDateTime.parse(iCustomChallenge.getEndDate(), formatter);
             customChallengeRepository.save(CustomChallenge.builder()
@@ -58,7 +58,7 @@ public class CustomChallengeServiceImpl implements CustomChallengeService {
     @Transactional
     public int updateCustomChallenge(ICustomChallenge iCustomChallenge, Long id) {
         log.info("update custom challenge : {}, id : {}", iCustomChallenge, id);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-dd-HH-mm");
         LocalDateTime startDate = LocalDateTime.parse(iCustomChallenge.getStartDate(), formatter);
         LocalDateTime endDate = LocalDateTime.parse(iCustomChallenge.getEndDate(), formatter);
         try {
