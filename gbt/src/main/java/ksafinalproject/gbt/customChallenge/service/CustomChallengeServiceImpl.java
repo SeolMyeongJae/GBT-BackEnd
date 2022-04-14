@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -29,14 +31,14 @@ public class CustomChallengeServiceImpl implements CustomChallengeService {
     public int saveCustomChallenge(ICustomChallenge iCustomChallenge) {
         log.info("save custom challenge : {}", iCustomChallenge);
         try {
-//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
-//            LocalDateTime startDate = LocalDateTime.parse(iCustomChallenge.getStartDate(), formatter);
-//            LocalDateTime endDate = LocalDateTime.parse(iCustomChallenge.getEndDate(), formatter);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
+            LocalDateTime startDate = LocalDateTime.parse(iCustomChallenge.getStartDate(), formatter);
+            LocalDateTime endDate = LocalDateTime.parse(iCustomChallenge.getEndDate(), formatter);
             customChallengeRepository.save(CustomChallenge.builder()
                     .id(iCustomChallenge.getId())
                     .creator(userRepository.findById(iCustomChallenge.getCreatorId()).orElseThrow())
-                    .startDate(iCustomChallenge.getStartDate())
-                    .endDate(iCustomChallenge.getEndDate())
+                    .startDate(startDate)
+                    .endDate(endDate)
                     .method(iCustomChallenge.getMethod())
                     .title(iCustomChallenge.getTitle())
                     .frequency(iCustomChallenge.getFrequency())
@@ -56,16 +58,16 @@ public class CustomChallengeServiceImpl implements CustomChallengeService {
     @Transactional
     public int updateCustomChallenge(ICustomChallenge iCustomChallenge, Long id) {
         log.info("update custom challenge : {}, id : {}", iCustomChallenge, id);
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
-//        LocalDateTime startDate = LocalDateTime.parse(iCustomChallenge.getStartDate(), formatter);
-//        LocalDateTime endDate = LocalDateTime.parse(iCustomChallenge.getEndDate(), formatter);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
+        LocalDateTime startDate = LocalDateTime.parse(iCustomChallenge.getStartDate(), formatter);
+        LocalDateTime endDate = LocalDateTime.parse(iCustomChallenge.getEndDate(), formatter);
         try {
             if (customChallengeRepository.findById(id).isEmpty()) {
                 return -1;
             }
             CustomChallenge customChallenge = customChallengeRepository.findById(id).orElseThrow();
-            customChallenge.setStartDate(iCustomChallenge.getStartDate());
-            customChallenge.setEndDate(iCustomChallenge.getEndDate());
+            customChallenge.setStartDate(startDate);
+            customChallenge.setEndDate(endDate);
             customChallenge.setTitle(iCustomChallenge.getTitle());
             customChallenge.setFrequency(iCustomChallenge.getFrequency());
             customChallenge.setBet(iCustomChallenge.getBet());
