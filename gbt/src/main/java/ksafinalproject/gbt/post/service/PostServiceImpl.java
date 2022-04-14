@@ -102,16 +102,12 @@ public class PostServiceImpl implements PostService {
                 oPostList.add(OPost.builder()
                         .id(post.getId())
                         .title(post.getTitle())
-                        .content(post.getContent())
                         .author(post.getAuthor())
                         .category(post.getCategory())
                         .created(post.getCreated())
-                        .updated(post.getUpdated())
-                        .userId(post.getUser().getId())
                         .likesCount(likesCount)
                         .postImg(post.getPostImg())
                         .comment(post.getComment())
-                        .likes(post.getLikes())
                         .build());
             }
             return oPostList;
@@ -133,16 +129,12 @@ public class PostServiceImpl implements PostService {
                 oPostList.add(OPost.builder()
                         .id(post.getId())
                         .title(post.getTitle())
-                        .content(post.getContent())
                         .author(post.getAuthor())
                         .category(post.getCategory())
                         .created(post.getCreated())
-                        .updated(post.getUpdated())
-                        .userId(post.getUser().getId())
                         .likesCount(likesCount)
                         .postImg(post.getPostImg())
                         .comment(post.getComment())
-                        .likes(post.getLikes())
                         .build());
             }
             return oPostList;
@@ -176,16 +168,12 @@ public class PostServiceImpl implements PostService {
                 oPostList.add(OPost.builder()
                         .id(post.getId())
                         .title(post.getTitle())
-                        .content(post.getContent())
                         .author(post.getAuthor())
                         .category(post.getCategory())
                         .created(post.getCreated())
-                        .updated(post.getUpdated())
-                        .userId(post.getUser().getId())
                         .likesCount(likesCount)
                         .postImg(post.getPostImg())
                         .comment(post.getComment())
-                        .likes(post.getLikes())
                         .build());
             }
             return oPostList;
@@ -207,16 +195,12 @@ public class PostServiceImpl implements PostService {
                 oPostList.add(OPost.builder()
                         .id(post.getId())
                         .title(post.getTitle())
-                        .content(post.getContent())
                         .author(post.getAuthor())
                         .category(post.getCategory())
                         .created(post.getCreated())
-                        .updated(post.getUpdated())
-                        .userId(post.getUser().getId())
                         .likesCount(likesCount)
                         .postImg(post.getPostImg())
                         .comment(post.getComment())
-                        .likes(post.getLikes())
                         .build());
             }
             return oPostList;
@@ -269,16 +253,12 @@ public class PostServiceImpl implements PostService {
                 oPostList.add(OPost.builder()
                         .id(post.getId())
                         .title(post.getTitle())
-                        .content(post.getContent())
                         .author(post.getAuthor())
                         .category(post.getCategory())
                         .created(post.getCreated())
-                        .updated(post.getUpdated())
-                        .userId(post.getUser().getId())
                         .likesCount(likesCount)
                         .postImg(post.getPostImg())
                         .comment(post.getComment())
-                        .likes(post.getLikes())
                         .build());
             }
             return oPostList;
