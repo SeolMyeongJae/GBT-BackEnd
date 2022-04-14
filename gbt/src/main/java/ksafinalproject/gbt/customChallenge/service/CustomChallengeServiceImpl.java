@@ -58,13 +58,13 @@ public class CustomChallengeServiceImpl implements CustomChallengeService {
     @Transactional
     public int updateCustomChallenge(ICustomChallenge iCustomChallenge, Long id) {
         log.info("update custom challenge : {}, id : {}", iCustomChallenge, id);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-dd-HH-mm");
-        LocalDateTime startDate = LocalDateTime.parse(iCustomChallenge.getStartDate(), formatter);
-        LocalDateTime endDate = LocalDateTime.parse(iCustomChallenge.getEndDate(), formatter);
         try {
             if (customChallengeRepository.findById(id).isEmpty()) {
                 return -1;
             }
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-dd-HH-mm");
+            LocalDateTime startDate = LocalDateTime.parse(iCustomChallenge.getStartDate(), formatter);
+            LocalDateTime endDate = LocalDateTime.parse(iCustomChallenge.getEndDate(), formatter);
             CustomChallenge customChallenge = customChallengeRepository.findById(id).orElseThrow();
             customChallenge.setStartDate(startDate);
             customChallenge.setEndDate(endDate);
