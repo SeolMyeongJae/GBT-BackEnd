@@ -3,7 +3,6 @@ package ksafinalproject.gbt.post.controller;
 import io.swagger.annotations.Api;
 import ksafinalproject.gbt.post.dto.IPost;
 import ksafinalproject.gbt.post.dto.OPost;
-import ksafinalproject.gbt.post.model.Post;
 import ksafinalproject.gbt.post.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +18,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Slf4j
 public class PostController {
-
     private final PostService postService;
 
     @PostMapping("")
