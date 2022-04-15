@@ -11,6 +11,6 @@ import java.util.List;
 @ToString
 @NoArgsConstructor
 public class TotalSmoking {
-    Long total;
-    List<OSmoking> smokingList;
+    private Long total;
+    private List<OSmoking> smokingList;
 }

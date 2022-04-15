@@ -3,6 +3,7 @@ package ksafinalproject.gbt.smoking.service;
 import ksafinalproject.gbt.smoking.dto.OSmoking;
 import ksafinalproject.gbt.smoking.dto.TotalSmoking;
 import ksafinalproject.gbt.smoking.dto.ISmoking;
+import ksafinalproject.gbt.smoking.dto.TotalSmokingAndDays;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,4 +28,6 @@ public interface SmokingService {
     TotalSmoking getSmokingByDate(Long day, Long userId);
 
     TotalSmoking getSmokingByMonth(Long userId);
+
+    TotalSmokingAndDays getSmokingByUserAndChallengeDate(Long challengeId, Long userId);
 }
