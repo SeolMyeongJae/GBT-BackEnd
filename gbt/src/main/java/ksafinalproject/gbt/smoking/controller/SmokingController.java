@@ -4,6 +4,7 @@ import io.swagger.annotations.Api;
 import ksafinalproject.gbt.smoking.dto.ISmoking;
 import ksafinalproject.gbt.smoking.dto.OSmoking;
 import ksafinalproject.gbt.smoking.dto.TotalSmoking;
+import ksafinalproject.gbt.smoking.dto.TotalSmokingAndDays;
 import ksafinalproject.gbt.smoking.model.Smoking;
 import ksafinalproject.gbt.smoking.service.SmokingService;
 import lombok.RequiredArgsConstructor;
@@ -111,6 +112,16 @@ public class SmokingController {
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1;
+        }
+    }
+
+    @GetMapping("/user/{userId}/challenge/{challengeId}")
+    public TotalSmokingAndDays smokingGetByUserAndChallengeDate(@PathVariable Long userId, @PathVariable Long challengeId) {
+        try {
+            return smokingService.getSmokingByUserAndChallengeDate(userId, challengeId);
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return null;
         }
     }
 }

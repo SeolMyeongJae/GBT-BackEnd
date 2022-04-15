@@ -1,8 +1,11 @@
 package ksafinalproject.gbt.smoking.service;
 
+import ksafinalproject.gbt.challenge.model.Challenge;
+import ksafinalproject.gbt.challenge.repository.ChallengeRepository;
 import ksafinalproject.gbt.smoking.dto.ISmoking;
 import ksafinalproject.gbt.smoking.dto.OSmoking;
 import ksafinalproject.gbt.smoking.dto.TotalSmoking;
+import ksafinalproject.gbt.smoking.dto.TotalSmokingAndDays;
 import ksafinalproject.gbt.smoking.model.Smoking;
 import ksafinalproject.gbt.smoking.repository.SmokingRepository;
 import ksafinalproject.gbt.user.repository.UserRepository;
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.*;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +28,7 @@ public class SmokingServiceImpl implements SmokingService {
 
     private final SmokingRepository smokingRepository;
     private final UserRepository userRepository;
+    private final ChallengeRepository challengeRepository;
 
     @Override
     @Transactional
@@ -240,6 +245,32 @@ public class SmokingServiceImpl implements SmokingService {
             smokingDto.setSmokingList(result);
             smokingDto.setTotal(total);
             return smokingDto;
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public TotalSmokingAndDays getSmokingByUserAndChallengeDate(Long userId, Long challengeId) {
+        log.info("find smoking by user and challenge");
+        try {
+            Optional<Challenge> challenge = challengeRepository.findById(challengeId);
+            LocalDate startDate = challenge.orElseThrow().getStartDate().toLocalDate();
+            LocalDate endDate = challenge.orElseThrow().getEndDate().toLocalDate();
+            List<Smoking> smokingList = smokingRepository.findByDateBetweenAndUserId(startDate, endDate, userId);
+            List<OSmoking> oSmokingList = new ArrayList<>();
+            Long total = 0L;
+            Long period = ChronoUnit.DAYS.between(startDate, endDate);
+            Long smokingDays = (long) smokingList.size();
+            for (Smoking smoking : smokingList) {
+                total += smoking.getCount();
+            }
+            return TotalSmokingAndDays.builder()
+                    .total(total)
+                    .smokingDays(smokingDays)
+                    .period(period)
+                    .build();
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;
