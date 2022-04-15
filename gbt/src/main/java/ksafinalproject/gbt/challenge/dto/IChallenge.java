@@ -19,5 +19,6 @@ public class IChallenge {
     private String description;
     private String summary;
     private Long max;
+    private Long point;
     private List<MultipartFile> img;
 }

@@ -18,6 +18,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
@@ -29,6 +30,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     private final ChallengeImgRepository challengeImgRepository;
     private final UserChallengeRepository userChallengeRepository;
     private final S3Uploader s3Uploader;
+
     @Override
     public int saveChallenge(IChallenge iChallenge) {
         log.info("save challenge : {}", iChallenge);
@@ -36,6 +38,20 @@ public class ChallengeServiceImpl implements ChallengeService {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
             LocalDateTime startDate = LocalDateTime.parse(iChallenge.getStartDate(), formatter);
             LocalDateTime endDate = LocalDateTime.parse(iChallenge.getEndDate(), formatter);
+            if (iChallenge.getImg() == null) {
+                challengeRepository.save(Challenge.builder()
+                        .startDate(startDate)
+                        .endDate(endDate)
+                        .method(iChallenge.getMethod())
+                        .title(iChallenge.getTitle())
+                        .frequency(iChallenge.getFrequency())
+                        .summary(iChallenge.getSummary())
+                        .description(iChallenge.getDescription())
+                        .max(iChallenge.getMax())
+                        .point(iChallenge.getPoint())
+                        .build());
+                return 1;
+            }
             Long challengeId = challengeRepository.save(Challenge.builder()
                     .startDate(startDate)
                     .endDate(endDate)
@@ -45,6 +61,7 @@ public class ChallengeServiceImpl implements ChallengeService {
                     .summary(iChallenge.getSummary())
                     .description(iChallenge.getDescription())
                     .max(iChallenge.getMax())
+                    .point(iChallenge.getPoint())
                     .build()).getId();
 
             List<MultipartFile> imageFiles = iChallenge.getImg();
@@ -86,6 +103,7 @@ public class ChallengeServiceImpl implements ChallengeService {
             challenge.setDescription(iChallenge.getDescription());
             challenge.setSummary(iChallenge.getSummary());
             challenge.setMax(iChallenge.getMax());
+            challenge.setPoint(iChallenge.getPoint());
             return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
@@ -110,6 +128,7 @@ public class ChallengeServiceImpl implements ChallengeService {
             oChallenge.setSummary(challenge.orElseThrow().getSummary());
             oChallenge.setCurrent(current);
             oChallenge.setMax(challenge.orElseThrow().getMax());
+            oChallenge.setPoint(challenge.orElseThrow().getPoint());
             oChallenge.setChallengeImg(challenge.orElseThrow().getChallengeImg());
             oChallenge.setProof(challenge.orElseThrow().getProof());
             oChallenge.setUserChallenge(challenge.orElseThrow().getUserChallenge());
@@ -139,6 +158,7 @@ public class ChallengeServiceImpl implements ChallengeService {
                         .description(challenge.getDescription())
                         .current(current)
                         .max(challenge.getMax())
+                        .point(challenge.getPoint())
                         .challengeImg(challenge.getChallengeImg())
                         .proof(challenge.getProof())
                         .userChallenge(challenge.getUserChallenge())
@@ -171,6 +191,7 @@ public class ChallengeServiceImpl implements ChallengeService {
                         .isJoin(userChallengeRepository.existsByUserIdAndChallengeId(userId, challenge.getId()))
                         .current(current)
                         .max(challenge.getMax())
+                        .point(challenge.getPoint())
                         .challengeImg(challenge.getChallengeImg())
                         .proof(challenge.getProof())
                         .userChallenge(challenge.getUserChallenge())
