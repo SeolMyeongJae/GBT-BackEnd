@@ -17,17 +17,39 @@ var challenge = {
     $(document).ready(function () {
             var reader = new FileReader();
             var fileList = [];
-            $("#fileInput").on("change", (e) => {
+            delImg = function(_this) {
+              var parent = $(_this).parent("li");
+              var index = parent.index();
+              console.log(uploadFiles);
+              console.log(index);
+              console.log(fileList);
+              uploadFiles.splice(index, 1);
+              fileList.splice(index, 1);
+              console.log(uploadFiles);
+              console.log(fileList);
+
+              parent.remove();
+            }
+            $("#fileInput").on("change", function(e) {
               var filename = e.target.files[0].name;
               var file = e.target.files[0];
-              fileList.push(filename);
-              reader.onload = (e) => {
+              reader.onload = function (e) {
+
+                var li = document.createElement("li");
                 var img = document.createElement("img");
+                var span = document.createElement("span");
+                li.setAttribute("style", " float: left; position: relative; list-style-type: none;");
                 img.setAttribute("src", e.target.result);
                 img.setAttribute("style", "width: 150px; height: 150px;");
-                img.setAttribute("class", "auto");
-                document.querySelector("div#image_container").appendChild(img);
+                span.setAttribute("id", "btn-delete-img");
+                span.setAttribute("style", "position: absolute; top: 0; right: 0; font-size: 13px; background-color: #000; color: #fff; width: 18px; height:18px; line-height: 16px; display: inline-block; text-align:center;");
+                span.setAttribute("onclick", "delImg(this)");
+                span.innerHTML += "x";
+                li.appendChild(img);
+                li.appendChild(span);
+                document.querySelector("ul#preview").appendChild(li);
                 uploadFiles.push(file);
+                fileList.push(filename);
               };
               reader.readAsDataURL(file);
               $("#userfile").val(fileList.join(', '));
@@ -39,17 +61,7 @@ var challenge = {
       for(var file of uploadFiles) {
         form.append('img', file, file.name);
       }
-//      var data = {
-//        title: $("#title").val(),
-//        summary: $("#summary").val(),
-//        description: $("#description").val(),
-//        startDate: $("#startDate").val(),
-//        endDate: $("#endDate").val(),
-//        method: $("#method").val(),
-//        frequency: $("#frequency").val(),
-//        max: $("#max").val(),
-//        img: uploadFiles
-//      };
+
       for(var value of form.entries()) {console.log(value)}
       $.ajax({
         type: "POST",
@@ -60,7 +72,7 @@ var challenge = {
         processData: false
       }).done(() => {
         alert("등록되었습니다");
-//        window.location.href = "/api/admin/challenge";
+        window.location.href = "/api/admin/challenge";
       }).fail(function (error) {
          alert(JSON.stringify(error));
       });
@@ -83,7 +95,7 @@ var challenge = {
             processData: false
           }).done(() => {
             alert("수정되었습니다");
-    //        window.location.href = "/api/admin/challenge";
+            window.location.href = "/api/admin/challenge";
           }).fail(function (error) {
              alert(JSON.stringify(error));
           });
@@ -103,7 +115,8 @@ var challenge = {
     }).fail(function (error) {
       alert(JSON.stringify(error));
     })
-  }
+  },
+
 };
 
 challenge.init();
