@@ -32,7 +32,7 @@ public class SmokingServiceImpl implements SmokingService {
 
     @Override
     @Transactional
-    public int saveSmoking(ISmoking iSmoking) {
+    public Long saveSmoking(ISmoking iSmoking) {
         log.info("save smoking : {} ", iSmoking);
         try {
             List<Smoking> smokingList = smokingRepository.findAllByUserId(iSmoking.getUserId());
@@ -40,7 +40,7 @@ public class SmokingServiceImpl implements SmokingService {
             for (Smoking smoking : smokingList) {
                 if (smoking.getDate().getDayOfYear() == now.getDayOfYear() && smoking.getDate().getYear() == now.getYear()) {
                     smoking.setCount(smoking.getCount() + 1);
-                    return 2;
+                    return smoking.getCount()+1;
                 }
             }
             smokingRepository.save(
@@ -51,10 +51,10 @@ public class SmokingServiceImpl implements SmokingService {
                             .user(userRepository.findById(iSmoking.getUserId()).orElseThrow())
                             .provider(iSmoking.getProvider())
                             .build());
-            return 1;
+            return 1L;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
-            return -1;
+            return -1L;
         }
     }
 

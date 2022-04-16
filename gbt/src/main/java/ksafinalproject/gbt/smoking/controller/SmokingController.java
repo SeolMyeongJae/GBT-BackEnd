@@ -25,12 +25,12 @@ public class SmokingController {
     private final SmokingService smokingService;
 
     @PostMapping("")
-    public int smokingSave(@RequestBody ISmoking iSmoking) {
+    public Long smokingSave(@RequestBody ISmoking iSmoking) {
         try {
             return smokingService.saveSmoking(iSmoking);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
-            return -1;
+            return -1L;
         }
     }
 
