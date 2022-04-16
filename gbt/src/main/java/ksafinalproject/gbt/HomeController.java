@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -50,6 +51,14 @@ public class HomeController {
     @GetMapping("/api/admin/challenge/save")
     public String challengeSave() {
         return "challenge/challenge-save";
+    }
+
+    @GetMapping("/api/admin/challenge/update/{id}")
+    public String challengeUpdate(@PathVariable Long id, Model model) {
+        OChallenge dto = challengeService.getChallengeById(id).orElseThrow();
+        model.addAttribute("challenge", dto);
+
+        return "challenge/challenge-update";
     }
 
     @PostMapping("/upload")

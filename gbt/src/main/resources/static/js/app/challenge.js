@@ -6,11 +6,17 @@ var challenge = {
       _this.save();
     });
 
+    $("#btn-update").on("click", function () {
+      _this.update();
+    })
+
     $(document).ready(function () {
             var reader = new FileReader();
+            var fileList = [];
             $("#fileInput").on("change", (e) => {
               var filename = e.target.files[0].name;
               var file = e.target.files[0];
+              fileList.push(filename);
               reader.onload = (e) => {
                 var img = document.createElement("img");
                 img.setAttribute("src", e.target.result);
@@ -20,7 +26,7 @@ var challenge = {
                 uploadFiles.push(file);
               };
               reader.readAsDataURL(file);
-              $("#userfile").val(filename);
+              $("#userfile").val(fileList.join(', '));
             });
           });
     },
@@ -52,7 +58,28 @@ var challenge = {
         alert("등록되었습니다");
 //        window.location.href = "/api/admin/challenge";
       });
+    },
+
+  update: function () {
+    var form = new FormData($("#input-form")[0]);
+    var path = location.pathname.split("/");
+    var id = path[path.length - 1];
+    for(var file of uploadFiles) {
+      form.append('img', file, file.name);
     }
+    for(var value of form.entries()) {console.log(value)}
+          $.ajax({
+            type: "PUT",
+            url: `http://localhost:8080/api/challenge/${id}`,
+            dataType: "json",
+            data: form,
+            contentType: false,
+            processData: false
+          }).done(() => {
+            alert("수정되었습니다");
+    //        window.location.href = "/api/admin/challenge";
+          });
+  }
 };
 
 challenge.init();

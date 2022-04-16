@@ -32,7 +32,7 @@ public class ChallengeController {
     }
 
     @PutMapping("/{id}")
-    public int challengeUpdate(@RequestBody IChallenge iChallenge, @PathVariable Long id) {
+    public int challengeUpdate(IChallenge iChallenge, @PathVariable Long id) {
         try {
             return challengeService.updateChallenge(iChallenge, id);
         } catch (Exception e) {
