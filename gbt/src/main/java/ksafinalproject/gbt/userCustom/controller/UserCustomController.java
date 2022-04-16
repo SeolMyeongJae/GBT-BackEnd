@@ -2,6 +2,7 @@ package ksafinalproject.gbt.userCustom.controller;
 
 import io.swagger.annotations.Api;
 import ksafinalproject.gbt.userCustom.dto.IUserCustom;
+import ksafinalproject.gbt.userCustom.dto.OUserCustom;
 import ksafinalproject.gbt.userCustom.model.UserCustom;
 import ksafinalproject.gbt.userCustom.service.UserCustomService;
 import lombok.RequiredArgsConstructor;
@@ -42,7 +43,7 @@ public class UserCustomController {
     }
 
     @GetMapping("/{id}")
-    public Optional<UserCustom> userCustomGetById(@PathVariable Long id) {
+    public Optional<OUserCustom> userCustomGetById(@PathVariable Long id) {
         try {
             return userCustomService.getUserCustomById(id);
         } catch (Exception e) {
@@ -52,7 +53,7 @@ public class UserCustomController {
     }
 
     @GetMapping("/all")
-    public List<UserCustom> userCustomGetAll() {
+    public List<OUserCustom> userCustomGetAll() {
         try {
             return userCustomService.getAllUserCustom();
         } catch (Exception e) {
@@ -72,7 +73,7 @@ public class UserCustomController {
     }
 
     @GetMapping("/all/user/{userId}")
-    public List<UserCustom> userCustomGetAllByUserId(@PathVariable Long userId) {
+    public List<OUserCustom> userCustomGetAllByUserId(@PathVariable Long userId) {
         try {
             return userCustomService.getAllUserCustomByUserId(userId);
         } catch (Exception e) {
@@ -82,7 +83,7 @@ public class UserCustomController {
     }
 
     @GetMapping("/all/custom-challenge/{customChallengeId}")
-    public List<UserCustom> userCustomGetAllByCustomChallengeId(@PathVariable Long customChallengeId) {
+    public List<OUserCustom> userCustomGetAllByCustomChallengeId(@PathVariable Long customChallengeId) {
         try {
             return userCustomService.getAllUserCustomByCustomChallengeId(customChallengeId);
         } catch (Exception e) {

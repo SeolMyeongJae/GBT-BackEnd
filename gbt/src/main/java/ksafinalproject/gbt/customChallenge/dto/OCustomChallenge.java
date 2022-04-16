@@ -3,6 +3,7 @@ package ksafinalproject.gbt.customChallenge.dto;
 import ksafinalproject.gbt.chat.model.Chat;
 import ksafinalproject.gbt.customImg.model.CustomImg;
 import ksafinalproject.gbt.invite.model.Invite;
+import ksafinalproject.gbt.userCustom.model.UserCustom;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -30,5 +31,5 @@ public class OCustomChallenge {
     private List<Chat> chat;
     private List<CustomImg> customImg;
     private List<Invite> invite;
-
+    private List<UserCustom> userCustom;
 }

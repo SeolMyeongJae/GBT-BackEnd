@@ -26,6 +26,7 @@ public class OChallenge {
     private Boolean isJoin;
     private Long current;
     private Long max;
+    private Long point;
     private List<ChallengeImg> challengeImg;
     private List<Proof> proof;
     private List<UserChallenge> userChallenge;

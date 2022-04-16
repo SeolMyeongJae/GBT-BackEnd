@@ -3,6 +3,7 @@ package ksafinalproject.gbt.userCustom.service;
 import ksafinalproject.gbt.customChallenge.repository.CustomChallengeRepository;
 import ksafinalproject.gbt.user.repository.UserRepository;
 import ksafinalproject.gbt.userCustom.dto.IUserCustom;
+import ksafinalproject.gbt.userCustom.dto.OUserCustom;
 import ksafinalproject.gbt.userCustom.model.UserCustom;
 import ksafinalproject.gbt.userCustom.repository.UserCustomRepository;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,10 +58,16 @@ public class UserCustomServiceImpl implements UserCustomService {
     }
 
     @Override
-    public Optional<UserCustom> getUserCustomById(Long id) {
+    public Optional<OUserCustom> getUserCustomById(Long id) {
         log.info("find user custom by id : {}", id);
         try {
-            return userCustomRepository.findById(id);
+            Optional<UserCustom> userCustom = userCustomRepository.findById(id);
+            OUserCustom oUserCustom = OUserCustom.builder()
+                    .id(userCustom.orElseThrow().getId())
+                    .userId(userCustom.orElseThrow().getUser().getId())
+                    .customChallengeId(userCustom.orElseThrow().getCustomChallenge().getId())
+                    .build();
+            return Optional.of(oUserCustom);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return Optional.empty();
@@ -67,10 +75,19 @@ public class UserCustomServiceImpl implements UserCustomService {
     }
 
     @Override
-    public List<UserCustom> getAllUserCustom() {
+    public List<OUserCustom> getAllUserCustom() {
         log.info("find all user custom");
         try {
-            return userCustomRepository.findAll();
+            List<UserCustom> userCustomList = userCustomRepository.findAll();
+            List<OUserCustom> oUserCustomList = new ArrayList<>();
+            for (UserCustom userCustom : userCustomList) {
+                oUserCustomList.add(OUserCustom.builder()
+                        .id(userCustom.getId())
+                        .userId(userCustom.getUser().getId())
+                        .customChallengeId(userCustom.getCustomChallenge().getId())
+                        .build());
+            }
+            return oUserCustomList;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;
@@ -90,10 +107,19 @@ public class UserCustomServiceImpl implements UserCustomService {
     }
 
     @Override
-    public List<UserCustom> getAllUserCustomByUserId(Long userid) {
+    public List<OUserCustom> getAllUserCustomByUserId(Long userid) {
         log.info("find all user custom by user id : {}", userid);
         try {
-            return userCustomRepository.findAllByUserId(userid);
+            List<UserCustom> userCustomList = userCustomRepository.findAllByUserId(userid);
+            List<OUserCustom> oUserCustomList = new ArrayList<>();
+            for (UserCustom userCustom : userCustomList) {
+                oUserCustomList.add(OUserCustom.builder()
+                        .id(userCustom.getId())
+                        .userId(userCustom.getUser().getId())
+                        .customChallengeId(userCustom.getCustomChallenge().getId())
+                        .build());
+            }
+            return oUserCustomList;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;
@@ -101,10 +127,19 @@ public class UserCustomServiceImpl implements UserCustomService {
     }
 
     @Override
-    public List<UserCustom> getAllUserCustomByCustomChallengeId(Long customChallengeId) {
+    public List<OUserCustom> getAllUserCustomByCustomChallengeId(Long customChallengeId) {
         log.info("find all user custom by custom id : {}", customChallengeId);
         try {
-            return userCustomRepository.findAllByCustomChallengeId(customChallengeId);
+            List<UserCustom> userCustomList = userCustomRepository.findAllByCustomChallengeId(customChallengeId);
+            List<OUserCustom> oUserCustomList = new ArrayList<>();
+            for (UserCustom userCustom : userCustomList) {
+                oUserCustomList.add(OUserCustom.builder()
+                        .id(userCustom.getId())
+                        .userId(userCustom.getUser().getId())
+                        .customChallengeId(userCustom.getCustomChallenge().getId())
+                        .build());
+            }
+            return oUserCustomList;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return null;
