@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface SmokingService {
-    int saveSmoking(ISmoking iSmoking);
+    Long saveSmoking(ISmoking iSmoking);
 
     int updateSmoking(ISmoking iSmoking, Long id);
 
