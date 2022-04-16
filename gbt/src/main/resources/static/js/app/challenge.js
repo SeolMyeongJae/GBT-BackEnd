@@ -10,6 +10,10 @@ var challenge = {
       _this.update();
     })
 
+    $("#btn-delete").on("click", function () {
+      _this.delete();
+    })
+
     $(document).ready(function () {
             var reader = new FileReader();
             var fileList = [];
@@ -57,6 +61,8 @@ var challenge = {
       }).done(() => {
         alert("등록되었습니다");
 //        window.location.href = "/api/admin/challenge";
+      }).fail(function (error) {
+         alert(JSON.stringify(error));
       });
     },
 
@@ -78,7 +84,25 @@ var challenge = {
           }).done(() => {
             alert("수정되었습니다");
     //        window.location.href = "/api/admin/challenge";
+          }).fail(function (error) {
+             alert(JSON.stringify(error));
           });
+  },
+
+  delete: function () {
+    var path = location.pathname.split("/");
+    var id = path[path.length - 1];
+    $.ajax({
+      type: "DELETE",
+      url: `http://localhost:8080/api/challenge/${id}`,
+      dataType: "json",
+      contentType: "aplictaion/json; charset=utf-8"
+    }).done(function() {
+      alert('글이 삭제되었습니다');
+      window.location.href = '/api/admin/challenge'
+    }).fail(function (error) {
+      alert(JSON.stringify(error));
+    })
   }
 };
 
