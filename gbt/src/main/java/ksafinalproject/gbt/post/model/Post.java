@@ -1,6 +1,7 @@
 package ksafinalproject.gbt.post.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import ksafinalproject.gbt.comment.model.Comment;
 import ksafinalproject.gbt.likes.model.Likes;
 import ksafinalproject.gbt.postImg.model.PostImg;
@@ -40,7 +41,7 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "user_id")
     @NotNull
-    @JsonBackReference
+    @JsonIgnore
     private User user;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "post")
     @ToString.Exclude

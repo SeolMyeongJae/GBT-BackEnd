@@ -1,6 +1,7 @@
 package ksafinalproject.gbt.comment.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import ksafinalproject.gbt.post.model.Post;
 import lombok.*;
 
@@ -31,6 +32,6 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "post_id")
     @NotNull
-    @JsonBackReference
+    @JsonIgnore
     private Post post;
 }
