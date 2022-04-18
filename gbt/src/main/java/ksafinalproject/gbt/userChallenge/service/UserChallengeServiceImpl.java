@@ -31,6 +31,9 @@ public class UserChallengeServiceImpl implements UserChallengeService {
             if (userChallengeRepository.existsByUserIdAndChallengeId(iUserChallenge.getUserId(), iUserChallenge.getChallengeId())) {
                 return 3;
             }
+            if (userChallengeRepository.existsByUserId(iUserChallenge.getUserId())) {
+                return 5;
+            }
             if (challengeRepository.findById(iUserChallenge.getChallengeId()).orElseThrow().getMax() <= userChallengeRepository.countByChallengeId(iUserChallenge.getChallengeId())) {
                 return 4;
             }
