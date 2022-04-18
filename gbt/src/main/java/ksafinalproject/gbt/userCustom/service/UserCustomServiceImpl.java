@@ -31,6 +31,9 @@ public class UserCustomServiceImpl implements UserCustomService {
             if (userCustomRepository.existsByUserIdAndCustomChallengeId(iUserCustom.getUserId(), iUserCustom.getCustomChallengeId())) {
                 return 3;
             }
+            if (customChallengeRepository.findById(iUserCustom.getCustomChallengeId()).orElseThrow().getMax() <= userCustomRepository.countByCustomChallengeId(iUserCustom.getCustomChallengeId())) {
+                return 4;
+            }
             userCustomRepository.save(UserCustom.builder()
                     .id(iUserCustom.getId())
                     .user(userRepository.findById(iUserCustom.getUserId()).orElseThrow())
