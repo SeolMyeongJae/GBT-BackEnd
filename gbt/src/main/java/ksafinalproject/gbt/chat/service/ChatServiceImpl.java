@@ -68,6 +68,8 @@ public class ChatServiceImpl implements ChatService {
                     .id(chat.orElseThrow().getId())
                     .userId(chat.orElseThrow().getUser().getId())
                     .message(chat.orElseThrow().getMessage())
+                    .userName(chat.orElseThrow().getUser().getUserName())
+                    .profileImg(chat.orElseThrow().getUser().getProfileImg())
                     .created(chat.orElseThrow().getCreated())
                     .customChallengeId(chat.orElseThrow().getCustomChallenge().getId())
                     .build();
@@ -91,6 +93,8 @@ public class ChatServiceImpl implements ChatService {
                         .id(chat.getId())
                         .userId(userId)
                         .message(chat.getMessage())
+                        .userName(chat.getUser().getUserName())
+                        .profileImg(chat.getUser().getProfileImg())
                         .created(chat.getCreated())
                         .customChallengeId(customChallengeId)
                         .build());
@@ -127,6 +131,8 @@ public class ChatServiceImpl implements ChatService {
                         .id(chat.getId())
                         .userId(userId2)
                         .message(chat.getMessage())
+                        .userName(chat.getUser().getUserName())
+                        .profileImg(chat.getUser().getProfileImg())
                         .created(chat.getCreated())
                         .customChallengeId(customChallengeId)
                         .build());
@@ -151,6 +157,8 @@ public class ChatServiceImpl implements ChatService {
                         .id(chat.getId())
                         .userId(userId)
                         .message(chat.getMessage())
+                        .userName(chat.getUser().getUserName())
+                        .profileImg(chat.getUser().getProfileImg())
                         .created(chat.getCreated())
                         .customChallengeId(customChallengeId2)
                         .build());
