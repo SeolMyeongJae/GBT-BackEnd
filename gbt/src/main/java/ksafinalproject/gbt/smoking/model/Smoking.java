@@ -37,5 +37,6 @@ public class Smoking {
     private String provider;
     @NotNull
     private Boolean isAttend;
-
+    @Column(length = 50)
+    private String memo;
 }

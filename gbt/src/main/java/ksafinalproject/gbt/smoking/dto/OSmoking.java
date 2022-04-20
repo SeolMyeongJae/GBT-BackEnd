@@ -16,4 +16,5 @@ public class OSmoking {
     private Long userId;
     private String provider;
     private Boolean isAttend;
+    private String memo;
 }
