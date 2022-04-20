@@ -15,4 +15,5 @@ public class OSmoking {
     private LocalDate date;
     private Long userId;
     private String provider;
+    private Boolean isAttend;
 }
