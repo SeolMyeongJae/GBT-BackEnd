@@ -13,6 +13,8 @@ public interface SmokingService {
 
     Long saveAttendSmoking(ISmoking iSmoking);
 
+    Long saveChallengeAttendSmoking(ISmoking iSmoking);
+
     int updateSmoking(ISmoking iSmoking, Long id);
 
     Optional<OSmoking> getSmokingById(Long id);

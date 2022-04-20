@@ -50,7 +50,6 @@ public class SmokingServiceImpl implements SmokingService {
                             .count(1L)
                             .date(LocalDate.now())
                             .user(userRepository.findById(iSmoking.getUserId()).orElseThrow())
-                            .provider(iSmoking.getProvider())
                             .isAttend(false)
                             .build());
             return 1L;
@@ -87,13 +86,51 @@ public class SmokingServiceImpl implements SmokingService {
                             .count(iSmoking.getCount())
                             .date(LocalDate.now())
                             .user(userRepository.findById(iSmoking.getUserId()).orElseThrow())
-                            .provider(iSmoking.getProvider())
                             .isAttend(true)
-                            .memo(iSmoking.getMemo())
                             .build());
             Optional<User> user = userRepository.findById(iSmoking.getUserId());
             user.orElseThrow().setPoint(user.orElseThrow().getPoint() + 100);
             return iSmoking.getCount();
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return -1L;
+        }
+    }
+
+    @Transactional
+    @Override
+    public Long saveChallengeAttendSmoking(ISmoking iSmoking) {
+        log.info("challenge attend smoking : {}", iSmoking);
+        try {
+            if (iSmoking.getMemo() == null) {
+                return -1L;
+            }
+            List<Smoking> smokingList = smokingRepository.findAllByUserId(iSmoking.getUserId());
+            LocalDate now = LocalDate.now();
+            for (Smoking smoking : smokingList) {
+                if (smoking.getDate().getDayOfYear() == now.getDayOfYear() && smoking.getDate().getYear() == now.getYear()) {
+                    if (smoking.getMemo() == null) {
+                        Optional<User> user = userRepository.findById(iSmoking.getUserId());
+                        user.orElseThrow().setPoint(user.orElseThrow().getPoint() + 50);
+                        smoking.setMemo(iSmoking.getMemo());
+                        return 1L;
+                    } else {
+                        return -1L;
+                    }
+                }
+            }
+            smokingRepository.save(
+                    Smoking.builder()
+                            .id(iSmoking.getId())
+                            .count(0L)
+                            .date(LocalDate.now())
+                            .user(userRepository.findById(iSmoking.getUserId()).orElseThrow())
+                            .isAttend(false)
+                            .memo(iSmoking.getMemo())
+                            .build());
+            Optional<User> user = userRepository.findById(iSmoking.getUserId());
+            user.orElseThrow().setPoint(user.orElseThrow().getPoint() + 50);
+            return 1L;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return -1L;
@@ -124,7 +161,6 @@ public class SmokingServiceImpl implements SmokingService {
                     .count(smoking.orElseThrow().getCount())
                     .date(smoking.orElseThrow().getDate())
                     .userId(smoking.orElseThrow().getUser().getId())
-                    .provider(smoking.orElseThrow().getProvider())
                     .isAttend(smoking.orElseThrow().getIsAttend())
                     .memo(smoking.orElseThrow().getMemo())
                     .build();
@@ -147,7 +183,6 @@ public class SmokingServiceImpl implements SmokingService {
                         .count(smoking.getCount())
                         .date(smoking.getDate())
                         .userId(smoking.getUser().getId())
-                        .provider(smoking.getProvider())
                         .isAttend(smoking.getIsAttend())
                         .memo(smoking.getMemo())
                         .build());
@@ -181,7 +216,6 @@ public class SmokingServiceImpl implements SmokingService {
                     .count(smoking.orElseThrow().getCount())
                     .date(smoking.orElseThrow().getDate())
                     .userId(smoking.orElseThrow().getUser().getId())
-                    .provider(smoking.orElseThrow().getProvider())
                     .isAttend(smoking.orElseThrow().getIsAttend())
                     .memo(smoking.orElseThrow().getMemo())
                     .build();
@@ -205,7 +239,6 @@ public class SmokingServiceImpl implements SmokingService {
                             .count(smoking.getCount())
                             .date(smoking.getDate())
                             .userId(smoking.getUser().getId())
-                            .provider(smoking.getProvider())
                             .isAttend(smoking.getIsAttend())
                             .memo(smoking.getMemo())
                             .build();
@@ -231,7 +264,6 @@ public class SmokingServiceImpl implements SmokingService {
                         .count(smoking.getCount())
                         .date(smoking.getDate())
                         .userId(smoking.getUser().getId())
-                        .provider(smoking.getProvider())
                         .isAttend(smoking.getIsAttend())
                         .memo(smoking.getMemo())
                         .build());
@@ -259,7 +291,6 @@ public class SmokingServiceImpl implements SmokingService {
                             .count(smoking.getCount())
                             .date(smoking.getDate())
                             .userId(smoking.getUser().getId())
-                            .provider(smoking.getProvider())
                             .isAttend(smoking.getIsAttend())
                             .memo(smoking.getMemo())
                             .build());
@@ -291,7 +322,6 @@ public class SmokingServiceImpl implements SmokingService {
                             .count(smoking.getCount())
                             .date(smoking.getDate())
                             .userId(smoking.getUser().getId())
-                            .provider(smoking.getProvider())
                             .isAttend(smoking.getIsAttend())
                             .memo(smoking.getMemo())
                             .build());

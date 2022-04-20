@@ -44,6 +44,16 @@ public class SmokingController {
         }
     }
 
+    @PostMapping("/challenge-attend")
+    public Long smokingChallengeAttendSave(@RequestBody ISmoking iSmoking) {
+        try {
+            return smokingService.saveChallengeAttendSmoking(iSmoking);
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return -1L;
+        }
+    }
+
     @PutMapping("/{id}")
     public int smokingUpdate(@RequestBody ISmoking iSmoking, @PathVariable Long id) {
         try {
