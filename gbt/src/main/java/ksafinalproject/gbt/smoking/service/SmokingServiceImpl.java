@@ -115,7 +115,7 @@ public class SmokingServiceImpl implements SmokingService {
                         smoking.setMemo(iSmoking.getMemo());
                         return 1L;
                     } else {
-                        return -1L;
+                        return 3L;
                     }
                 }
             }
