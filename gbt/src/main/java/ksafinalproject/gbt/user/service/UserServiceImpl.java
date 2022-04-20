@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
                     .profileImg(iUser.getProfileImg())
                     .popupImg(iUser.getPopupImg())
                     .averageSmoking(iUser.getAverageSmoking())
-                    .point(iUser.getPoint())
+                    .point(0L)
                     .badgeId(iUser.getBadgeId())
                     .build());
             return 1;

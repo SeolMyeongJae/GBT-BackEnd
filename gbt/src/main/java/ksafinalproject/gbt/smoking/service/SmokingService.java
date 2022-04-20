@@ -11,6 +11,8 @@ import java.util.Optional;
 public interface SmokingService {
     Long saveSmoking(ISmoking iSmoking);
 
+    Long saveAttendSmoking(ISmoking iSmoking);
+
     int updateSmoking(ISmoking iSmoking, Long id);
 
     Optional<OSmoking> getSmokingById(Long id);

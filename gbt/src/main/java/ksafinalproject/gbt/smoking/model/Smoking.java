@@ -33,5 +33,7 @@ public class Smoking {
     @NotNull
     @Column(length = 10)
     private String provider;
+    @NotNull
+    private Boolean isAttend;
 
 }
