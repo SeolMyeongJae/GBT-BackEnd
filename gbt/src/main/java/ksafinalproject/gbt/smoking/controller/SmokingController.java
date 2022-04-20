@@ -95,23 +95,23 @@ public class SmokingController {
     }
 
     @GetMapping("/all/day/{day}/user/{userId}")
-    public TotalSmoking smokingGetByDate(@PathVariable Long day, @PathVariable Long userId) {
+    public Optional<TotalSmoking> smokingGetByDate(@PathVariable Long day, @PathVariable Long userId) {
         try {
             return smokingService.getSmokingByDate(day, userId);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
-            return null;
+            return Optional.empty();
         }
 
     }
 
     @GetMapping("/all/this-month/user/{userId}")
-    public TotalSmoking smokingGetByDateMonth(@PathVariable Long userId) {
+    public Optional<TotalSmoking> smokingGetByDateMonth(@PathVariable Long userId) {
         try {
             return smokingService.getSmokingByMonth((userId));
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
-            return null;
+            return Optional.empty();
         }
     }
 
@@ -126,12 +126,12 @@ public class SmokingController {
     }
 
     @GetMapping("/user/{userId}/challenge/{challengeId}")
-    public TotalSmokingAndDays smokingGetByUserAndChallengeDate(@PathVariable Long userId, @PathVariable Long challengeId) {
+    public Optional<TotalSmokingAndDays> smokingGetByUserAndChallengeDate(@PathVariable Long userId, @PathVariable Long challengeId) {
         try {
             return smokingService.getSmokingByUserAndChallengeDate(userId, challengeId);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
-            return null;
+            return Optional.empty();
         }
     }
 }

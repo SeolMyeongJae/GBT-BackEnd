@@ -12,4 +12,5 @@ public class TotalSmokingAndDays {
     private Long smokingDays;
     private Long period;
     private Long totalAttends;
+    private Long totalMemos;
 }

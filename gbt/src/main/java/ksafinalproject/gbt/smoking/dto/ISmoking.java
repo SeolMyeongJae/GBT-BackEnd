@@ -14,5 +14,6 @@ public class ISmoking {
     private Long count;
     private Long userId;
     private String provider;
+    private String memo;
 
 }

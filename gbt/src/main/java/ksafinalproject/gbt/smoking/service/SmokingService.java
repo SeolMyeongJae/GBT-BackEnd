@@ -27,9 +27,9 @@ public interface SmokingService {
 
     List<OSmoking> getAllSmokingByUserId(Long userId);
 
-    TotalSmoking getSmokingByDate(Long day, Long userId);
+    Optional<TotalSmoking> getSmokingByDate(Long day, Long userId);
 
-    TotalSmoking getSmokingByMonth(Long userId);
+    Optional<TotalSmoking> getSmokingByMonth(Long userId);
 
-    TotalSmokingAndDays getSmokingByUserAndChallengeDate(Long challengeId, Long userId);
+    Optional<TotalSmokingAndDays> getSmokingByUserAndChallengeDate(Long challengeId, Long userId);
 }
