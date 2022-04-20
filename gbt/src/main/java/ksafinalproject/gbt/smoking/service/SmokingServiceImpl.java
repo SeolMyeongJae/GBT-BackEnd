@@ -99,11 +99,11 @@ public class SmokingServiceImpl implements SmokingService {
 
     @Transactional
     @Override
-    public Long saveChallengeAttendSmoking(ISmoking iSmoking) {
+    public int saveChallengeAttendSmoking(ISmoking iSmoking) {
         log.info("challenge attend smoking : {}", iSmoking);
         try {
             if (iSmoking.getMemo() == null) {
-                return -1L;
+                return -1;
             }
             List<Smoking> smokingList = smokingRepository.findAllByUserId(iSmoking.getUserId());
             LocalDate now = LocalDate.now();
@@ -113,9 +113,9 @@ public class SmokingServiceImpl implements SmokingService {
                         Optional<User> user = userRepository.findById(iSmoking.getUserId());
                         user.orElseThrow().setPoint(user.orElseThrow().getPoint() + 50);
                         smoking.setMemo(iSmoking.getMemo());
-                        return 1L;
+                        return 1;
                     } else {
-                        return 3L;
+                        return 3;
                     }
                 }
             }
@@ -130,10 +130,10 @@ public class SmokingServiceImpl implements SmokingService {
                             .build());
             Optional<User> user = userRepository.findById(iSmoking.getUserId());
             user.orElseThrow().setPoint(user.orElseThrow().getPoint() + 50);
-            return 1L;
+            return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
-            return -1L;
+            return -1;
         }
     }
 

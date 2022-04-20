@@ -13,7 +13,7 @@ public interface SmokingService {
 
     Long saveAttendSmoking(ISmoking iSmoking);
 
-    Long saveChallengeAttendSmoking(ISmoking iSmoking);
+    int saveChallengeAttendSmoking(ISmoking iSmoking);
 
     int updateSmoking(ISmoking iSmoking, Long id);
 
