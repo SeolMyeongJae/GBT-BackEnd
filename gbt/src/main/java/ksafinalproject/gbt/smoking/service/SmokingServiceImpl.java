@@ -308,15 +308,20 @@ public class SmokingServiceImpl implements SmokingService {
             LocalDate endDate = challenge.orElseThrow().getEndDate().toLocalDate();
             List<Smoking> smokingList = smokingRepository.findByDateBetweenAndUserId(startDate, endDate, userId);
             Long total = 0L;
+            Long totalAttends = 0L;
             Long period = ChronoUnit.DAYS.between(startDate, endDate);
             Long smokingDays = (long) smokingList.size();
             for (Smoking smoking : smokingList) {
                 total += smoking.getCount();
+                if (smoking.getIsAttend()) {
+                    totalAttends += 1;
+                }
             }
             return TotalSmokingAndDays.builder()
                     .total(total)
                     .smokingDays(smokingDays)
                     .period(period)
+                    .totalAttends(totalAttends)
                     .build();
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
