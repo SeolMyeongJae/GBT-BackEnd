@@ -33,9 +33,6 @@ public class Smoking {
     @JsonIgnore
     private User user;
     @NotNull
-    @Column(length = 10)
-    private String provider;
-    @NotNull
     private Boolean isAttend;
     @Column(length = 50)
     private String memo;
