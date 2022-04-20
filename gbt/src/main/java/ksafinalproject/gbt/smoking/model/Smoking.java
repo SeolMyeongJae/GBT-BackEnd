@@ -7,6 +7,7 @@ import ksafinalproject.gbt.user.model.User;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.PositiveOrZero;
 import java.time.LocalDate;
 
 @Getter
@@ -22,6 +23,7 @@ public class Smoking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
+    @PositiveOrZero
     private Long count;
     @NotNull
     private LocalDate date;
