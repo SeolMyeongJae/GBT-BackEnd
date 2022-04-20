@@ -41,7 +41,7 @@ public class SmokingServiceImpl implements SmokingService {
             for (Smoking smoking : smokingList) {
                 if (smoking.getDate().getDayOfYear() == now.getDayOfYear() && smoking.getDate().getYear() == now.getYear()) {
                     smoking.setCount(smoking.getCount() + 1);
-                    return smoking.getCount() + 1;
+                    return smoking.getCount();
                 }
             }
             smokingRepository.save(
@@ -69,6 +69,9 @@ public class SmokingServiceImpl implements SmokingService {
             LocalDate now = LocalDate.now();
             for (Smoking smoking : smokingList) {
                 if (smoking.getDate().getDayOfYear() == now.getDayOfYear() && smoking.getDate().getYear() == now.getYear()) {
+                    if(iSmoking.getCount() <= smoking.getCount()) {
+                        return -2L;
+                    }
                     smoking.setCount(iSmoking.getCount());
                     if (!smoking.getIsAttend()) {
                         Optional<User> user = userRepository.findById(iSmoking.getUserId());
