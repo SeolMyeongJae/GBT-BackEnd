@@ -44,6 +44,7 @@ public class Challenge {
     @NotNull
     private Long max;
     private Long startingPeople;
+    @NotNull
     private Long point;
     private Boolean isStart;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "challenge")

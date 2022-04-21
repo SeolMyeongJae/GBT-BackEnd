@@ -12,6 +12,7 @@ import ksafinalproject.gbt.user.model.User;
 import ksafinalproject.gbt.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -228,24 +229,19 @@ public class SmokingServiceImpl implements SmokingService {
 
     @Override
     public Optional<OSmoking> getTodaySmokingByUserId(Long userId) {
-        log.info("find today smoking by userid : {} ", userId);
+        log.info("find today smoking by userid : {}", userId);
         try {
-            List<Smoking> smokingList = smokingRepository.findAllByUserId(userId);
             LocalDate now = LocalDate.now();
-            for (Smoking smoking : smokingList) {
-                if (smoking.getDate().isAfter(now.minusDays(1))) {
-                    OSmoking oSmoking = OSmoking.builder()
-                            .id(smoking.getId())
-                            .count(smoking.getCount())
-                            .date(smoking.getDate())
-                            .userId(smoking.getUser().getId())
-                            .isAttend(smoking.getIsAttend())
-                            .memo(smoking.getMemo())
-                            .build();
-                    return Optional.of(oSmoking);
-                }
-            }
-            return Optional.empty();
+            Optional<Smoking> smoking = smokingRepository.findByDateAndUserId(now, userId);
+            OSmoking oSmoking = OSmoking.builder()
+                    .id(smoking.orElseThrow().getId())
+                    .count(smoking.orElseThrow().getCount())
+                    .date(smoking.orElseThrow().getDate())
+                    .userId(smoking.orElseThrow().getUser().getId())
+                    .isAttend(smoking.orElseThrow().getIsAttend())
+                    .memo(smoking.orElseThrow().getMemo())
+                    .build();
+            return Optional.of(oSmoking);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return Optional.empty();
@@ -352,6 +348,9 @@ public class SmokingServiceImpl implements SmokingService {
             Long smokingDays = (long) smokingList.size();
             for (Smoking smoking : smokingList) {
                 total += smoking.getCount();
+                if (smoking.getCount() != 0) {
+                    smokingDays += 1;
+                }
                 if (smoking.getIsAttend()) {
                     totalAttends += 1;
                 }

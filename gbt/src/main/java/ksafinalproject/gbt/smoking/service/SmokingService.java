@@ -5,6 +5,7 @@ import ksafinalproject.gbt.smoking.dto.TotalSmoking;
 import ksafinalproject.gbt.smoking.dto.ISmoking;
 import ksafinalproject.gbt.smoking.dto.TotalSmokingAndDays;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 

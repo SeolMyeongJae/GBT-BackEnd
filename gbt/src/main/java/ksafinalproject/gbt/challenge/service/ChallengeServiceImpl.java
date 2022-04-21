@@ -7,12 +7,18 @@ import ksafinalproject.gbt.challenge.model.Challenge;
 import ksafinalproject.gbt.challenge.repository.ChallengeRepository;
 import ksafinalproject.gbt.challengeImg.model.ChallengeImg;
 import ksafinalproject.gbt.challengeImg.repository.ChallengeImgRepository;
+import ksafinalproject.gbt.smoking.model.Smoking;
+import ksafinalproject.gbt.smoking.repository.SmokingRepository;
+import ksafinalproject.gbt.user.model.User;
+import ksafinalproject.gbt.user.repository.UserRepository;
+import ksafinalproject.gbt.userChallenge.model.UserChallenge;
 import ksafinalproject.gbt.userChallenge.repository.UserChallengeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -29,6 +35,8 @@ public class ChallengeServiceImpl implements ChallengeService {
     private final ChallengeRepository challengeRepository;
     private final ChallengeImgRepository challengeImgRepository;
     private final UserChallengeRepository userChallengeRepository;
+    private final UserRepository userRepository;
+    private final SmokingRepository smokingRepository;
     private final S3Uploader s3Uploader;
 
     @Override
@@ -123,10 +131,55 @@ public class ChallengeServiceImpl implements ChallengeService {
         try {
             List<Challenge> challengeList = challengeRepository.findAll();
             for (Challenge challenge : challengeList) {
-                if (challenge.getStartDate().isAfter(now)) {
+                if (now.isAfter(challenge.getStartDate()) && !challenge.getIsStart()) {
                     Long current = userChallengeRepository.countByChallengeId(challenge.getId());
                     challenge.setIsStart(true);
                     challenge.setStartingPeople(current);
+                }
+            }
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+        }
+    }
+
+    @Override
+    @Transactional
+    public void checkChallengeEnd() {
+        LocalDateTime now = LocalDateTime.now();
+        log.info("checking challenge end. time : {}", now);
+        try {
+            List<Challenge> challengeList = challengeRepository.findAll();
+            for (Challenge challenge : challengeList) {
+                if (now.isAfter(challenge.getEndDate())) {
+                    List<UserChallenge> userChallengeList = userChallengeRepository.findAllByChallengeId(challenge.getId());
+                    for (UserChallenge userChallenge : userChallengeList) {
+                        User user = userChallenge.getUser();
+                        user.setPoint(user.getPoint() + challenge.getPoint());
+                    }
+                    challengeRepository.deleteById(challenge.getId());
+                }
+            }
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+        }
+    }
+
+    @Override
+    public void checkChallengeMemoCheck() {
+        LocalDate now = LocalDate.now();
+        log.info("checking challenge fail by memo : {}", now);
+        try {
+            List<Challenge> challengeList = challengeRepository.findAll();
+            for (Challenge challenge : challengeList) {
+                if(challenge.getIsStart()) {
+                    List<UserChallenge> userChallengeList = userChallengeRepository.findAllByChallengeId(challenge.getId());
+                    for (UserChallenge userChallenge : userChallengeList) {
+                        Optional<Smoking> smoking = smokingRepository.findByDateAndUserId(now, userChallenge.getUser().getId());
+                        boolean exist = smokingRepository.existsByDateAndUserId(now, userChallenge.getUser().getId());
+                        if (smoking.orElseThrow().getMemo() == null || !exist) {
+                            userChallengeRepository.deleteById(userChallenge.getId());
+                        }
+                    }
                 }
             }
         } catch (Exception e) {
