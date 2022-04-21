@@ -1,5 +1,6 @@
 package ksafinalproject.gbt.userChallenge.service;
 
+import ksafinalproject.gbt.challenge.model.Challenge;
 import ksafinalproject.gbt.challenge.repository.ChallengeRepository;
 import ksafinalproject.gbt.user.repository.UserRepository;
 import ksafinalproject.gbt.userChallenge.dto.IUserChallenge;
@@ -11,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -31,11 +33,16 @@ public class UserChallengeServiceImpl implements UserChallengeService {
             if (userChallengeRepository.existsByUserIdAndChallengeId(iUserChallenge.getUserId(), iUserChallenge.getChallengeId())) {
                 return 3;
             }
+            Challenge challenge = challengeRepository.findById(iUserChallenge.getChallengeId()).orElseThrow();
+            if (challenge.getMax() <= userChallengeRepository.countByChallengeId(iUserChallenge.getChallengeId())) {
+                return 4;
+            }
             if (userChallengeRepository.existsByUserId(iUserChallenge.getUserId())) {
                 return 5;
             }
-            if (challengeRepository.findById(iUserChallenge.getChallengeId()).orElseThrow().getMax() <= userChallengeRepository.countByChallengeId(iUserChallenge.getChallengeId())) {
-                return 4;
+            LocalDateTime now = LocalDateTime.now();
+            if (now.isAfter(challenge.getStartDate())) {
+                return 6;
             }
             userChallengeRepository.save(UserChallenge.builder()
                     .id(iUserChallenge.getId())

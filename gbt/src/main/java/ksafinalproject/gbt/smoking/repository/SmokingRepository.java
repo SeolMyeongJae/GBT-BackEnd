@@ -10,6 +10,10 @@ import java.util.Optional;
 public interface SmokingRepository extends JpaRepository<Smoking, Long> {
     Optional<Smoking> findSmokingByUserId(Long userId);
 
+    Optional<Smoking> findByDateAndUserId(LocalDate date, Long userId);
+
+    boolean existsByDateAndUserId(LocalDate date, Long userId);
+
     List<Smoking> findAllByUserId(Long userId);
 
     List<Smoking> findByDateBetweenAndUserId(LocalDate startDate, LocalDate endDate, Long userId);

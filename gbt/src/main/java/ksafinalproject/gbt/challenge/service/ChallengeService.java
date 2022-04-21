@@ -13,6 +13,10 @@ public interface ChallengeService {
 
     void checkChallengeStart();
 
+    void checkChallengeEnd();
+
+    void checkChallengeMemoCheck();
+
     Optional<OChallenge> getChallengeById(Long id);
 
     List<OChallenge> getAllChallenge();
