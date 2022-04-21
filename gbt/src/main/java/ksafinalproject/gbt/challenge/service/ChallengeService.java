@@ -11,6 +11,8 @@ public interface ChallengeService {
 
     int updateChallenge(IChallenge iChallenge, Long id);
 
+    void checkChallengeStart();
+
     Optional<OChallenge> getChallengeById(Long id);
 
     List<OChallenge> getAllChallenge();

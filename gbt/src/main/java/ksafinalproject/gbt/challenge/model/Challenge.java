@@ -43,7 +43,9 @@ public class Challenge {
     private String description;
     @NotNull
     private Long max;
+    private Long startingPeople;
     private Long point;
+    private Boolean isStart;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "challenge")
     @ToString.Exclude
     private List<ChallengeImg> challengeImg;

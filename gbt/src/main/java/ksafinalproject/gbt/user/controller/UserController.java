@@ -3,6 +3,7 @@ package ksafinalproject.gbt.user.controller;
 import io.swagger.annotations.Api;
 import ksafinalproject.gbt.user.dto.IUser;
 import ksafinalproject.gbt.user.dto.OUser;
+import ksafinalproject.gbt.user.dto.OUserSearch;
 import ksafinalproject.gbt.user.model.User;
 import ksafinalproject.gbt.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -72,7 +73,7 @@ public class UserController{
     }
 
     @GetMapping("/username/{userName}")
-    public Optional<OUser> userGetByUserName(@PathVariable String userName) {
+    public Optional<OUserSearch> userGetByUserName(@PathVariable String userName) {
         try {
             return userService.getUserByUserName(userName);
         } catch (Exception e) {
