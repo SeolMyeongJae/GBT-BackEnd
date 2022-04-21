@@ -48,7 +48,9 @@ public class ChallengeServiceImpl implements ChallengeService {
                         .summary(iChallenge.getSummary())
                         .description(iChallenge.getDescription())
                         .max(iChallenge.getMax())
+                        .startingPeople(0L)
                         .point(iChallenge.getPoint())
+                        .isStart(false)
                         .build());
                 return 1;
             }
@@ -61,7 +63,9 @@ public class ChallengeServiceImpl implements ChallengeService {
                     .summary(iChallenge.getSummary())
                     .description(iChallenge.getDescription())
                     .max(iChallenge.getMax())
+                    .startingPeople(0L)
                     .point(iChallenge.getPoint())
+                    .isStart(false)
                     .build()).getId();
 
             List<MultipartFile> imageFiles = iChallenge.getImg();
@@ -112,6 +116,25 @@ public class ChallengeServiceImpl implements ChallengeService {
     }
 
     @Override
+    @Transactional
+    public void checkChallengeStart() {
+        LocalDateTime now = LocalDateTime.now();
+        log.info("checking challenge start. time : {}", now);
+        try {
+            List<Challenge> challengeList = challengeRepository.findAll();
+            for (Challenge challenge : challengeList) {
+                if (challenge.getStartDate().isAfter(now)) {
+                    Long current = userChallengeRepository.countByChallengeId(challenge.getId());
+                    challenge.setIsStart(true);
+                    challenge.setStartingPeople(current);
+                }
+            }
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+        }
+    }
+
+    @Override
     public Optional<OChallenge> getChallengeById(Long id) {
         log.info("find challenge by id : {}", id);
         try {
@@ -128,7 +151,9 @@ public class ChallengeServiceImpl implements ChallengeService {
             oChallenge.setSummary(challenge.orElseThrow().getSummary());
             oChallenge.setCurrent(current);
             oChallenge.setMax(challenge.orElseThrow().getMax());
+            oChallenge.setStartingPeople(challenge.orElseThrow().getStartingPeople());
             oChallenge.setPoint(challenge.orElseThrow().getPoint());
+            oChallenge.setIsStart(challenge.orElseThrow().getIsStart());
             oChallenge.setChallengeImg(challenge.orElseThrow().getChallengeImg());
             oChallenge.setProof(challenge.orElseThrow().getProof());
             oChallenge.setUserChallenge(challenge.orElseThrow().getUserChallenge());
@@ -158,7 +183,9 @@ public class ChallengeServiceImpl implements ChallengeService {
                         .description(challenge.getDescription())
                         .current(current)
                         .max(challenge.getMax())
+                        .startingPeople(challenge.getStartingPeople())
                         .point(challenge.getPoint())
+                        .isStart(challenge.getIsStart())
                         .challengeImg(challenge.getChallengeImg())
                         .proof(challenge.getProof())
                         .userChallenge(challenge.getUserChallenge())
@@ -191,7 +218,9 @@ public class ChallengeServiceImpl implements ChallengeService {
                         .isJoin(userChallengeRepository.existsByUserIdAndChallengeId(userId, challenge.getId()))
                         .current(current)
                         .max(challenge.getMax())
+                        .startingPeople(challenge.getStartingPeople())
                         .point(challenge.getPoint())
+                        .isStart(challenge.getIsStart())
                         .challengeImg(challenge.getChallengeImg())
                         .proof(challenge.getProof())
                         .userChallenge(challenge.getUserChallenge())

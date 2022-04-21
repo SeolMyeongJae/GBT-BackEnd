@@ -19,6 +19,8 @@ public class IChallenge {
     private String description;
     private String summary;
     private Long max;
+    private Long startingPeople;
     private Long point;
+    private Boolean isStart;
     private List<MultipartFile> img;
 }

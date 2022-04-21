@@ -2,6 +2,7 @@ package ksafinalproject.gbt.user.service;
 
 import ksafinalproject.gbt.user.dto.IUser;
 import ksafinalproject.gbt.user.dto.OUser;
+import ksafinalproject.gbt.user.dto.OUserSearch;
 import ksafinalproject.gbt.user.model.User;
 
 import java.util.List;
@@ -18,5 +19,5 @@ public interface UserService {
 
     int deleteUserById(Long id);
 
-    Optional<OUser> getUserByUserName(String userName);
+    Optional<OUserSearch> getUserByUserName(String userName);
 }

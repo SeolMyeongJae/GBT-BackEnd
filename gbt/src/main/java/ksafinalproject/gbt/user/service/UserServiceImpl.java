@@ -2,6 +2,7 @@ package ksafinalproject.gbt.user.service;
 
 import ksafinalproject.gbt.user.dto.IUser;
 import ksafinalproject.gbt.user.dto.OUser;
+import ksafinalproject.gbt.user.dto.OUserSearch;
 import ksafinalproject.gbt.user.model.User;
 import ksafinalproject.gbt.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -160,13 +161,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<OUser> getUserByUserName(String userName) {
+    public Optional<OUserSearch> getUserByUserName(String userName) {
         log.info("find user by name : {}", userName);
         try {
             Optional<User> user = userRepository.findByUserName(userName);
-            OUser oUser = OUser.builder()
+            OUserSearch oUser = OUserSearch.builder()
                     .id(user.orElseThrow().getId())
                     .userName(user.orElseThrow().getUserName())
+                    .profileImg(user.orElseThrow().getProfileImg())
                     .build();
             return Optional.of(oUser);
         } catch (Exception e) {
