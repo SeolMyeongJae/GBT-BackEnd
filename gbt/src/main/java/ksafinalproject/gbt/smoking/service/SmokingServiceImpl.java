@@ -37,13 +37,12 @@ public class SmokingServiceImpl implements SmokingService {
     public Long saveSmoking(ISmoking iSmoking) {
         log.info("save smoking : {} ", iSmoking);
         try {
-            List<Smoking> smokingList = smokingRepository.findAllByUserId(iSmoking.getUserId());
             LocalDate now = LocalDate.now();
-            for (Smoking smoking : smokingList) {
-                if (smoking.getDate().getDayOfYear() == now.getDayOfYear() && smoking.getDate().getYear() == now.getYear()) {
-                    smoking.setCount(smoking.getCount() + 1);
-                    return smoking.getCount();
-                }
+            try {
+                Optional<Smoking> smoking = smokingRepository.findByDateAndUserId(now, iSmoking.getUserId());
+                smoking.orElseThrow().setCount(smoking.orElseThrow().getCount() + 1);
+                return smoking.orElseThrow().getCount();
+            } catch (Exception ignored) {
             }
             smokingRepository.save(
                     Smoking.builder()
@@ -65,21 +64,20 @@ public class SmokingServiceImpl implements SmokingService {
     public Long saveAttendSmoking(ISmoking iSmoking) {
         log.info("attend smoking : {}", iSmoking);
         try {
-            List<Smoking> smokingList = smokingRepository.findAllByUserId(iSmoking.getUserId());
             LocalDate now = LocalDate.now();
-            for (Smoking smoking : smokingList) {
-                if (smoking.getDate().getDayOfYear() == now.getDayOfYear() && smoking.getDate().getYear() == now.getYear()) {
-                    if (iSmoking.getCount() <= smoking.getCount()) {
-                        return -2L;
-                    }
-                    smoking.setCount(iSmoking.getCount());
-                    if (!smoking.getIsAttend()) {
-                        Optional<User> user = userRepository.findById(iSmoking.getUserId());
-                        user.orElseThrow().setPoint(user.orElseThrow().getPoint() + 100);
-                        smoking.setIsAttend(true);
-                    }
-                    return smoking.getCount();
+            try {
+                Optional<Smoking> smoking = smokingRepository.findByDateAndUserId(now, iSmoking.getUserId());
+                if (iSmoking.getCount() <= smoking.orElseThrow().getCount()) {
+                    return -2L;
                 }
+                smoking.orElseThrow().setCount(iSmoking.getCount());
+                if (!smoking.orElseThrow().getIsAttend()) {
+                    Optional<User> user = userRepository.findById(iSmoking.getUserId());
+                    user.orElseThrow().setPoint(user.orElseThrow().getPoint() + 100);
+                    smoking.orElseThrow().setIsAttend(true);
+                }
+                return smoking.orElseThrow().getCount();
+            } catch (Exception ignored) {
             }
             smokingRepository.save(
                     Smoking.builder()
@@ -106,19 +104,21 @@ public class SmokingServiceImpl implements SmokingService {
             if (iSmoking.getMemo() == null) {
                 return -1;
             }
-            List<Smoking> smokingList = smokingRepository.findAllByUserId(iSmoking.getUserId());
             LocalDate now = LocalDate.now();
-            for (Smoking smoking : smokingList) {
-                if (smoking.getDate().getDayOfYear() == now.getDayOfYear() && smoking.getDate().getYear() == now.getYear()) {
-                    if (smoking.getMemo() == null) {
-                        Optional<User> user = userRepository.findById(iSmoking.getUserId());
-                        user.orElseThrow().setPoint(user.orElseThrow().getPoint() + 50);
-                        smoking.setMemo(iSmoking.getMemo());
-                        return 1;
-                    } else {
-                        return 3;
-                    }
+            try {
+                Optional<Smoking> smoking = smokingRepository.findByDateAndUserId(now, iSmoking.getUserId());
+                if (smoking.orElseThrow().getCount() >= 1) {
+                    return 4;
                 }
+                if (smoking.orElseThrow().getMemo() == null) {
+                    Optional<User> user = userRepository.findById(iSmoking.getUserId());
+                    user.orElseThrow().setPoint(user.orElseThrow().getPoint() + 50);
+                    smoking.orElseThrow().setMemo(iSmoking.getMemo());
+                    return 1;
+                } else {
+                    return 3;
+                }
+            } catch (Exception ignored) {
             }
             smokingRepository.save(
                     Smoking.builder()
