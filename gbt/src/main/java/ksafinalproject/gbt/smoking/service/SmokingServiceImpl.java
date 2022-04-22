@@ -12,7 +12,6 @@ import ksafinalproject.gbt.user.model.User;
 import ksafinalproject.gbt.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -345,7 +344,7 @@ public class SmokingServiceImpl implements SmokingService {
             long totalAttends = 0L;
             long totalMemos = 0L;
             Long period = ChronoUnit.DAYS.between(startDate, endDate);
-            Long smokingDays = (long) smokingList.size();
+            long smokingDays = smokingList.size();
             for (Smoking smoking : smokingList) {
                 total += smoking.getCount();
                 if (smoking.getCount() != 0) {

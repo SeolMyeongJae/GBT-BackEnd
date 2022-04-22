@@ -24,7 +24,6 @@ public class ChallengeController {
     @PostMapping("")
     public int challengeSave(IChallenge iChallenge) {
         try {
-            log.info("Test {}", iChallenge.toString());
             return challengeService.saveChallenge(iChallenge);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
