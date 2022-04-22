@@ -35,7 +35,7 @@ public class ScheduleTasks {
     }
 
     @Scheduled(cron = "15,25 59 23 ? * *")
-    public void test() {
+    public void challengeEndCheck() {
         log.info("scheduler start : {}", LocalDateTime.now());
         try {
             challengeService.checkChallengeEnd();
