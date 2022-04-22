@@ -16,7 +16,7 @@ public class ScheduleTasks {
     private final ChallengeService challengeService;
 
     @Scheduled(cron = "1 1,29,31,59 * ? * *")
-    public void challengeCheck() {
+    public void challengeStartCheck() {
         log.info("scheduler start : {}", LocalDateTime.now());
         try {
             challengeService.checkChallengeStart();
@@ -24,16 +24,23 @@ public class ScheduleTasks {
             log.error("Error : {}", e.getMessage());
         }
     }
-    @Scheduled(cron = "1 58,59 23 ? * *")
-    public void test() {
+    @Scheduled(cron = "5 58,59 23 ? * *")
+    public void challengeMemoCheck() {
         log.info("scheduler start : {}", LocalDateTime.now());
         try {
             challengeService.checkChallengeMemoCheck();
-            challengeService.checkChallengeEnd();
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
         }
     }
 
-
+    @Scheduled(cron = "15,25 59 23 ? * *")
+    public void test() {
+        log.info("scheduler start : {}", LocalDateTime.now());
+        try {
+            challengeService.checkChallengeEnd();
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+        }
+    }
 }
