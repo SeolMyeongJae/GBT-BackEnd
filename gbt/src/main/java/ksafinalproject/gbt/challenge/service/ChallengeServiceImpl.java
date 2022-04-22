@@ -176,12 +176,15 @@ public class ChallengeServiceImpl implements ChallengeService {
                     List<UserChallenge> userChallengeList = userChallengeRepository.findAllByChallengeId(challenge.getId());
                     for (UserChallenge userChallenge : userChallengeList) {
                         boolean exist = smokingRepository.existsByDateAndUserId(now, userChallenge.getUser().getId());
-                        if(!exist) {
+                        if (!exist) {
                             userChallengeRepository.deleteById(userChallenge.getId());
                         }
-                        Optional<Smoking> smoking = smokingRepository.findByDateAndUserId(now, userChallenge.getUser().getId());
-                        if (smoking.orElseThrow().getMemo() == null) {
-                            userChallengeRepository.deleteById(userChallenge.getId());
+                        try {
+                            Optional<Smoking> smoking = smokingRepository.findByDateAndUserId(now, userChallenge.getUser().getId());
+                            if (smoking.orElseThrow().getMemo() == null) {
+                                userChallengeRepository.deleteById(userChallenge.getId());
+                            }
+                        } catch (Exception ignored) {
                         }
                     }
                 }
