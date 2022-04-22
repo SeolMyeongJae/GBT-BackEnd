@@ -2,6 +2,7 @@ package ksafinalproject.gbt.challenge.service;
 
 import ksafinalproject.gbt.S3Uploader;
 import ksafinalproject.gbt.challenge.dto.IChallenge;
+import ksafinalproject.gbt.challenge.dto.MyChallengeInfo;
 import ksafinalproject.gbt.challenge.dto.OChallenge;
 import ksafinalproject.gbt.challenge.model.Challenge;
 import ksafinalproject.gbt.challenge.repository.ChallengeRepository;
@@ -171,12 +172,15 @@ public class ChallengeServiceImpl implements ChallengeService {
         try {
             List<Challenge> challengeList = challengeRepository.findAll();
             for (Challenge challenge : challengeList) {
-                if(challenge.getIsStart()) {
+                if (challenge.getIsStart()) {
                     List<UserChallenge> userChallengeList = userChallengeRepository.findAllByChallengeId(challenge.getId());
                     for (UserChallenge userChallenge : userChallengeList) {
-                        Optional<Smoking> smoking = smokingRepository.findByDateAndUserId(now, userChallenge.getUser().getId());
                         boolean exist = smokingRepository.existsByDateAndUserId(now, userChallenge.getUser().getId());
-                        if (smoking.orElseThrow().getMemo() == null || !exist) {
+                        if(!exist) {
+                            userChallengeRepository.deleteById(userChallenge.getId());
+                        }
+                        Optional<Smoking> smoking = smokingRepository.findByDateAndUserId(now, userChallenge.getUser().getId());
+                        if (smoking.orElseThrow().getMemo() == null) {
                             userChallengeRepository.deleteById(userChallenge.getId());
                         }
                     }
@@ -211,6 +215,46 @@ public class ChallengeServiceImpl implements ChallengeService {
             oChallenge.setProof(challenge.orElseThrow().getProof());
             oChallenge.setUserChallenge(challenge.orElseThrow().getUserChallenge());
             return Optional.of(oChallenge);
+        } catch (Exception e) {
+            log.error("Error : {}", e.getMessage());
+            return Optional.empty();
+        }
+    }
+
+    @Override
+    public Optional<MyChallengeInfo> getMyChallengeById(Long id) {
+        log.info("find my challenge by id : {}", id);
+        try {
+            Optional<Challenge> challenge = challengeRepository.findById(id);
+            Long current = userChallengeRepository.countByChallengeId(challenge.orElseThrow().getId());
+            long proofPeople = 0L;
+            LocalDate now = LocalDate.now();
+            List<UserChallenge> userChallengeList = userChallengeRepository.findAllByChallengeId(id);
+            for (UserChallenge userChallenge : userChallengeList) {
+                try {
+                    Optional<Smoking> smoking = smokingRepository.findByDateAndUserId(now, userChallenge.getUser().getId());
+                    if (smoking.orElseThrow().getMemo() != null) {
+                        proofPeople++;
+                    }
+                } catch (Exception ignored) {
+                }
+            }
+            MyChallengeInfo myChallengeInfo = MyChallengeInfo.builder()
+                    .id(challenge.orElseThrow().getId())
+                    .title(challenge.orElseThrow().getTitle())
+                    .startDate(challenge.orElseThrow().getStartDate())
+                    .endDate(challenge.orElseThrow().getEndDate())
+                    .method(challenge.orElseThrow().getMethod())
+                    .frequency(challenge.orElseThrow().getFrequency())
+                    .description(challenge.orElseThrow().getDescription())
+                    .startingPeople(challenge.orElseThrow().getStartingPeople())
+                    .currentPeople(current)
+                    .todayProofPeople(proofPeople)
+                    .max(challenge.orElseThrow().getMax())
+                    .point(challenge.orElseThrow().getPoint())
+                    .challengeImg(challenge.orElseThrow().getChallengeImg())
+                    .build();
+            return Optional.of(myChallengeInfo);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return Optional.empty();

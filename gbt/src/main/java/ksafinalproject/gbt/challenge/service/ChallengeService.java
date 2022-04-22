@@ -1,5 +1,6 @@
 package ksafinalproject.gbt.challenge.service;
 
+import ksafinalproject.gbt.challenge.dto.MyChallengeInfo;
 import ksafinalproject.gbt.challenge.dto.IChallenge;
 import ksafinalproject.gbt.challenge.dto.OChallenge;
 
@@ -18,6 +19,8 @@ public interface ChallengeService {
     void checkChallengeMemoCheck();
 
     Optional<OChallenge> getChallengeById(Long id);
+
+    Optional<MyChallengeInfo> getMyChallengeById(Long id);
 
     List<OChallenge> getAllChallenge();
 
