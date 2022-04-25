@@ -33,7 +33,6 @@ public class ScheduleTasks {
             log.error("Error : {}", e.getMessage());
         }
     }
-
     @Scheduled(cron = "15,25 59 23 ? * *")
     public void challengeEndCheck() {
         log.info("scheduler start. time : {}", LocalDateTime.now());
