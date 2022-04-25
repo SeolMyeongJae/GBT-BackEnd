@@ -1,6 +1,7 @@
 package ksafinalproject.gbt.userCustom.service;
 
 import ksafinalproject.gbt.customChallenge.repository.CustomChallengeRepository;
+import ksafinalproject.gbt.invite.repository.InviteRepository;
 import ksafinalproject.gbt.user.repository.UserRepository;
 import ksafinalproject.gbt.userCustom.dto.IUserCustom;
 import ksafinalproject.gbt.userCustom.dto.OUserCustom;
@@ -23,8 +24,10 @@ public class UserCustomServiceImpl implements UserCustomService {
     private final UserCustomRepository userCustomRepository;
     private final UserRepository userRepository;
     private final CustomChallengeRepository customChallengeRepository;
+    private final InviteRepository inviteRepository;
 
     @Override
+    @Transactional
     public int saveUserCustom(IUserCustom iUserCustom) {
         log.info("save user custom : {}", iUserCustom);
         try {
@@ -39,6 +42,7 @@ public class UserCustomServiceImpl implements UserCustomService {
                     .user(userRepository.findById(iUserCustom.getUserId()).orElseThrow())
                     .customChallenge(customChallengeRepository.findById(iUserCustom.getCustomChallengeId()).orElseThrow())
                     .build());
+            inviteRepository.deleteByUserIdAndCustomChallengeId(iUserCustom.getUserId(), iUserCustom.getCustomChallengeId());
             return 1;
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());

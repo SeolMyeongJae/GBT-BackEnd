@@ -156,6 +156,7 @@ public class ChallengeServiceImpl implements ChallengeService {
                     List<UserChallenge> userChallengeList = userChallengeRepository.findAllByChallengeId(challenge.getId());
                     for (UserChallenge userChallenge : userChallengeList) {
                         User user = userChallenge.getUser();
+                        user.setCompletedChallenge(user.getCompletedChallenge() + 1);
                         user.setPoint(user.getPoint() + challenge.getPoint());
                     }
                     challengeRepository.deleteById(challenge.getId());
@@ -167,6 +168,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     }
 
     @Override
+    @Transactional
     public void checkChallengeMemoCheck() {
         LocalDate now = LocalDate.now();
         log.info("checking challenge fail by memo : {}", now);
@@ -178,11 +180,15 @@ public class ChallengeServiceImpl implements ChallengeService {
                     for (UserChallenge userChallenge : userChallengeList) {
                         boolean exist = smokingRepository.existsByDateAndUserId(now, userChallenge.getUser().getId());
                         if (!exist) {
+                            User user = userChallenge.getUser();
+                            user.setFailedChallenge(user.getFailedChallenge() + 1);
                             userChallengeRepository.deleteById(userChallenge.getId());
                         }
                         try {
                             Optional<Smoking> smoking = smokingRepository.findByDateAndUserId(now, userChallenge.getUser().getId());
                             if (smoking.orElseThrow().getMemo() == null) {
+                                User user = userChallenge.getUser();
+                                user.setFailedChallenge(user.getFailedChallenge() + 1);
                                 userChallengeRepository.deleteById(userChallenge.getId());
                             }
                         } catch (Exception ignored) {

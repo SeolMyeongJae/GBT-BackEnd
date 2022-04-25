@@ -33,6 +33,8 @@ public class OUser {
     private String popupImg;
     private Long point;
     private Long badgeId;
+    private Long completedChallenge;
+    private Long failedChallenge;
     private Set<Post> post;
     private Set<CustomChallenge> customChallenge;
     private Set<Chat> chat;
