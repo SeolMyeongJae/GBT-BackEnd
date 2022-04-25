@@ -11,6 +11,8 @@ public interface UserChallengeRepository extends JpaRepository<UserChallenge, Lo
 
     List<UserChallenge> findAllByChallengeId(Long challengeId);
 
+    Optional<UserChallenge> findByUserId(Long userId);
+
     Optional<UserChallenge> findByUserIdAndChallengeId(Long userId, Long challengeId);
 
     boolean existsByUserIdAndChallengeId(Long userId, Long challengeId);
