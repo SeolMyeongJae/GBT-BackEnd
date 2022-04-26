@@ -21,9 +21,7 @@ public interface ChallengeService {
 
     Optional<OChallenge> getChallengeById(Long id);
 
-    Optional<MyChallenge> getChallengeByUserId(Long userId);
-
-    Optional<MyChallengeInfo> getMyChallengeById(Long id);
+    Optional<MyChallengeInfo> getMyChallengeByUserId(Long userId);
 
     List<OChallenge> getAllChallenge();
 

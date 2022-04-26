@@ -52,20 +52,10 @@ public class ChallengeController {
         }
     }
 
-    @GetMapping("/user/{userId}")
-    public Optional<MyChallenge> challengeGetByUserId(@PathVariable Long userId) {
+    @GetMapping("/my/user/{userId}")
+    public Optional<MyChallengeInfo> myChallengeGetById(@PathVariable Long userId) {
         try {
-            return challengeService.getChallengeByUserId(userId);
-        } catch (Exception e) {
-            log.error("Error : {}", e.getMessage());
-            return Optional.empty();
-        }
-    }
-
-    @GetMapping("/my/{id}")
-    public Optional<MyChallengeInfo> myChallengeGetById(@PathVariable Long id) {
-        try {
-            return challengeService.getMyChallengeById(id);
+            return challengeService.getMyChallengeByUserId(userId);
         } catch (Exception e) {
             log.error("Error : {}", e.getMessage());
             return Optional.empty();

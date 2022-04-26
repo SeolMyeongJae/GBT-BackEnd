@@ -232,45 +232,18 @@ public class ChallengeServiceImpl implements ChallengeService {
     }
 
     @Override
-    public Optional<MyChallenge> getChallengeByUserId(Long userId) {
-        log.info("find challenge by user id : {}", userId);
+    public Optional<MyChallengeInfo> getMyChallengeByUserId(Long userId) {
+        log.info("find my challenge by user id : {}", userId);
         try {
             Optional<UserChallenge> userChallenge = userChallengeRepository.findByUserId(userId);
             Optional<Challenge> challenge = challengeRepository.findById(userChallenge.orElseThrow().getChallenge().getId());
             Long current = userChallengeRepository.countByChallengeId(challenge.orElseThrow().getId());
-            MyChallenge myChallenge = MyChallenge.builder()
-                    .id(challenge.orElseThrow().getId())
-                    .title(challenge.orElseThrow().getTitle())
-                    .startDate(challenge.orElseThrow().getStartDate())
-                    .endDate(challenge.orElseThrow().getEndDate())
-                    .method(challenge.orElseThrow().getMethod())
-                    .frequency(challenge.orElseThrow().getFrequency())
-                    .summary(challenge.orElseThrow().getSummary())
-                    .description(challenge.orElseThrow().getDescription())
-                    .currentPeople(current)
-                    .max(challenge.orElseThrow().getMax())
-                    .startingPeople(challenge.orElseThrow().getStartingPeople())
-                    .point(challenge.orElseThrow().getPoint())
-                    .build();
-            return Optional.of(myChallenge);
-        } catch (Exception e) {
-            log.error("Error : {}", e.getMessage());
-            return Optional.empty();
-        }
-    }
-
-    @Override
-    public Optional<MyChallengeInfo> getMyChallengeById(Long id) {
-        log.info("find my challenge by id : {}", id);
-        try {
-            Optional<Challenge> challenge = challengeRepository.findById(id);
-            Long current = userChallengeRepository.countByChallengeId(challenge.orElseThrow().getId());
             long proofPeople = 0L;
             LocalDate now = LocalDate.now();
-            List<UserChallenge> userChallengeList = userChallengeRepository.findAllByChallengeId(id);
-            for (UserChallenge userChallenge : userChallengeList) {
+            List<UserChallenge> userChallengeList = userChallengeRepository.findAllByChallengeId(userId);
+            for (UserChallenge userChallenges : userChallengeList) {
                 try {
-                    Optional<Smoking> smoking = smokingRepository.findByDateAndUserId(now, userChallenge.getUser().getId());
+                    Optional<Smoking> smoking = smokingRepository.findByDateAndUserId(now, userChallenges.getUser().getId());
                     if (smoking.orElseThrow().getMemo() != null) {
                         proofPeople++;
                     }
