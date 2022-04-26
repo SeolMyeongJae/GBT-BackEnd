@@ -51,6 +51,8 @@ public class User {
     private String popupImg;
     private Long point;
     private Long badgeId;
+    private Long completedChallenge;
+    private Long failedChallenge;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "user")
     @ToString.Exclude
     private Set<Post> post;

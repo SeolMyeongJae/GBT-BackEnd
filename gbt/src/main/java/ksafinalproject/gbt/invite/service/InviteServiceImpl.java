@@ -6,6 +6,8 @@ import ksafinalproject.gbt.invite.dto.OInvite;
 import ksafinalproject.gbt.invite.model.Invite;
 import ksafinalproject.gbt.invite.repository.InviteRepository;
 import ksafinalproject.gbt.user.repository.UserRepository;
+import ksafinalproject.gbt.userCustom.model.UserCustom;
+import ksafinalproject.gbt.userCustom.repository.UserCustomRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -24,11 +27,21 @@ public class InviteServiceImpl implements InviteService {
     private final InviteRepository inviteRepository;
     private final UserRepository userRepository;
     private final CustomChallengeRepository customChallengeRepository;
+    private final UserCustomRepository userCustomRepository;
 
     @Override
     public int saveInvite(IInvite iInvite) {
         log.info("save invite : {}", iInvite);
         try {
+            if (Objects.equals(iInvite.getCallerId(), iInvite.getUserId())) {
+                return 3;
+            }
+            if (userCustomRepository.existsByUserIdAndCustomChallengeId(iInvite.getUserId(), iInvite.getCustomChallengeId())) {
+                return 4;
+            }
+            if (inviteRepository.existsByUserIdAndCallUserId(iInvite.getUserId(), iInvite.getCallerId())) {
+                return 5;
+            }
             inviteRepository.save(Invite.builder()
                     .id(iInvite.getId())
                     .title(iInvite.getTitle())
